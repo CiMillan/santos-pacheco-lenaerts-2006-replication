@@ -1,0 +1,12 @@
+cd ~/Desktop/cooperation-atlas/replications/santos-pacheco-lenaerts-2006
+python3 -c "
+from network import build_network
+g = build_network('scale_free', 100, seed=1)
+print('nodes', g.number_of_nodes(), 'edges', g.number_of_edges())
+g2 = build_network('complete', 5)
+print('complete degree', dict(g2.degree()))
+"
+
+Expected output:
+nodes 100 edges 384
+complete degree {0: 4, 1: 4, 2: 4, 3: 4, 4: 4}

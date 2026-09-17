@@ -1,0 +1,24 @@
+cd ~/Desktop/cooperation-atlas/replications/santos-pacheco-lenaerts-2006
+python3 sweep.py
+
+Expected (exact numbers will vary a little, the PATTERN is what to check):
+S \ T    0.5    1.0    1.5    2.0
+ -1.0   0.00   0.00   0.00   0.00
+ -0.5   0.82   0.00   0.00   0.00
+  0.0   1.00   0.83   0.33   0.05
+  0.5   0.99   0.91   0.65   0.38
+
+Why: this is a small (4x4), fast version of the paper's Fig. 2/3 heatmaps.
+Reading the table: cooperation should be highest top-left (low T = little
+temptation to defect, high S = mild or no penalty for being exploited) and
+should fall toward 0 as you move right (T increasing) or down (S
+decreasing, more negative). If cooperation were HIGHEST in the
+bottom-right corner instead, that would mean something is backwards in
+the payoff matrix or update rule -- this table's shape, not just "it ran,"
+is the actual check.
+
+This version uses n=200, 10 realizations, tail=10 -- small and fast (a
+few seconds) so it's cheap to re-run while developing. The paper's real
+figures use N=10,000 and a much finer T/S grid -- see the note about
+scaling this up (not built yet) before treating numbers here as
+publication-quality.

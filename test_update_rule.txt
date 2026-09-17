@@ -1,0 +1,24 @@
+cd ~/Desktop/cooperation-atlas/replications/santos-pacheco-lenaerts-2006
+python3 -c "
+import random
+from network import build_network
+from update_rule import next_strategy
+
+g = build_network('complete', 2)
+strategies = {0: 'D', 1: 'C'}
+payoffs = {0: 0.0, 1: 1.0}
+T, S = 2, -1
+# expected prob = (Py-Px)/(k>*D>) = (1-0)/(1*3) = 1/3
+
+rng = random.Random(42)
+switches = sum(next_strategy(g, 0, strategies, payoffs, T, S, rng) == 'C' for _ in range(20000))
+print('observed switch rate:', switches / 20000, '(expect close to 0.333)')
+"
+
+Expected output (approximately -- this one is random, so exact number varies with the seed):
+observed switch rate: 0.336 (expect close to 0.333)
+
+Why: node 0 is a defector with payoff 0, its only neighbor (node 1) is a
+cooperator with payoff 1. Since Py > Px, node 0 switches to "C" with
+probability (Py-Px)/(k>*D>) = (1-0)/(1*3) = 1/3, where k>=1 (both have
+degree 1 on a 2-node complete graph) and D>=max(T,1)-min(S,0)=2-(-1)=3.

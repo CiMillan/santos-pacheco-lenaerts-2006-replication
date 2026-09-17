@@ -1,0 +1,48 @@
+What each file is -- Santos, Pacheco & Lenaerts (2006) replication
+====================================================================
+
+FOUNDATION (the mechanism itself, matches the paper's Methods section,
+p. 3493 exactly -- never changes no matter what experiment you run):
+  - main.py        the core loop: run() does one realization (build a
+                    network, then loop generations of payoff -> update);
+                    run_batch() repeats run() across many independent
+                    realizations; average_trace() collapses those into
+                    one averaged trace, since the paper reports averaged
+                    results, not single noisy runs.
+  - payoff.py       how accumulated payoff is computed each generation
+                    (every agent plays every graph neighbor once).
+  - update_rule.py  how strategy changes: pairwise comparison -- pick one
+                    random neighbor, copy their strategy with a
+                    probability proportional to how much better they did.
+
+THE SWAPPABLE PLUG-IN POINT (this is the "which network" slot the
+foundation calls into -- not a variant of the mechanism, the deliberate
+place the mechanism gets parameterized):
+  - network.py      builds one of the paper's four network types:
+                    complete, single_scale, scale_free, scale_free_random.
+                    Swap this to run the same foundation on a different
+                    population structure without touching main.py,
+                    payoff.py, or update_rule.py at all.
+
+EXPERIMENT SCRIPTS (add no new mechanism -- they call the foundation
+repeatedly to reproduce a specific result from the paper):
+  - sweep.py        runs run_batch() at every (T, S) grid point to
+                    reproduce the shape of the paper's Fig. 2/3 heatmaps.
+
+TEST FILES (one per function/file above, each a plain .txt you can run
+yourself: the exact terminal command, the expected output, and a short
+"why" explaining what the output means and what would count as a bug
+vs. an expected result):
+  test_network.txt, test_payoff.txt, test_update_rule.txt, test_main.txt,
+  test_main_batch.txt, test_100_networks.txt, test_network_types.txt,
+  test_sweep.txt
+
+STILL MISSING for a full replication of the paper's actual figures
+(identified but not yet built, as of 2026-09-17):
+  - A finer (T, S) grid matching the paper's actual resolution, at the
+    paper's real scale (N=10,000, 100 realizations) -- sweep.py's demo
+    grid is small (4x4, N=200) and fast on purpose, for development.
+  - A timing/performance check at that real scale -- the current
+    pure-Python dict-based implementation is simple and legible but
+    hasn't been tested for speed at N=10,000 across a full grid, and may
+    be too slow without further work.

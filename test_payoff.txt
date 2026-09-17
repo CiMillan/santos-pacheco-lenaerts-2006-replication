@@ -1,0 +1,16 @@
+cd ~/Desktop/cooperation-atlas/replications/santos-pacheco-lenaerts-2006
+python3 -c "
+from network import build_network
+from payoff import compute_payoffs
+g = build_network('complete', 3)
+strat = {0: 'C', 1: 'C', 2: 'D'}
+print(compute_payoffs(g, strat, R=1, S=-1, T=2, P=0))
+"
+
+Expected output:
+{0: 0.0, 1: 0.0, 2: 4.0}
+
+Why: 3 agents on a complete graph, two cooperators and one defector. The
+defector plays temptation (T=2) against both cooperators, so it nets 4.
+Each cooperator plays R=1 against the other cooperator and S=-1 against
+the defector, netting 0.

@@ -8,9 +8,9 @@ from payoff import compute_payoffs
 from update_rule import next_strategy
 
 
-def run(network_kind, n, generations, R, S, T, P, seed, initial_c_fraction=0.5, m=4):
+def run(network_kind, n, generations, R, S, T, P, seed, initial_c_fraction=0.5, m=4, avg_degree=8):
     rng = random.Random(seed)
-    graph = build_network(network_kind, n, seed=seed, m=m)
+    graph = build_network(network_kind, n, seed=seed, m=m, avg_degree=avg_degree)
 
     strategies = {node: ("C" if rng.random() < initial_c_fraction else "D") for node in graph.nodes}
     cooperation_trace = [sum(s == "C" for s in strategies.values()) / n]
@@ -26,7 +26,7 @@ def run(network_kind, n, generations, R, S, T, P, seed, initial_c_fraction=0.5, 
     return cooperation_trace
 
 
-def run_batch(network_kind, n, generations, R, S, T, P, num_realizations, seed, initial_c_fraction=0.5, m=4):
+def run_batch(network_kind, n, generations, R, S, T, P, num_realizations, seed, initial_c_fraction=0.5, m=4, avg_degree=8):
     """
     A single run() is noisy -- one random network, one random start. The
     paper reports results averaged over many independent realizations
@@ -35,7 +35,7 @@ def run_batch(network_kind, n, generations, R, S, T, P, num_realizations, seed, 
     caller can average them.
     """
     return [
-        run(network_kind, n, generations, R, S, T, P, seed + r, initial_c_fraction, m)
+        run(network_kind, n, generations, R, S, T, P, seed + r, initial_c_fraction, m, avg_degree)
         for r in range(num_realizations)
     ]
 

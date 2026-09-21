@@ -44,6 +44,16 @@ def build_network(kind, n, seed=None, m=4, avg_degree=8):
             degrees[0] += 1
         g = nx.Graph(nx.configuration_model(degrees, seed=seed))  # nx.Graph() collapses parallel edges
         g.remove_edges_from(nx.selfloop_edges(g))
+        # A node whose entire stub budget went into a single self-loop ends
+        # up with zero edges once that self-loop is removed above -- rare,
+        # but real (more likely at low avg_degree, since a degree-2 node is
+        # then more common). update_rule.py requires every node to have at
+        # least one neighbor, so reconnect any such isolate to a random
+        # other node rather than leaving it disconnected.
+        isolates = list(nx.isolates(g))
+        for node in isolates:
+            other = rng.choice([v for v in g.nodes if v != node])
+            g.add_edge(node, other)
         return g
 
     raise ValueError(f"unknown network kind: {kind}")

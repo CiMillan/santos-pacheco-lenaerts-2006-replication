@@ -1,0 +1,22 @@
+cd ~/Desktop/cooperation-atlas/replications/santos-pacheco-lenaerts-2006
+python3 plot.py
+
+Expected (last two lines of output):
+saved plot_pair_demo.png
+
+Why: plot_pair() lays two plot_heatmap() panels side by side, the way the
+paper presents each figure -- Fig. 2 is Complete (left) vs. Single-scale
+(right), Fig. 3 is random scale-free (left) vs. Barabasi-Albert
+scale-free (right). This test builds the Fig. 2 pair.
+
+Open plot_pair_demo.png and check the paper's actual claim, not just
+that it ran: at the SAME (T, S) point, the single-scale panel should
+show more cooperation (warmer color) than the complete panel,
+especially in the lower-left region (S < 0, T < 1 -- the Stag-Hunt
+domain). That's the paper's headline result -- heterogeneity enhances
+cooperation. If single-scale looked the same as or colder than complete,
+that would be a bug (network.py's single_scale isn't heterogeneous
+enough, or something upstream is wrong), not just a noisy demo.
+
+Still using sweep.py's small demo grid (n=200, 4x4, 10 realizations) --
+not the paper's real resolution/scale yet (see ARCHITECTURE.txt).

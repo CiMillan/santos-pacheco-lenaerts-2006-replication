@@ -5,7 +5,7 @@ from main import run_batch, average_trace
 
 
 def sweep(network_kind, n, generations, T_values, S_values, R, P, num_realizations, seed,
-          initial_c_fraction=0.5, m=4, tail=20):
+          initial_c_fraction=0.5, m=4, avg_degree=8, tail=20):
     """
     Runs run_batch() at every (T, S) combination in the grid.
     tail: average the last `tail` generations of the averaged trace, not
@@ -17,7 +17,7 @@ def sweep(network_kind, n, generations, T_values, S_values, R, P, num_realizatio
     for T in T_values:
         for S in S_values:
             traces = run_batch(network_kind, n, generations, R, S, T, P,
-                                num_realizations, seed, initial_c_fraction, m)
+                                num_realizations, seed, initial_c_fraction, m, avg_degree)
             avg = average_trace(traces)
             results[(T, S)] = sum(avg[-tail:]) / tail
     return results

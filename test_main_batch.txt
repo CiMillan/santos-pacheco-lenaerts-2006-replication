@@ -1,0 +1,19 @@
+cd ~/Desktop/cooperation-atlas/replications/santos-pacheco-lenaerts-2006
+python3 main.py
+
+Expected: runs 100 independent realizations (100 fresh networks, seeds
+1..100) of a scale-free network, T=1.2, S=-0.1, 200 generations each, then
+averages the cooperation fraction across all 100 at every generation.
+Final averaged cooperation should be close to 0.67, and the last 10
+generations of the averaged trace should be roughly flat (not still
+trending up or down) -- that flatness is the sign it has converged, not
+still noisy.
+
+Takes about 30 seconds -- that's 100 realizations x 200 generations x
+1000 agents, so it's doing real work, not hanging.
+
+Why we need this (not just one run()): a single network + a single random
+start is noisy -- rerun it and you'd get a somewhat different number. The
+paper reports cooperation averaged over many independent realizations, so
+run_batch() + average_trace() reproduce that averaging instead of reporting
+one lucky/unlucky run.

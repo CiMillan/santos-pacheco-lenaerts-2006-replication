@@ -1,0 +1,49 @@
+cd ~/Desktop/cooperation-atlas/replications/santos-pacheco-lenaerts-2006
+
+# Part 1: check the degree distributions look right
+python3 -c "
+import statistics
+from network import build_network
+
+g1 = build_network('single_scale', 2000, seed=1, avg_degree=8)
+degs1 = [d for _, d in g1.degree()]
+print('single_scale: n=', g1.number_of_nodes(), 'mean deg=', round(statistics.mean(degs1),2),
+      'stdev=', round(statistics.stdev(degs1),2), 'min=', min(degs1), 'max=', max(degs1))
+
+g2 = build_network('scale_free', 2000, seed=1, m=4)
+g3 = build_network('scale_free_random', 2000, seed=1, m=4)
+degs2 = sorted([d for _, d in g2.degree()])
+degs3 = sorted([d for _, d in g3.degree()])
+print('scale_free vs scale_free_random degree sequences identical:', degs2 == degs3)
+print('edge sets identical (should be False -- randomized):', set(g2.edges()) == set(g3.edges()))
+"
+
+Expected:
+single_scale: mean deg ~8, stdev ~2.8, max around 15-25 (tight spread -- no wild hubs)
+scale_free vs scale_free_random degree sequences identical: True
+edge sets identical (should be False -- randomized): False
+
+Why: single_scale should look "Gaussian" -- everyone has roughly the
+average number of connections, no outliers. scale_free_random should keep
+scale_free's exact hub structure (same degree sequence) but scramble which
+specific agents are connected to which -- that's what "identical degrees,
+different edges" proves.
+
+# Part 2: run all four network types through the real simulation
+python3 -c "
+from main import run
+for kind in ['complete', 'single_scale', 'scale_free', 'scale_free_random']:
+    trace = run(kind, 500, 100, R=1, S=-0.1, T=1.2, P=0, seed=1)
+    print(f'{kind}: final cooperation = {trace[-1]:.2f}')
+"
+
+Expected (exact numbers vary a little, but the ORDER should hold):
+complete: lowest cooperation
+single_scale: a bit higher
+scale_free: a lot higher
+scale_free_random: highest (or close to scale_free)
+
+Why: this is the paper's headline claim -- increasing network heterogeneity
+favors cooperation. If this order breaks (e.g. complete beats scale_free),
+something is wrong; this ordering is the actual thing being replicated,
+not just "the code runs without crashing."

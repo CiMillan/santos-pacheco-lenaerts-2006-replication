@@ -1,0 +1,85 @@
+What each file is -- Santos, Pacheco & Lenaerts (2006) replication
+====================================================================
+
+FOUNDATION (the mechanism itself, matches the paper's Methods section,
+p. 3493 exactly -- never changes no matter what experiment you run):
+  - main.py        the core loop: run() does one realization (build a
+                    network, then loop generations of payoff -> update);
+                    run_batch() repeats run() across many independent
+                    realizations; average_trace() collapses those into
+                    one averaged trace, since the paper reports averaged
+                    results, not single noisy runs.
+  - payoff.py       how accumulated payoff is computed each generation
+                    (every agent plays every graph neighbor once).
+  - update_rule.py  how strategy changes: pairwise comparison -- pick one
+                    random neighbor, copy their strategy with a
+                    probability proportional to how much better they did.
+
+THE SWAPPABLE PLUG-IN POINT (this is the "which network" slot the
+foundation calls into -- not a variant of the mechanism, the deliberate
+place the mechanism gets parameterized):
+  - network.py      builds one of the paper's four network types:
+                    complete, single_scale, scale_free, scale_free_random.
+                    Swap this to run the same foundation on a different
+                    population structure without touching main.py,
+                    payoff.py, or update_rule.py at all.
+
+EXPERIMENT SCRIPTS (add no new mechanism -- they call the foundation
+repeatedly to reproduce a specific result from the paper):
+  - sweep.py        runs run_batch() at every (T, S) grid point to
+                    reproduce the shape of the paper's Fig. 2/3 heatmaps.
+  - plot.py         plot_heatmap() turns sweep()'s {(T,S): fraction} dict
+                    into one contour/image panel, same color scale (blue
+                    0% to red 100%) as Fig. 2/3. plot_pair() lays two
+                    panels side by side the way the paper presents each
+                    figure (Fig. 2: complete vs. single-scale; Fig. 3:
+                    random scale-free vs. Barabasi-Albert scale-free).
+                    Neither runs any new simulation, just visualizes
+                    sweep()'s output.
+
+TEST FILES (one per function/file above, each a plain .txt you can run
+yourself: the exact terminal command, the expected output, and a short
+"why" explaining what the output means and what would count as a bug
+vs. an expected result):
+  test_network.txt, test_payoff.txt, test_update_rule.txt, test_main.txt,
+  test_main_batch.txt, test_100_networks.txt, test_network_types.txt,
+  test_sweep.txt, test_plot.txt, test_plot_pair.txt
+
+STILL MISSING for a full replication of the paper's actual figures
+(identified but not yet built, as of 2026-09-17):
+  - A finer (T, S) grid matching the paper's actual resolution, at the
+    paper's real scale (N=10,000, 100 realizations) -- sweep.py's demo
+    grid is small (4x4, N=200) and fast on purpose, for development.
+
+TIMING CHECK (2026-09-21): measured run() directly (not through
+sweep.py) at increasing n, scale_free network, m=2 (z=4):
+    n=1000   1.5 ms/gen        n=4000   5.2 ms/gen
+    n=2000   2.5 ms/gen        n=8000  10.4 ms/gen
+  -- scales roughly linearly with n, as expected (payoff loop is O(edges),
+  edges scale with n at fixed z). Extrapolated to n=10,000: ~13 ms/gen.
+  complete graph (n=1000, z=n-1): 123 ms/gen -- edges scale with n^2, so
+  this does NOT scale linearly; extrapolated to n=10,000: ~12 s/gen.
+
+  The paper's protocol needs 10,000 transient + 1,000 averaged = 11,000
+  generations per realization, x100 realizations, x however many (T,S)
+  grid points.
+    scale_free, n=10,000: ~13ms x 11,000 gens = ~2.4 min/realization
+      x100 realizations = ~4 hours PER (T,S) GRID POINT.
+    complete, n=10,000:   ~12s x 11,000 gens = ~37 hours for ONE
+      realization alone (before x100, before x grid points).
+
+  Conclusion: the current pure-Python dict-based implementation cannot
+  run the paper's actual protocol at full scale (N=10,000, 100
+  realizations, full grid) in any practical wall-clock time, especially
+  for the complete-graph panel. This isn't a bug -- it's the expected
+  cost of prioritizing legible, function-per-file code (see
+  [[feedback-scientific-code-style]]) over vectorized performance.
+  Options for producing real figures, not yet decided as of 2026-09-21:
+  (a) document a reduced-scale run (smaller N/generations/realizations)
+      as an explicit, labeled deviation from the paper's protocol --
+      cheap, keeps the current code as-is;
+  (b) vectorize the hot path (numpy arrays instead of per-node dicts) --
+      would actually reach paper scale, but is a real rewrite and a
+      different code style than the rest of this replication;
+  (c) run the full-scale version anyway, accepting very long (hours to
+      multi-day) wall-clock runs, likely in the background.

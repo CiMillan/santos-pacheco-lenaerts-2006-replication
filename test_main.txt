@@ -1,0 +1,23 @@
+cd ~/Desktop/cooperation-atlas/replications/santos-pacheco-lenaerts-2006
+python3 -c "
+from main import run
+for T, S in [(2, -1), (1.2, -0.1), (1.05, -0.02)]:
+    trace = run('scale_free', 1000, 200, R=1, S=S, T=T, P=0, seed=1)
+    print(f'T={T}, S={S} -> final cooperation = {trace[-1]:.2f}')
+"
+
+Expected output (roughly -- seed makes it exact for this codebase, but treat
+the pattern, not the decimals, as the thing to check):
+T=2, S=-1 -> final cooperation = 0.00
+T=1.2, S=-0.1 -> final cooperation = 0.68
+T=1.05, S=-0.02 -> final cooperation = 0.95
+
+Why: T=2, S=-1 is the harshest corner of the dilemma space (paper's Fig. 3),
+where the paper itself says a strongly negative S is the main threat to
+cooperation -- so full collapse there isn't a bug. As the dilemma gets
+milder (T closer to 1, S closer to 0), cooperation survives better. This
+three-point sweep exists to confirm the code responds to T/S the way the
+paper says it should, not just collapses regardless of input.
+
+You can also run the whole loop with its own built-in defaults:
+python3 main.py

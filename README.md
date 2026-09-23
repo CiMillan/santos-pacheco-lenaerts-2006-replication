@@ -51,14 +51,16 @@ Row 0 is the base replication. Each row of the results table links to its folder
 | 2 | [`sweep.py`](sweep.py) → [`sweep_swarm.py`](replication-extension-swarm-topology/sweep_swarm.py); [`plot.py`](plot.py) → [`plot_topology.py`](replication-extension-swarm-topology/plot_topology.py) | [`topology_experiment.py`](replication-extension-swarm-topology/topology_experiment.py), [`c1_zero_experiment.py`](replication-extension-swarm-topology/c1_zero_experiment.py), [`c1_sweep.py`](replication-extension-swarm-topology/c1_sweep.py), [`velocity_test.py`](replication-extension-swarm-topology/velocity_test.py), [`plot_c1_curve.py`](replication-extension-swarm-topology/plot_c1_curve.py) |
 | 3 | [`main.py`](main.py) → [`main_os.py`](replication-extension-open-source/main_os.py); [`payoff.py`](payoff.py) → [`payoff_os.py`](replication-extension-open-source/payoff_os.py); [`sweep.py`](sweep.py) → [`sweep_os.py`](replication-extension-open-source/sweep_os.py) | [`programs.py`](replication-extension-open-source/programs.py), [`open_source_experiment.py`](replication-extension-open-source/open_source_experiment.py), [`cost_experiment.py`](replication-extension-open-source/cost_experiment.py) |
 
-**Results.**
+**Results.** The paper's finding: the more heterogeneous the network, the more cooperation
+(complete < single-scale < random scale-free < Barabási–Albert). "Base" below is our
+reduced-scale run of the paper's model (row 0), so every comparison uses the same scale and seeds.
 
-| # | Idea | Main results | Future work |
-|---|---|---|---|
-| 0 | **Base replication**: Santos et al. (2006), imitation on four networks over the (T, S) grid | Figs. 2–3 shape reproduced: cooperation 0.49 (complete) < 0.57 (single-scale) < 0.62 (random SF) < 0.65 (BA) | Full scale (N=10,000, 11,000 generations, 100 realizations) |
-| 1 | [**Swarm learning**](replication-extension-swarm-learning/): particle-swarm (PSO) learning instead of imitation; PD on one BA network | Cooperation 0.90 (imitation) → 0.33 (swarm). PSO's personal best anchors 89% of agents to stale defection windfalls | Decaying personal best; other (T, S) points |
-| 2 | [**Swarm topology**](replication-extension-swarm-topology/): swarm learning on all four networks; vary memory weight c₁ | Default c₁=1.5 erases the topology effect (all ≈0.58). c₁=0 restores it, stronger than imitation (BA 0.88 vs 0.65). Any memory (c₁≥0.25) kills stable PD clusters | c₁ between 0 and 0.25; decaying personal best; full scale |
-| 3 | [**Open-source game theory**](replication-extension-open-source/): agents hold programs that read each other's code; then add a code-reading cost | Free code-reading: ≈0.97–1.00 on every network, even in the PD; topology no longer matters. Cost ≥0.5 brings the network effect back; at 1.0 it matches plain imitation | Costs 0.3–0.4 to locate the switch; invasion by a few code-readers; bounded agents (CUPOD/DUPOC) |
+| # | Idea | Main results vs. the paper |
+|---|---|---|
+| 0 | **Base replication**: Santos et al. (2006), imitation on four networks over the (T, S) grid | **Paper's finding reproduced.** Same ordering: 0.49 < 0.57 < 0.62 < 0.65. Values are not exact because of the reduced scale |
+| 1 | [**Swarm learning**](replication-extension-swarm-learning/): particle-swarm (PSO) learning instead of the paper's imitation; PD on the BA network | **Less cooperation than the paper's rule.** Base 0.90 → swarm 0.33. PSO's personal best keeps 89% of agents pulled toward old defection payoffs |
+| 2 | [**Swarm topology**](replication-extension-swarm-topology/): swarm learning on all four networks; vary memory weight c₁ | **Paper's ordering disappears** with default swarm (c₁=1.5): every network ≈0.58. **It comes back, stronger, without memory** (c₁=0): 0.45 < 0.76 < 0.87 < 0.88 vs. base 0.49 < 0.57 < 0.62 < 0.65 |
+| 3 | [**Open-source game theory**](replication-extension-open-source/): agents hold programs that read each other's code; then add a code-reading cost | **Paper's ordering disappears**: every network ≈0.97–1.00 (base 0.49–0.65), even in the PD where base gets 0. **It comes back when code-reading is costly**: at cost 1.0, 0.50 < 0.58 < 0.61 < 0.64, the same as base |
 
 ## References
 

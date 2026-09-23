@@ -1,0 +1,29 @@
+cd ~/Desktop/cooperation-atlas/replications/santos-pacheco-lenaerts-2006/replication-extension-open-source
+python3 -c "
+from programs import PROGRAMS, outcome
+for x in PROGRAMS:
+    print(x.ljust(13), ' '.join(''.join(outcome(x, y)) for y in PROGRAMS))
+suckers = [(x, y) for x in ['FairBot', 'PrudentBot', 'CliqueBot'] for y in PROGRAMS if outcome(x, y) == ('C', 'D')]
+print('code-readers exploited:', suckers)
+"
+
+Expected output:
+CooperateBot  CC CD CD CC CD
+DefectBot     DC DD DD DD DD
+CliqueBot     DC DD CC DD DD
+FairBot       CC DD DD CC CC
+PrudentBot    DC DD DD CC CC
+code-readers exploited: []
+
+Why: row = my program, column = opponent (same order as the rows). Each
+cell is (my action, opponent's action). Things to check against
+Barasz et al. (2014):
+  - The table is consistent: row x / column y is row y / column x flipped.
+  - FairBot and PrudentBot cooperate with each other and with themselves
+    (Theorems 3.1 and 3.2, the Loeb results).
+  - FairBot is kind to CooperateBot (CC); PrudentBot exploits it (DC),
+    and so does CliqueBot.
+  - CliqueBot only cooperates with CliqueBot, so it ends in DD against
+    FairBot and PrudentBot -- recognising copies is brittle.
+  - The last line checks unexploitability: no code-reading program ever
+    plays C while its opponent plays D.

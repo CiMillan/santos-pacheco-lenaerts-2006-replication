@@ -1,0 +1,85 @@
+Does topology still matter once agents can read each other's code? No.
+====================================================================
+From open_source_experiment.py (run 2026-09-23, 1098 s). Output files:
+run_log.txt, open_source_results.json, open_source_vs_imitation.png.
+Reduced scale, same as the topology experiment: n=500 (n=200 for
+complete), 10 realizations, 300+60 generations, 5x5 grid, same seeds.
+Plain imitation numbers reused from
+../replication-extension-swarm-topology/topology_results.json.
+
+NOTE ON THE FIGURE: the colour bar says "fraction of cooperators" (the
+label is fixed in ../plot.py). For the open-source column it means
+fraction of C actions per meeting -- see ARCHITECTURE.txt, Measures.
+
+HEADLINE NUMBERS (terminal output)
+network            plain grid  open grid  plain PD  open PD
+complete               0.489      0.995     0.000    1.000
+single_scale           0.566      0.987     0.000    1.000
+scale_free_random      0.616      0.980     0.000    0.983
+scale_free             0.653      0.974     0.000    0.983
+
+Final program shares, PD corner (T > 1, S < 0):
+network            CoopBot  DefectBot  CliqueBot  FairBot  PrudentBot
+complete             0.000      0.000      0.000    0.433       0.567
+single_scale         0.000      0.000      0.002    0.427       0.571
+scale_free_random    0.000      0.000      0.047    0.489       0.464
+scale_free           0.005      0.000      0.084    0.497       0.414
+
+Final program shares, whole grid:
+network            CoopBot  DefectBot  CliqueBot  FairBot  PrudentBot
+complete             0.118      0.000      0.016    0.425       0.441
+single_scale         0.126      0.000      0.021    0.404       0.449
+scale_free_random    0.117      0.000      0.087    0.431       0.364
+scale_free           0.147      0.000      0.143    0.383       0.326
+
+FINDING 1 -- the prediction holds: code-reading replaces the network
+  Cooperation is 0.97-1.00 on every network, over the whole grid AND in
+  the PD corner, where plain imitation is 0.000 everywhere at this scale.
+  DefectBot is extinct in every run average (0.000 on every network).
+  FairBot + PrudentBot hold 91-100% of agents in the PD corner (100% on
+  complete, 91% on scale_free -- the rest is mostly CliqueBot).
+
+FINDING 2 -- the topology ordering is gone, and slightly REVERSED
+  Plain imitation: complete < single_scale < scale_free_random <
+  scale_free (0.49 -> 0.65). Open-source: complete 0.995 > single_scale
+  0.987 > scale_free_random 0.980 > scale_free 0.974. The gap is small
+  (0.02), but it runs the other way, and in the same order on both
+  measures.
+
+FINDING 3 -- heterogeneity keeps CliqueBot alive
+  CliqueBot share rises steadily with heterogeneity: 0.016 (complete) ->
+  0.021 -> 0.087 -> 0.143 (scale_free). CliqueBot vs FairBot/PrudentBot is
+  mutual D, so every surviving CliqueBot cluster that borders the
+  FairBot/PrudentBot majority adds D actions. That is a plausible cause of
+  the small reversal in Finding 2 (hypothesis, NOT tested).
+
+FINDING 4 -- CooperateBot survives only outside the PD corner
+  Whole grid: 12-15% CooperateBot. PD corner: ~0. Where T is high,
+  PrudentBot's exploitation of CooperateBot pays enough for it to spread;
+  elsewhere a CooperateBot next to FairBots earns the same as they do and
+  imitation never removes it (neutral drift, no mutation).
+
+CAVEATS
+  - The outcome table is fixed and cost-free: code-reading programs get
+    their advantage for nothing. The proof-cost experiment (next, per
+    ARCHITECTURE.txt) is where the network effect could come back.
+  - Reduced scale, 10 realizations. The 0.02 reversal is consistent in
+    direction but small; not tested for significance.
+  - Random 1/5-each start: code-readers begin at 60% of the population.
+    Whether they can INVADE from a small minority is the separate
+    follow-up already planned.
+
+WHAT THIS MEANS FOR THE PhD FRAMING
+  With transparency, cooperation no longer needs network structure: every
+  network reaches near-full cooperation, even in the Prisoner's Dilemma.
+  The heterogeneous networks that help plain imitators instead shelter a
+  brittle "copy-recognising" program (CliqueBot) that doesn't cooperate
+  with the robust ones. Relevant to Critch et al.'s Open Problem 2: in
+  this setting, a population containing FairBots (unbounded DUPOCs) does
+  converge to mostly agents that reward legible cooperation -- but only
+  from a start where they're already common, and with free proofs.
+
+OPEN FOLLOW-UPS
+  - Proof cost per game for CliqueBot, FairBot, PrudentBot (Open Problem 9).
+  - Invasion: start mostly CooperateBot/DefectBot plus a few code-readers.
+  - Test the CliqueBot-cluster explanation of the small reversal.

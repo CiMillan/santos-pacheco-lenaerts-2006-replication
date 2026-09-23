@@ -1,0 +1,24 @@
+cd ~/Desktop/cooperation-atlas/replications/santos-pacheco-lenaerts-2006/replication-extension-open-source
+python3 -c "
+from sweep_os import sweep_os
+coop, shares = sweep_os('scale_free', n=200, generations=100, T_values=[0.5, 1.5], S_values=[-0.5, 0.5],
+                        R=1, P=0, num_realizations=5, seed=1, m=2, avg_degree=4, tail=10)
+for (T, S), c in coop.items():
+    top = max(shares[(T, S)], key=shares[(T, S)].get)
+    print(f'T={T} S={S}  coop={c:.3f}  most common: {top} {shares[(T, S)][top]:.2f}')
+"
+
+Expected output:
+T=0.5 S=-0.5  coop=0.940  most common: FairBot 0.39
+T=0.5 S=0.5  coop=0.932  most common: FairBot 0.34
+T=1.5 S=-0.5  coop=0.867  most common: PrudentBot 0.36
+T=1.5 S=0.5  coop=0.930  most common: CliqueBot 0.40
+
+Why: a small 2x2 grid, one point in each corner of the (T, S) plane
+(Stag Hunt, Harmony, Prisoner's Dilemma, Snowdrift), 5 realizations each.
+It checks that sweep_os() returns both dicts keyed by (T, S) and that the
+shares are averaged across realizations (no single program reaches 1.0).
+Cooperation is high in every corner, including the PD one (0.87), which
+is the first sign of the prediction. Surprise worth watching in the full
+run: the most common program changes with the game. CliqueBot leads in
+the Snowdrift corner, and PrudentBot leads in the PD corner.

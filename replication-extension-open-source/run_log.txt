@@ -1,0 +1,26 @@
+complete (n=200) -- open-source imitation... (0s elapsed)
+single_scale (n=500) -- open-source imitation... (827s elapsed)
+scale_free_random (n=500) -- open-source imitation... (915s elapsed)
+scale_free (n=500) -- open-source imitation... (1012s elapsed)
+
+network            plain grid open grid  plain PD  open PD
+complete                0.489     0.995     0.000    1.000
+single_scale            0.566     0.987     0.000    1.000
+scale_free_random       0.616     0.980     0.000    0.983
+scale_free              0.653     0.974     0.000    0.983
+
+final program shares, whole grid:
+network            CooperateBot    DefectBot    CliqueBot      FairBot   PrudentBot
+complete                  0.118        0.000        0.016        0.425        0.441
+single_scale              0.126        0.000        0.021        0.404        0.449
+scale_free_random         0.117        0.000        0.087        0.431        0.364
+scale_free                0.147        0.000        0.143        0.383        0.326
+
+final program shares, PD corner:
+network            CooperateBot    DefectBot    CliqueBot      FairBot   PrudentBot
+complete                  0.000        0.000        0.000        0.433        0.567
+single_scale              0.000        0.000        0.002        0.427        0.571
+scale_free_random         0.000        0.000        0.047        0.489        0.464
+scale_free                0.005        0.000        0.084        0.497        0.414
+
+saved open_source_results.json + open_source_vs_imitation.png (1098s total)

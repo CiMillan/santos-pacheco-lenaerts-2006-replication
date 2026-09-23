@@ -91,6 +91,16 @@ tend to imitate the strategies of those performing better." Refs 18 and 30:
 
 ## Particle swarm optimization (`swarm_update_rule.py`)
 
+### Motivation
+
+- Pal, S., Wang, F. Y. & Buehler, M. J. (2026). SwarmWorld: Stigmergic technological evolution
+  in societies of language-model agents. arXiv:2608.26081. https://arxiv.org/abs/2608.26081
+  - **Used in:** Swarm learning, Swarm topology.
+  - **Why:** the paper that prompted using PSO here. Its introduction places PSO in the
+    swarm-intelligence lineage ("shares individual and population experience"). Related framing
+    only: its LLM agents build technology in a shared world, with no social dilemma and no PSO
+    update, so it is not a source for the PSO model or the results.
+
 ### Core PSO
 
 - Kennedy, J. & Eberhart, R. (1995). Particle swarm optimization. *Proceedings of ICNN'95,

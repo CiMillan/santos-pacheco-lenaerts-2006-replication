@@ -73,6 +73,20 @@ One list for the replication and all its extensions. Under each reference:
     cooperation or an attack. Differences: small hand-built graphs, no game or payoffs, and
     no evolution.
 
+- Liu, Y., Zhang, G., Wang, K., Li, S. & Pan, S. (2026). Graph-augmented large language model
+  agents: Current progress and future prospects. *IEEE Intelligent Systems* 41(2), 46–56.
+  https://doi.org/10.1109/MIS.2025.3642667
+  - **Used in:** extensions (framing).
+  - **Why:** a position paper surveying LLM multi-agent systems as graphs, where agents are
+    nodes and communication links are edges. Its multi-agent section makes the same point as
+    this repo from the AI-engineering side: topology is a design choice that changes what the
+    system does. Three findings are relevant. Denser graphs don't reliably perform better
+    (MacNet tests chain, star, tree, random and complete graphs). Sparse communication can
+    beat dense (AgentPrune, sparse multi-agent debate). And topology shapes how harmful
+    information spreads (NetSafe, G-Safeguard). It places NetSafe in the wider literature.
+    Differences: a survey with no model or experiment of its own, no game or payoffs, and no
+    evolution.
+
 ## Imitation update rule (`update_rule.py`)
 
 Santos et al. 2006 (Methods, p. 3493) call their rule the "finite population analog of

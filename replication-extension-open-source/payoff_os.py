@@ -9,11 +9,16 @@ from payoff import OUTCOME
 
 from programs import outcome
 
+# Programs that read the opponent's code. Only these pay the proof cost.
+CODE_READERS = {"CliqueBot", "FairBot", "PrudentBot"}
 
-def compute_payoffs(graph, programs, R, S, T, P):
+
+def compute_payoffs(graph, programs, R, S, T, P, cost=0.0):
     """
     graph: networkx Graph.
     programs: dict {node: program name from programs.PROGRAMS}.
+    cost: subtracted from a code-reading program's payoff once per game it
+    plays (reading/proving isn't free -- Critch et al. Open Problem 9).
     Returns dict {node: accumulated payoff this generation}.
     """
     matrix = {"R": R, "S": S, "T": T, "P": P}
@@ -22,6 +27,8 @@ def compute_payoffs(graph, programs, R, S, T, P):
         ax, ay = outcome(programs[x], programs[y])
         payoff[x] += matrix[OUTCOME[(ax, ay)]]
         payoff[y] += matrix[OUTCOME[(ay, ax)]]
+        payoff[x] -= cost * (programs[x] in CODE_READERS)
+        payoff[y] -= cost * (programs[y] in CODE_READERS)
     return payoff
 
 

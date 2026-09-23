@@ -100,6 +100,19 @@ FILES (planned -- built one function at a time, each with its own .txt test)
                    open_source_results.json and the 4x3 figure, prints
                    grid-mean and PD-corner-mean per network plus program
                    shares.
+  cost_experiment.py
+                   Proof-cost follow-up. compute_payoffs() / run() /
+                   sweep_os() gained a `cost` option (default 0, so the
+                   first experiment is unchanged): each code-reading
+                   program (CliqueBot, FairBot, PrudentBot, listed in
+                   payoff_os.CODE_READERS) pays `cost` per game. run_cost()
+                   runs all four networks at ONE cost from the command
+                   line, saved as cost_<value>_results.json. Run for
+                   cost = 0.05, 0.2, 0.5, 1.0 in parallel (R=1, so 1.0 wipes
+                   out the whole reward for mutual cooperation).
+                   Caveat: CliqueBot's check is a plain copy comparison,
+                   much cheaper than a proof, but it pays the same cost
+                   here, as decided in the grilling.
 
 CONCLUSIONS.txt
   Findings after running (decisions above were made BEFORE building).

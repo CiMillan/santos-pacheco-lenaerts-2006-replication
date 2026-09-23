@@ -1,0 +1,6 @@
+cost=0.05  (1497s)
+network              grid     PD   PD-corner shares (Coop Defect Clique Fair Prudent)
+complete            0.994  1.000   0.000 0.000 0.000 0.426 0.574
+single_scale        0.987  1.000   0.000 0.000 0.001 0.442 0.557
+scale_free_random   0.978  0.996   0.006 0.000 0.006 0.533 0.455
+scale_free          0.977  0.986   0.007 0.000 0.095 0.477 0.422

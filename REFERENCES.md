@@ -2,8 +2,8 @@
 
 One list for the replication and all its extensions. Under each reference:
 
-- **Used in:** Base (the replication in the root folder), Swarm learning, Swarm topology or
-  Open source.
+- **Used in:** Base (the replication in the root folder), Swarm learning, Swarm topology,
+  Open source or Stigmergy.
 - **Why:** what we take from it.
 
 ## Base paper
@@ -109,11 +109,13 @@ tend to imitate the strategies of those performing better." Refs 18 and 30:
 
 - Pal, S., Wang, F. Y. & Buehler, M. J. (2026). SwarmWorld: Stigmergic technological evolution
   in societies of language-model agents. arXiv:2608.26081. https://arxiv.org/abs/2608.26081
-  - **Used in:** Swarm learning, Swarm topology.
+  - **Used in:** Swarm learning, Swarm topology, Stigmergy.
   - **Why:** the paper that prompted using PSO here. Its introduction places PSO in the
     swarm-intelligence lineage ("shares individual and population experience"). Related framing
     only: its LLM agents build technology in a shared world, with no social dilemma and no PSO
-    update, so it is not a source for the PSO model or the results.
+    update, so it is not a source for the PSO model or the results. It is the source of the
+    Stigmergy extension's idea: about 95% of first reuse among its agents began by observing
+    artifacts left in the world, not by direct contact.
 
 ### Core PSO
 

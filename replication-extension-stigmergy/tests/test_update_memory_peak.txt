@@ -1,0 +1,27 @@
+cd ~/Desktop/cooperation-atlas/replications/santos-pacheco-lenaerts-2006/replication-extension-stigmergy
+python3 -c "
+from stigmergy_update_rule import update_memory_peak
+t, m = {0: 0.0}, {0: 'C'}
+for p, s in [(5, 'D'), (0, 'C'), (0, 'C'), (3, 'C')]:
+    t, m = update_memory_peak(t, m, {0: p}, {0: s}, 0.2)
+    print(f'plays {s}, payoff {p} -> trace {round(t[0], 3)}, remembers {m[0]}')
+t, m = update_memory_peak({0: 5.0}, {0: 'D'}, {0: 0.0}, {0: 'C'}, 1)
+print('lam=1:', t, m)
+"
+
+Expected output (exact -- no randomness here):
+plays D, payoff 5 -> trace 5, remembers D
+plays C, payoff 0 -> trace 4.0, remembers D
+plays C, payoff 0 -> trace 3.2, remembers D
+plays C, payoff 3 -> trace 3.16, remembers D
+lam=1: {0: 0.0} {0: 'C'}
+
+Why: one node earns a windfall of 5 by defecting, then cooperates. The
+trace takes the 5 in full and fades (4.0, 3.2) exactly like the peak trace,
+and the node keeps remembering D, the strategy that earned the peak. In the
+last step it earns 3 by cooperating, but the faded trace would be
+0.8*3.2 + 0.2*3 = 3.16, which is higher, so 3 is not a new peak and D is
+still remembered. With lam=1 the old peak is forgotten at once: the trace
+is the current payoff and the remembered strategy is the current one (the
+paper's rule). A bug would show as the node remembering C after the
+windfall, or lam=1 keeping D.

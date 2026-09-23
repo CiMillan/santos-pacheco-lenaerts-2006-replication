@@ -1,0 +1,68 @@
+Stigmergic imitation -- conclusions
+===================================
+From lam_experiment.py (lam = 0.5, 0.2, 0.05, each ~10 min, run in parallel;
+logs run_log_*.txt). lam=1 = the paper's rule (saved imitation baseline).
+Values are whole-grid means; the PD corner (T > 1, S < 0) is 0.00 in EVERY
+run here, including the paper's rule at this reduced scale, so it says
+nothing and is left out.
+
+                      complete  single_scale  scale_free_random  scale_free
+paper rule (lam=1)      0.49       0.57            0.62            0.65
+average   lam=0.5       0.49       0.57            0.62            0.65
+          lam=0.2       0.49       0.58            0.63            0.66
+          lam=0.05      0.48       0.59            0.65            0.67
+peak      lam=0.5       0.49       0.57            0.62            0.65
+          lam=0.2       0.48       0.57            0.62            0.67
+          lam=0.05      0.49       0.58            0.63            0.68
+strategy  lam=0.5       0.49       0.56            0.61            0.65
+          lam=0.2       0.49       0.55            0.58            0.63
+          lam=0.05      0.49       0.55            0.57            0.61
+
+RESULT 1: payoff traces leave the paper's result intact
+  With the average trace, the paper's ordering holds at every lam, and
+  longer memory nudges heterogeneous networks UP (BA 0.65 -> 0.67). Most
+  grid points don't move; the gains sit at the PD edge, e.g. T=1, S=-0.5:
+  +0.34 on random scale-free and +0.27 on BA at lam=0.05.
+  Both predictions made before the run (the user's and mine: long memory
+  lowers cooperation and removes the network effect) were wrong.
+
+RESULT 2: holding on to windfalls is not what hurts (peak control)
+  Hypothesis after result 1: PSO's personal best hurt cooperation because
+  it keeps windfalls (a maximum), while an average dilutes them. The peak
+  trace keeps windfalls -- and cooperation still does not drop (BA 0.68 at
+  lam=0.05; +0.45 at T=1, S=-0.5). Hypothesis rejected.
+
+RESULT 3: remembering the STRATEGY is what hurts (strategy control)
+  New hypothesis: in PSO the memory stores a strategy (a position), and
+  pulls agents back to it; a payoff trace can only change WHETHER x copies,
+  never WHAT it copies. With strategy memory, cooperation falls steadily as
+  memory gets longer, only on structured networks (complete unchanged):
+  BA 0.65 -> 0.61, random scale-free 0.62 -> 0.57. The losses sit in the
+  Snowdrift region (T > 1, S > 0), where cooperators and defectors normally
+  coexist: -0.2 to -0.3 at several points on both scale-free networks --
+  agents keep copying an old D that once paid well.
+  The ordering survives but shrinks: BA minus complete 0.16 -> 0.12.
+  Partly supported: the direction matches PSO, the size is far smaller
+  (default PSO erased the ordering entirely).
+
+WHAT THIS MEANS
+  What memory stores matters more than how long it lasts: a remembered
+  payoff is harmless, a remembered strategy weakens network reciprocity.
+  Learning mostly from traces in the environment -- SwarmWorld's main
+  observation for LLM societies -- is compatible with the paper's topology
+  effect, as long as agents still copy what their neighbours do NOW.
+
+CAVEATS
+  Reduced scale (n=500, 360 generations, 10 realizations); grid-mean
+  differences of ~0.02 are within noise, the per-point changes quoted
+  above are the clear signals. The PD corner is 0 at this scale for every
+  rule, so effects there cannot be seen. The strategy trace fades and is
+  per-NODE (anyone at that node shares it), unlike PSO's personal best,
+  which never fades and is private -- the remaining gap with PSO is
+  untested.
+
+OPEN FOLLOW-UPS
+  - Strategy memory that never fades (lam -> 0) and/or is private: does it
+    reach PSO's full collapse of the ordering?
+  - Larger scale, to see the PD corner.
+  - A strategy memory based on the average trace instead of the peak.

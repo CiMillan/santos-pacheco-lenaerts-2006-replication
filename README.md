@@ -69,5 +69,6 @@ Eberhart & Shi (2000) · Clerc & Kennedy (2002) · Kennedy (1999) · Kennedy & M
 Carlisle & Dozier (2000) · Hu & Eberhart (2002).
 
 **Open-source game theory.** Critch, Dennis & Russell (2022), arXiv:2208.07006 (main paper) ·
+Sistla & Kleiman-Weiner (2026), *Evaluating LLMs in open-source games*, NeurIPS ·
 Barasz et al. (2014) · LaVictoire et al. (2014) · Tennenholtz (2004) · Critch (2019) ·
 Kalai et al. (2010).

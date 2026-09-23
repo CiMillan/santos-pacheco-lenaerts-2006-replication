@@ -1,0 +1,24 @@
+cd ~/Desktop/cooperation-atlas/replications/santos-pacheco-lenaerts-2006/replication-extension-swarm
+python3 -c "
+from plot_comparison import plot_traces
+import matplotlib.pyplot as plt
+
+fig = plot_traces({'imitation': [0.5, 0.6, 0.7], 'swarm': [0.5, 0.4, 0.3]}, title='smoke test')
+fig.savefig('_smoke_test.png', dpi=50)
+import os
+print('saved:', os.path.exists('_smoke_test.png'), 'size bytes:', os.path.getsize('_smoke_test.png'))
+os.remove('_smoke_test.png')
+print('cleaned up')
+"
+
+Expected output (exact byte count may vary slightly by matplotlib version --
+what matters is "saved: True" and a non-trivial size):
+saved: True size bytes: 7765
+cleaned up
+
+Why: plot_traces() doesn't compute anything -- it just draws whatever
+traces it's handed. This checks it actually produces a real, non-empty
+image file from two differently-shaped dummy traces (one rising, one
+falling) without erroring, rather than checking the pixels are "correct"
+(there's no single correct picture for two made-up input traces). The real
+visual check happens in compare_imitation_vs_swarm.py's actual output.

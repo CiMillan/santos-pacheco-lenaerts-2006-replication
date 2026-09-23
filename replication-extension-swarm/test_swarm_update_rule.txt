@@ -1,0 +1,49 @@
+cd ~/Desktop/cooperation-atlas/replications/santos-pacheco-lenaerts-2006/replication-extension-swarm
+python3 -c "
+import random, sys
+sys.path.insert(0, '..')
+from network import build_network
+from swarm_update_rule import next_position
+
+g = build_network('complete', 2)
+positions = {0: 0.2, 1: 0.9}
+velocities = {0: 0.0, 1: 0.0}
+personal_best_position = {0: 0.2, 1: 0.9}
+payoffs = {0: 0.0, 1: 5.0}
+w, c1, c2 = 0.7, 1.5, 1.5
+# node 0's personal_best equals its current position, so the cognitive term
+# is exactly 0 -- the whole velocity should come from the social/local-best
+# term alone: c2 * r2 * (local_best_position - position) = 1.5 * r2 * 0.7
+
+rng = random.Random(42)
+new_pos, new_vel = next_position(g, 0, positions, velocities, personal_best_position, payoffs, w, c1, c2, rng)
+print('new_position, new_velocity for node 0:', new_pos, new_vel)
+
+rng = random.Random(42)
+new_pos1, new_vel1 = next_position(g, 1, positions, velocities, personal_best_position, payoffs, w, c1, c2, rng)
+print('new_position, new_velocity for node 1:', new_pos1, new_vel1)
+"
+
+Expected output:
+new_position, new_velocity for node 0: 0.2262612929838003 0.026261292983800283
+new_position, new_velocity for node 1: 0.9 0.0
+
+Why: node 0 is at position 0.2 with payoff 0; its only neighbor (node 1) is
+at 0.9 with payoff 5. Since node 0's personal_best_position equals its
+current position, the cognitive (self-improvement) term is exactly 0, so
+the entire velocity comes from the social term: c2 * r2 * (local_best - x)
+= 1.5 * r2 * (0.9 - 0.2) = 1.5 * 0.02501... * 0.7 = 0.02626..., matching the
+printed velocity exactly. Node 0 moves a small step toward its
+better-performing neighbor, as PSO's social/local-best pull is meant to do.
+A bug here (e.g. picking the wrong neighbor, or including a worse-off
+neighbor as "best") would show up as a velocity that pulls away from 0.9,
+or that doesn't match this hand-computed value at all.
+
+Node 1 is the opposite case: it already has the highest payoff in its own
+neighborhood (itself included), and its personal_best equals its current
+position too -- so BOTH terms are zero and velocity should be exactly 0.0,
+position unchanged at 0.9. This checks the specific design decision of
+including the agent itself among the "local best" candidates (see
+ARCHITECTURE.txt): without that, node 1 (with no neighbor better than
+itself) would incorrectly get pulled toward node 0's worse position instead
+of staying put.

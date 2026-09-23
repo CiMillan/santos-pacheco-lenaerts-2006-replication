@@ -82,6 +82,28 @@ output means and what would count as a bug versus an expected result. These are 
 be run by hand, one at a time, rather than through a test runner -- see each file for the
 command.
 
+## Extensions (beyond the paper)
+
+Two original experiments built on top of the replication. Each lives in its own
+subfolder, imports the foundation above from `..` without modifying it, and has its own
+`ARCHITECTURE.txt` (decisions made before building), `CONCLUSIONS.txt` (findings after
+running) and `test_*.txt` files.
+
+- `replication-extension-swarm/` -- swaps the paper's imitation update rule for a
+  swarm (local-best PSO) rule, on a fixed Prisoner's Dilemma and scale-free network.
+  Swarm plateaus far below imitation, because PSO's best-ever personal memory anchors
+  agents to early defection windfalls.
+- `replication-extension-swarm-topology/` -- fixes the update rule as swarm and varies
+  the network across the paper's four types, with imitation as the baseline. With
+  default swarm the paper's topology effect disappears. Switching off personal memory
+  (`c1=0`) brings it back, stronger than under imitation. Intermediate `c1` values and a
+  velocity test suggest any memory keeps agents oscillating, which breaks the
+  hub-anchored cooperator clusters.
+
+| Topology effect: imitation vs. swarm | Swarm topology effect vs. memory weight `c1` |
+|---|---|
+| ![imitation vs swarm across networks](replication-extension-swarm-topology/topology_swarm_vs_imitation.png) | ![cooperation vs c1](replication-extension-swarm-topology/c1_curve.png) |
+
 ## Honest deviations from the paper's protocol
 
 The paper's actual protocol is N=10,000 agents, 100 independent realizations per (T, S)

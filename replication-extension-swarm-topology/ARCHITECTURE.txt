@@ -1,0 +1,72 @@
+Extension: network topology effect under swarm optimization
+===========================================================
+Built on top of ../ (the Santos, Pacheco & Lenaerts 2006 replication) and
+../replication-extension-swarm/ (the swarm update rule). Decided by
+grilling (2026-09-23).
+
+QUESTION
+  The paper's headline result: heterogeneous networks (scale-free) sustain
+  cooperation better than homogeneous ones, under IMITATION. Does that
+  topology effect survive when the update rule is swarm (PSO) instead?
+  Here the update rule is fixed (swarm) and the network is what varies.
+
+DECISIONS, AND WHY
+  Measure: full (T, S) heatmaps per network, like the paper's Fig. 2/3,
+    so results line up with ../fig2_reduced_scale.png / fig3.
+  Networks: all four of the paper's -- complete, single_scale,
+    scale_free_random, scale_free.
+  Baseline: imitation is re-run in the same script with the same seeds,
+    and a "swarm minus imitation" difference map is drawn per network.
+    The topology effect is clearest as a difference from the paper's rule.
+  Swarm hyperparameters frozen at w=0.7, c1=c2=1.5 (same as
+    ../replication-extension-swarm/), so the network is the only thing
+    that changes. Fixing the personal-best anchoring found in that folder's
+    CONCLUSIONS.txt is a separate experiment.
+  Scale: same as ../reduced_scale_figures.py -- n=500 (n=200 for
+    complete), 10 realizations, 300 transient + 60 averaged generations,
+    5x5 (T, S) grid, m=2 / avg_degree=4.
+  Complete-graph caveat: on a complete graph every agent's neighbourhood
+    is the whole population, so local-best PSO becomes global-best PSO.
+    Kept as-is: it's the "no structure" limit for swarm, the same role the
+    complete graph plays for imitation in the paper.
+  Figure: one 4x3 grid -- rows = networks, columns = imitation / swarm /
+    difference (diverging red-blue colormap, -1 to +1).
+  Summary numbers (terminal only): per network, mean cooperation over the
+    whole grid and over the Prisoner's Dilemma corner (T > 1, S < 0), for
+    both rules.
+
+FILES
+  sweep_swarm.py   sweep_swarm() -- swarm analogue of ../sweep.py's sweep().
+                   Same return shape, so ../plot.py works on it unchanged.
+  plot_topology.py plot_topology_grid() -- the 4x3 figure. Columns 1-2 reuse
+                   ../plot.py's plot_heatmap(); column 3 is the new
+                   swarm-minus-imitation difference map.
+  topology_experiment.py
+                   The runnable experiment. summarize() gives the two
+                   terminal numbers (grid mean, PD-corner mean); the
+                   __main__ block runs all 4 networks x both rules, saves
+                   topology_results.json (raw numbers, so the figure can be
+                   redrawn without rerunning) and the 4x3 figure.
+                   Timed: ~18s per grid point for swarm on complete (n=200),
+                   so the whole run is roughly 20-25 minutes.
+  c1_zero_experiment.py
+                   Follow-up from CONCLUSIONS.txt: same run with swarm's
+                   personal-best pull off (c1=0). load_results() reads
+                   the saved imitation numbers back from JSON instead of
+                   rerunning them. sweep_swarm() gained w/c1/c2 options
+                   (defaults unchanged) for this.
+  c1_sweep.py      run_c1() -- swarm on all four networks at ONE c1 value
+                   (from the command line), saved as c1_<value>_results.json.
+                   Run once per value, in parallel. Used for c1 = 0.25, 0.5,
+                   1.0 (0 and 1.5 were already saved).
+  plot_c1_curve.py collect_summaries() reads every saved c1 results file;
+                   plot_c1_curves() draws grid-mean and PD-corner-mean vs.
+                   c1, one line per network (validated colour palette,
+                   labels at each line's left end).
+  velocity_test.py motion_stats() -- the swarm loop again, but recording
+                   velocities, stable cooperators and each agent's two
+                   targets (run_swarm() doesn't return these). Tests the
+                   'agents never stop moving' hypothesis.
+
+CONCLUSIONS.txt
+  Findings after running (decisions above were made BEFORE building).

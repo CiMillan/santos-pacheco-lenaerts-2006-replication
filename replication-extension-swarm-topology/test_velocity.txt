@@ -1,0 +1,31 @@
+cd ~/Desktop/cooperation-atlas/replications/santos-pacheco-lenaerts-2006/replication-extension-swarm-topology
+python3 velocity_test.py
+
+Expected output (about 8 seconds; exact with these seeds):
+scale_free, n=500, 360 generations, last 60 measured, mean of seeds [1, 2, 3]
+
+point                     c1   speed  stable C  target gap
+PD T=1.5,S=-0.5         0.00   0.000     0.599       0.452
+PD T=1.5,S=-0.5         0.25   0.132     0.000       0.181
+PD T=1.5,S=-0.5         0.50   0.161     0.044       0.226
+PD T=1.5,S=-0.5         1.00   0.177     0.000       0.197
+PD T=1.5,S=-0.5         1.50   0.200     0.000       0.225
+Snowdrift T=1.5,S=0.5   0.00   0.001     0.976       0.607
+Snowdrift T=1.5,S=0.5   0.25   0.143     0.357       0.413
+Snowdrift T=1.5,S=0.5   0.50   0.235     0.207       0.474
+Snowdrift T=1.5,S=0.5   1.00   0.328     0.033       0.299
+Snowdrift T=1.5,S=0.5   1.50   0.343     0.001       0.269
+
+Why: motion_stats() reruns the swarm loop but also records what
+run_swarm() throws away: velocities, and each agent's two targets.
+  speed      = average |velocity| in the last 60 generations. ~0 means
+               agents have stopped moving.
+  stable C   = fraction of agents that are C in ALL of the last 60
+               generations (real cooperation, not flicker).
+  target gap = average distance between an agent's personal best and its
+               neighbourhood best at the end.
+What to check: speed is ~0 ONLY at c1=0, and clearly above 0 for every
+c1 > 0. If speed were also ~0 at c1=0.25, the hypothesis in
+CONCLUSIONS.txt would be wrong. The target gap is NOT ~0 at c1=0 -- that's
+expected, because personal best is still recorded at c1=0 but has no
+effect (it's multiplied by c1=0).

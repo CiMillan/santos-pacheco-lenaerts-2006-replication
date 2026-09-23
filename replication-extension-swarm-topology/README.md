@@ -1,8 +1,8 @@
-# Extension 2: does the topology effect survive a swarm update rule?
+# Extension 2 — Swarm topology: does the topology effect survive swarm learning?
 
 **Question.** Under imitation, heterogeneous networks promote cooperation (the paper's
-result). Does that still hold when agents update by particle-swarm optimisation (PSO,
-Extension 1)?
+result). Does that still hold when agents learn by particle-swarm optimisation (PSO,
+see Extension 1, [swarm learning](../replication-extension-swarm-learning/))?
 
 **Design.** The update rule is fixed as swarm. The network varies across the paper's four
 types, on the reduced-scale 5×5 (T, S) grid. Imitation is re-run with the same seeds as a

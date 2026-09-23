@@ -39,7 +39,7 @@ Requires Python 3.9+, `networkx`, `numpy` and `matplotlib`.
 
 ## Extensions
 
-- [`replication-extension-swarm/`](replication-extension-swarm/) — imitation replaced by a
-  particle-swarm (PSO) update rule.
-- [`replication-extension-swarm-topology/`](replication-extension-swarm-topology/) — swarm
-  update rule across the four networks: does the topology effect survive?
+- **Swarm learning** ([`replication-extension-swarm-learning/`](replication-extension-swarm-learning/)):
+  the imitation rule is replaced by a particle-swarm (PSO) learning rule on one fixed network.
+- **Swarm topology** ([`replication-extension-swarm-topology/`](replication-extension-swarm-topology/)):
+  the swarm learning rule on all four networks. Does the topology effect survive?

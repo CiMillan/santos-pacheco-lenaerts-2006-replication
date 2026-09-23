@@ -71,7 +71,7 @@ DECISIONS, AND WHY
       problem. Revisit if swarm behavior looks pathological (e.g. never
       leaves its initial position, or oscillates without settling).
   Folder structure: everything lives in this subfolder
-    (replication-extension-swarm/), importing ../main.py, ../network.py,
+    (replication-extension-swarm-learning/), importing ../main.py, ../network.py,
     ../payoff.py directly rather than duplicating them. Keeps the parent
     directory a clean, untouched replication of the paper; this folder is
     explicitly the "built on top of it" extension.

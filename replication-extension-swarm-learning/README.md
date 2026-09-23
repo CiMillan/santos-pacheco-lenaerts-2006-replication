@@ -1,4 +1,4 @@
-# Extension 1: imitation vs. swarm update rule
+# Extension 1 — Swarm learning: imitation vs. particle-swarm learning
 
 **Question.** If the paper's imitation rule is replaced with particle-swarm optimisation
 (PSO), holding the game and network fixed, what happens to cooperation?

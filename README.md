@@ -56,13 +56,13 @@ Row 0 is the base replication. Each row of the results table links to its folder
 (complete < single-scale < random scale-free < Barabási–Albert). "Base" below is our
 reduced-scale run of the paper's model (row 0), so every comparison uses the same scale and seeds.
 
-| # | Idea | Main results vs. the paper |
+| # | Idea | Main result vs. the paper |
 |---|---|---|
-| 0 | **Base replication**: Santos et al. (2006), imitation on four networks over the (T, S) grid | **Paper's finding reproduced.** Same ordering: 0.49 < 0.57 < 0.62 < 0.65. Values are not exact because of the reduced scale |
-| 1 | [**Swarm learning**](replication-extension-swarm-learning/): particle-swarm (PSO) learning instead of the paper's imitation; PD on the BA network | **Less cooperation than the paper's rule.** Base 0.90 → swarm 0.33. PSO's personal best keeps 89% of agents pulled toward old defection payoffs |
-| 2 | [**Swarm topology**](replication-extension-swarm-topology/): swarm learning on all four networks; vary memory weight c₁ | **Paper's ordering disappears** with default swarm (c₁=1.5): every network ≈0.58. **It comes back, stronger, without memory** (c₁=0): 0.45 < 0.76 < 0.87 < 0.88 vs. base 0.49 < 0.57 < 0.62 < 0.65 |
-| 3 | [**Open-source game theory**](replication-extension-open-source/): agents hold programs that read each other's code; then add a code-reading cost | **Paper's ordering disappears**: every network ≈0.97–1.00 (base 0.49–0.65), even in the PD where base gets 0. **It comes back when code-reading is costly**: at cost 1.0, 0.50 < 0.58 < 0.61 < 0.64, the same as base |
-| 4 | [**Stigmergic imitation**](replication-extension-stigmergy/): agents read a fading payoff trace left at each node instead of the neighbour's current payoff (idea from SwarmWorld) | **Paper's ordering holds** with a payoff trace, even with long memory (BA 0.65 → 0.67). **It weakens only when the trace remembers the strategy** behind the best payoff: BA 0.65 → 0.61, complete unchanged, so the gap shrinks 0.16 → 0.12 |
+| 0 | **Base replication**: Santos et al. (2006), imitation on four networks over the (T, S) grid | **Heterogeneous networks sustain more cooperation, as in the paper:** Barabási–Albert 0.65 vs. complete 0.49 (shape reproduced, exact values not, at reduced scale). |
+| 1 | [**Swarm learning**](replication-extension-swarm-learning/): particle-swarm (PSO) learning instead of the paper's imitation; PD on the BA network | **Replacing imitation with PSO cuts cooperation from 0.90 to 0.33,** because each agent's personal best keeps pulling it back to an old defection windfall. |
+| 2 | [**Swarm topology**](replication-extension-swarm-topology/): swarm learning on all four networks; vary memory weight c₁ | **The paper's topology effect survives only for learners without self-memory:** default PSO flattens every network to ≈0.58, while PSO with no personal memory (c₁=0) makes the effect stronger than the paper's (BA 0.88 vs. 0.65). |
+| 3 | [**Open-source game theory**](replication-extension-open-source/): agents hold programs that read each other's code; then add a code-reading cost | **When agents can read each other's code for free, the network stops mattering** (≈0.97–1.00 everywhere); the paper's effect returns only once code-reading costs 0.5 or more, and is back to the paper-rule values (within 0.01) at 1.0. |
+| 4 | [**Stigmergic imitation**](replication-extension-stigmergy/): agents read a fading payoff trace left at each node instead of the neighbour's current payoff (idea from SwarmWorld) | **A remembered payoff is harmless; a remembered strategy weakens network reciprocity** (BA–complete gap 0.16 → 0.12), but far less than PSO's private, never-fading memory, which erased it. |
 
 ## References
 

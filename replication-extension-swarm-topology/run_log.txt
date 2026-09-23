@@ -1,0 +1,16 @@
+complete (n=200) -- imitation...
+complete (n=200) -- swarm... (359s elapsed)
+single_scale (n=500) -- imitation...
+single_scale (n=500) -- swarm... (887s elapsed)
+scale_free_random (n=500) -- imitation...
+scale_free_random (n=500) -- swarm... (1023s elapsed)
+scale_free (n=500) -- imitation...
+scale_free (n=500) -- swarm... (1157s elapsed)
+
+network            imit grid swarm grid  imit PD  swarm PD
+complete               0.489      0.591    0.000     0.150
+single_scale           0.566      0.579    0.000     0.111
+scale_free_random      0.616      0.569    0.000     0.123
+scale_free             0.653      0.579    0.000     0.123
+
+saved topology_results.json + topology_swarm_vs_imitation.png (1226s total)

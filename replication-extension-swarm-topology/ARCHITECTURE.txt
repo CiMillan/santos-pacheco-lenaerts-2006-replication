@@ -1,7 +1,7 @@
 Extension: network topology effect under swarm optimization
 ===========================================================
 Built on top of ../ (the Santos, Pacheco & Lenaerts 2006 replication) and
-../replication-extension-swarm/ (the swarm update rule). Decided by
+../replication-extension-swarm-learning/ (the swarm update rule). Decided by
 grilling (2026-09-23).
 
 QUESTION
@@ -19,7 +19,7 @@ DECISIONS, AND WHY
     and a "swarm minus imitation" difference map is drawn per network.
     The topology effect is clearest as a difference from the paper's rule.
   Swarm hyperparameters frozen at w=0.7, c1=c2=1.5 (same as
-    ../replication-extension-swarm/), so the network is the only thing
+    ../replication-extension-swarm-learning/), so the network is the only thing
     that changes. Fixing the personal-best anchoring found in that folder's
     CONCLUSIONS.txt is a separate experiment.
   Scale: same as ../reduced_scale_figures.py -- n=500 (n=200 for

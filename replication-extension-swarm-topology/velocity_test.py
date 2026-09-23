@@ -1,13 +1,13 @@
 """Tests the hypothesis in CONCLUSIONS.txt: with c1 > 0 agents never stop
 moving (two targets that disagree), and that ongoing motion is what breaks
-stable cooperator clusters. Same loop as ../replication-extension-swarm/
+stable cooperator clusters. Same loop as ../replication-extension-swarm-learning/
 main_swarm.py's run_swarm(), but it also records velocities and targets,
 which run_swarm() doesn't return."""
 import random
 import sys
 
 sys.path.insert(0, "..")
-sys.path.insert(0, "../replication-extension-swarm")
+sys.path.insert(0, "../replication-extension-swarm-learning")
 from network import build_network
 from payoff import compute_payoffs
 from swarm_update_rule import next_position

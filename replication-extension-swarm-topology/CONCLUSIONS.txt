@@ -56,7 +56,7 @@ A POSSIBLE EXPLANATION (hypothesis, NOT yet tested)
   edges. Cooperator clusters around hubs spread C to their neighbours.
   In swarm, the network only enters through one term, the pull toward the
   neighbourhood-best position, and the personal-best memory (see
-  ../replication-extension-swarm/CONCLUSIONS.txt) pulls against it.
+  ../replication-extension-swarm-learning/CONCLUSIONS.txt) pulls against it.
   If personal memory dominates, the network barely matters, which would
   explain why all three structured networks look the same.
   One way to test it: rerun with c1=0 (no personal memory) and see
@@ -94,7 +94,7 @@ THE HYPOTHESIS HOLDS
 THE PD CORNER IS NOW REAL COOPERATION (checked, not assumed)
   Instrumented one scale_free run with c1=0 (seed 1, 360 generations; the
   command is the same as the CONCLUSIONS diagnostic in
-  ../replication-extension-swarm/, with c1=0.0 passed to next_position):
+  ../replication-extension-swarm-learning/, with c1=0.0 passed to next_position):
     T=1.5, S=-0.5: 456/500 cooperate; the same 456 in ALL of the last 60
                    generations (no flicker); all top-25 hubs are stable C.
     T=2.0, S=-0.5: 41/500 cooperate, again the same 41 every generation;

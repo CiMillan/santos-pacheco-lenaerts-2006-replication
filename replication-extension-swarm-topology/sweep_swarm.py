@@ -4,7 +4,7 @@ point calls run_batch_swarm() instead of the paper's run_batch()."""
 import sys
 
 sys.path.insert(0, "..")
-sys.path.insert(0, "../replication-extension-swarm")
+sys.path.insert(0, "../replication-extension-swarm-learning")
 from main import average_trace
 from main_swarm import run_batch_swarm
 
@@ -15,7 +15,7 @@ def sweep_swarm(network_kind, n, generations, T_values, S_values, R, P, num_real
     Runs run_batch_swarm() at every (T, S) combination in the grid.
     tail: average the last `tail` generations of the averaged trace (same
     reason as ../sweep.py -- a single last point is noisier than needed).
-    w, c1, c2: PSO coefficients, defaults as in ../replication-extension-swarm/.
+    w, c1, c2: PSO coefficients, defaults as in ../replication-extension-swarm-learning/.
     Returns {(T, S): average cooperation fraction}, the same shape as
     ../sweep.py, so ../plot.py can draw it unchanged.
     """

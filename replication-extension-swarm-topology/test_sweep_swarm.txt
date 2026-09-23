@@ -29,4 +29,4 @@ Two expected differences from imitation's table (not bugs):
     across it, so a few agents are always "C" by chance.
   - Swarm is lower than imitation in the middle of the grid (e.g. T=1.5,
     S=0.0: 0.17 vs. imitation's 0.33) -- the personal-best anchoring to
-    defection described in ../replication-extension-swarm/CONCLUSIONS.txt.
+    defection described in ../replication-extension-swarm-learning/CONCLUSIONS.txt.

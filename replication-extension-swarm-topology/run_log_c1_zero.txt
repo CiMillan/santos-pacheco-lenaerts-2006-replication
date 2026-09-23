@@ -1,0 +1,12 @@
+complete (n=200) -- swarm c1=0... (0s elapsed)
+single_scale (n=500) -- swarm c1=0... (472s elapsed)
+scale_free_random (n=500) -- swarm c1=0... (545s elapsed)
+scale_free (n=500) -- swarm c1=0... (626s elapsed)
+
+network            imit grid  c1=0 grid  c1=1.5 grid
+complete               0.489      0.448        0.591
+single_scale           0.566      0.759        0.579
+scale_free_random      0.616      0.866        0.569
+scale_free             0.653      0.876        0.579
+
+saved c1_zero_results.json + topology_c1_zero.png (695s total)

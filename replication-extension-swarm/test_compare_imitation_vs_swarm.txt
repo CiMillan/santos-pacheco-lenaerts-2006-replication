@@ -1,0 +1,27 @@
+cd ~/Desktop/cooperation-atlas/replications/santos-pacheco-lenaerts-2006/replication-extension-swarm
+python3 compare_imitation_vs_swarm.py
+
+Expected output (seed makes it exact for this codebase; treat the pattern
+-- imitation clearly beats swarm here -- as the thing to check, not the
+exact decimals):
+Running imitation...
+  final cooperation (avg of last 60 gens): 0.899
+Running swarm...
+  final cooperation (avg of last 60 gens): 0.326
+saved imitation_vs_swarm.png (5s elapsed)
+
+Why: same fixed Prisoner's Dilemma (T=1.2, S=-0.1), same scale_free network,
+same reduced-scale settings (n=500, 10 realizations, 300-gen transient +
+60-gen averaging window) as ../reduced_scale_figures.py, so the only thing
+that differs between the two runs is the strategy-update mechanism. The
+imitation trace climbs steadily from the 50/50 start toward ~90%
+cooperation, matching the pattern already validated in ../test_main.txt and
+../ARCHITECTURE.txt for this (T,S) point. The swarm trace instead drops and
+settles into a noisy plateau around 30-35% cooperation -- PSO's
+neighborhood-best pull doesn't reproduce the same runaway convergence to
+cooperation that payoff-biased imitation does at this dilemma strength.
+This is a real result, not a bug: the two mechanisms are expected to
+behave differently, and this is the whole point of building the
+comparison. What would count as a bug: identical traces for both
+mechanisms (would mean the swarm code isn't actually doing anything
+different), or a crash/NaN in either.

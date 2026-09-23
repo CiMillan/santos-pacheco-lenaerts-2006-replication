@@ -1,0 +1,123 @@
+Extension: imitation vs. swarm optimization as the strategy-update mechanism
+============================================================================
+Built on top of ../ (the Santos, Pacheco & Lenaerts 2006 replication).
+This is NOT a replication of any paper -- it's an original comparison asking
+whether swapping the paper's imitation-based update rule for a swarm/PSO-
+style update rule changes emergent cooperation, holding the game and network
+fixed. Decided by grilling (2026-09-23); recorded here so the reasoning
+survives past the conversation that produced it.
+
+WHY THIS EXISTS
+  Starting question: replace the paper's discrete C/D strategy with either
+  "IL" (imitation learning) or "swarm" (swarm optimization), as an
+  extension for the PhD's hybrid-human-AI-cooperation work. Once "IL" was
+  clarified to mean Imitation Learning specifically (not individual/
+  independent learning), it became clear ../update_rule.py's existing
+  pairwise-comparison rule already IS a textbook imitation-learning update
+  -- so there was no need to build a second imitation mechanism from
+  scratch. That collapsed the design from a three-way (imitation + IL +
+  swarm) or PGG-based comparison down to a clean two-way comparison:
+  the paper's own imitation rule vs. a new swarm rule, same game, same
+  network, same everything else.
+
+  A literature check (cooperation-atlas/data/papers.csv, 121 rows) found
+  no existing swarm/PSO precedent anywhere in the tracker -- this mechanism
+  is original, not adapted from a paper. tang-wang-xing-2025 (already
+  replicated, verified) has a directly relevant IL vs. RL formalization on
+  a Prisoner's Dilemma (payoff-biased imitation vs. experience-weighted
+  attraction), confirming the existing update_rule.py is a reasonable
+  stand-in for "the imitation arm" rather than something to rebuild.
+
+DECISIONS, AND WHY
+  Fixed game: Prisoner's Dilemma, R=1, S=-0.1, T=1.2, P=0 -- reuses the
+    demo values already in ../main.py's __main__ block, so there's one
+    less untested parameter choice in play.
+  Fixed network: scale_free only. The paper's headline finding is that
+    heterogeneous networks sustain cooperation better than homogeneous
+    ones; scale_free is that headline case, and reduced_scale_figures.py
+    already has known-working parameters for it. Comparing topologies too
+    is a possible follow-up once this comparison itself holds up.
+  Two-way comparison, not three-way: ../update_rule.py (imitation,
+    unchanged) vs. swarm_update_rule.py (new). No separate "IL" mechanism
+    -- see WHY THIS EXISTS above.
+  Strategy representation: BOTH mechanisms produce a discrete C/D action
+    every generation, so both play the exact same ../payoff.py, unmodified.
+    Swarm agents hold a continuous position in [0,1] internally (their
+    "cooperation tendency") and threshold it at 0.5 to get the C/D action
+    that's actually played. This was chosen over a continuous/mixed-
+    strategy expected-payoff scheme specifically so the two mechanisms are
+    compared on an identical payoff definition -- the mixed-strategy
+    version is a bigger, separate step if wanted later.
+  Swarm mechanics (swarm_update_rule.py):
+    - Position in [0,1], velocity clamped to [-1,1] each step, position
+      clipped to [0,1] after moving.
+    - Personal best: each agent remembers its own best-ever position and
+      the payoff it earned there, updated every generation.
+    - Neighborhood best ("local best" PSO, not "global best"): among an
+      agent's graph neighbors AND the agent itself, whichever has the
+      highest payoff THIS generation. Including the agent itself in that
+      comparison means an agent that's already the best performer in its
+      neighborhood isn't pulled toward something worse just because it has
+      no better neighbor -- the pull term becomes zero for it instead.
+      Chosen over global best because it reuses the graph structure
+      network.py already builds, consistent with the whole project's
+      "topology matters" framing.
+    - Fitness for both personal-best and neighborhood-best comparisons is
+      that generation's payoff from payoff.py, not a cumulative score --
+      matches how the paper's own imitation rule also compares one
+      generation's payoff at a time.
+    - Hyperparameters: inertia w=0.7, cognitive/social coefficients
+      c1=c2=1.5 -- standard textbook PSO defaults, not tuned for this
+      problem. Revisit if swarm behavior looks pathological (e.g. never
+      leaves its initial position, or oscillates without settling).
+  Folder structure: everything lives in this subfolder
+    (replication-extension-swarm/), importing ../main.py, ../network.py,
+    ../payoff.py directly rather than duplicating them. Keeps the parent
+    directory a clean, untouched replication of the paper; this folder is
+    explicitly the "built on top of it" extension.
+  Scale: reuses reduced_scale_figures.py's exact validated numbers --
+    n=500, 10 realizations, 300-generation transient + 60-generation
+    averaging window. Same scale as the already-working scale_free run,
+    so results are comparable and known to finish in a reasonable time
+    rather than requiring a fresh timing check.
+
+FILES
+  swarm_update_rule.py   next_position() -- the swarm analogue of
+                         ../update_rule.py's next_strategy(): one agent's
+                         new (position, velocity) for the next generation.
+  main_swarm.py          run_swarm() / run_batch_swarm() -- the swarm
+                         analogue of ../main.py's run()/run_batch(), same
+                         structure (build network, loop generations of
+                         payoff -> update, record cooperation trace).
+                         Reuses ../main.py's average_trace() directly --
+                         that function is mechanism-agnostic, no need to
+                         duplicate it.
+  plot_comparison.py     plot_traces() -- draws one or more named
+                         cooperation-fraction-over-generations traces on a
+                         single panel with a legend. Doesn't run any
+                         simulation itself, just visualizes traces produced
+                         elsewhere.
+  compare_imitation_vs_swarm.py
+                         The runnable experiment script: runs both
+                         mechanisms at the fixed PD/scale_free/reduced-
+                         scale settings above, plots both traces together,
+                         saves the comparison figure.
+
+TEST FILES
+  One per function/file above, same convention as the parent directory:
+  a plain .txt with the exact terminal command, the real captured output,
+  and a short "why" explaining what the output means.
+
+CONCLUSIONS.txt
+  Separate from this file on purpose: ARCHITECTURE.txt is decisions made
+  BEFORE building; CONCLUSIONS.txt is findings discovered AFTER running --
+  specifically, why swarm plateaus well below imitation instead of
+  catching up (a structural mismatch between PSO's best-ever-fitness
+  memory and a frequency-dependent payoff landscape, confirmed by
+  instrumenting a run, not assumed).
+
+STILL UNDECIDED / NOT YET DONE
+  - Swarm hyperparameters (w, c1, c2) are textbook defaults, not tuned or
+    validated against this specific problem's dynamics.
+  - No topology sweep for the swarm mechanism (only scale_free tested).
+  - No mixed-strategy/continuous-payoff variant built.

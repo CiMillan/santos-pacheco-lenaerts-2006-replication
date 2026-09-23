@@ -126,6 +126,15 @@ individuals tend to imitate the strategies of those performing better." Refs 18 
   - Open Problem 3: DUPOC(k) vs CUPOD(k), conjectured (D,C), unsolved.
   - Open Problem 9: does a bounded PrudentBot exist? If so, study population dynamics among
     CooperateBots, DefectBots, DUPOCs and PrudentBots, with proof-search cost in the payoffs.
+- Sistla, S. & Kleiman-Weiner, M. (2026). Evaluating LLMs in open-source games. *Advances in
+  Neural Information Processing Systems* 38, 104032–104063. arXiv:2512.00371.
+  https://arxiv.org/abs/2512.00371
+  — **Open source.** LLMs write the programs themselves in open-source games (Iterated
+  Prisoner's Dilemma and the Coin Game). The resulting program strategies are studied one-on-one
+  and under replicator dynamics in a well-mixed population. Closest recent work to this
+  extension. Differences: their programs are LLM-written, not provability-logic bots; their
+  population has no network; and they don't put a cost on reading code. Our extension adds
+  both network structure and a proof cost.
 - Math for AI Safety — Open-source game theory.
   https://mathforaisafety.org/research/open-source-game-theory
   — **Open source.** Plain-language intro: FairBot, Löb's theorem, DUPOC/CUPOD, bounded

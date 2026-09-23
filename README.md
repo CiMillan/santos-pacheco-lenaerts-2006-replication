@@ -43,3 +43,6 @@ Requires Python 3.9+, `networkx`, `numpy` and `matplotlib`.
   the imitation rule is replaced by a particle-swarm (PSO) learning rule on one fixed network.
 - **Swarm topology** ([`replication-extension-swarm-topology/`](replication-extension-swarm-topology/)):
   the swarm learning rule on all four networks. Does the topology effect survive?
+- **Open-source game theory** ([`replication-extension-open-source/`](replication-extension-open-source/)):
+  agents hold programs that read each other's code (FairBot, PrudentBot, ...). Does the network
+  still matter, and what if reading code has a cost?

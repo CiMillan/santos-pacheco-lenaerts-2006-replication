@@ -1,4 +1,4 @@
-# Extension 3 — Open-source game theory: agents that read each other's code
+# Extension 4 — Open-source game theory: agents that read each other's code
 
 **Question.** Under imitation, heterogeneous networks promote cooperation (the paper's
 result). Does network structure still matter when agents can read each other's source code

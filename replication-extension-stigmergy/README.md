@@ -1,4 +1,4 @@
-# Extension 4 — Stigmergic imitation: learning from traces in the environment
+# Extension 3 — Stigmergic imitation: learning from traces in the environment
 
 **Question.** Under imitation, heterogeneous networks promote cooperation (the paper's
 result). Does that still hold when agents learn from a fading record left at each node,

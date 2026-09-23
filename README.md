@@ -49,26 +49,69 @@ Requires Python 3.9+, `networkx`, `numpy` and `matplotlib`.
 
 ## References
 
-Full list, with notes on where each one is used: [`REFERENCES.md`](REFERENCES.md).
+Notes on where each reference is used: [`REFERENCES.md`](REFERENCES.md).
 
-**Base paper.** Santos, Pacheco & Lenaerts (2006), *PNAS* 103(9), 3490–3494.
+### Base paper
 
-**Foundations and framing.** Nowak (2006), *Five rules for the evolution of cooperation*,
-Science · Pedreschi et al. (2025), *Human-AI coevolution*, Artificial Intelligence ·
-Hammond et al. (2025), *Multi-Agent Risks from Advanced AI*, arXiv:2502.14143.
+- Santos, F. C., Pacheco, J. M. & Lenaerts, T. (2006). Evolutionary dynamics of social dilemmas
+  in structured heterogeneous populations. *PNAS* 103(9), 3490–3494.
 
-**Networks.** Erdős & Rényi (1959), *On random graphs I* · Barabási & Albert (1999),
-*Emergence of scaling in random networks*, Science · Santos & Pacheco (2005), *Scale-free
-networks provide a unifying framework for the emergence of cooperation*, PRL.
+### Foundations and framing
 
-**Imitation rule.** Hauert & Doebeli (2004), Nature · Gintis (2000), *Game Theory Evolving*
-(refs 18 and 30 of the base paper).
+- Nowak, M. A. (2006). Five rules for the evolution of cooperation. *Science* 314(5805), 1560–1563.
+- Pedreschi, D., Pappalardo, L., Ferragina, E., et al. (2025). Human-AI coevolution.
+  *Artificial Intelligence* 339, 104244.
+- Hammond, L., Chan, A., Clifton, J., et al. (2025). *Multi-Agent Risks from Advanced AI.*
+  Cooperative AI Foundation, Technical Report #1. arXiv:2502.14143.
 
-**Particle swarm (swarm extensions).** Kennedy & Eberhart (1995) · Shi & Eberhart (1998) ·
-Eberhart & Shi (2000) · Clerc & Kennedy (2002) · Kennedy (1999) · Kennedy & Mendes (2002) ·
-Carlisle & Dozier (2000) · Hu & Eberhart (2002).
+### Networks
 
-**Open-source game theory.** Critch, Dennis & Russell (2022), arXiv:2208.07006 (main paper) ·
-Sistla & Kleiman-Weiner (2026), *Evaluating LLMs in open-source games*, NeurIPS ·
-Barasz et al. (2014) · LaVictoire et al. (2014) · Tennenholtz (2004) · Critch (2019) ·
-Kalai et al. (2010).
+- Erdős, P. & Rényi, A. (1959). On random graphs I. *Publicationes Mathematicae Debrecen* 6, 290–297.
+- Barabási, A.-L. & Albert, R. (1999). Emergence of scaling in random networks. *Science* 286(5439),
+  509–512.
+- Santos, F. C. & Pacheco, J. M. (2005). Scale-free networks provide a unifying framework for the
+  emergence of cooperation. *Physical Review Letters* 95, 098104.
+
+### Imitation update rule
+
+- Hauert, C. & Doebeli, M. (2004). Spatial structure often inhibits the evolution of cooperation
+  in the snowdrift game. *Nature* 428, 643–646.
+- Gintis, H. (2000). *Game Theory Evolving.* Princeton University Press.
+
+### Particle swarm optimization (swarm extensions)
+
+- Kennedy, J. & Eberhart, R. (1995). Particle swarm optimization. *Proceedings of ICNN'95*,
+  1942–1948.
+- Shi, Y. & Eberhart, R. (1998). A modified particle swarm optimizer. *IEEE International
+  Conference on Evolutionary Computation*, 69–73.
+- Eberhart, R. C. & Shi, Y. (2000). Comparing inertia weights and constriction factors in particle
+  swarm optimization. *Proceedings of the 2000 Congress on Evolutionary Computation*, 84–88.
+- Clerc, M. & Kennedy, J. (2002). The particle swarm — explosion, stability, and convergence in a
+  multidimensional complex space. *IEEE Transactions on Evolutionary Computation* 6(1), 58–73.
+- Kennedy, J. (1999). Small worlds and mega-minds: effects of neighborhood topology on particle
+  swarm performance. *Proceedings of the 1999 Congress on Evolutionary Computation.*
+- Kennedy, J. & Mendes, R. (2002). Population structure and particle swarm performance.
+  *Proceedings of the 2002 Congress on Evolutionary Computation.*
+- Carlisle, A. & Dozier, G. (2000). Adapting particle swarm optimization to dynamic environments.
+  *Proceedings of ICAI 2000.*
+- Hu, X. & Eberhart, R. C. (2002). Adaptive particle swarm optimization: detection and response to
+  dynamic systems. *Proceedings of the 2002 Congress on Evolutionary Computation.*
+
+### Open-source game theory
+
+- Critch, A., Dennis, M. & Russell, S. (2022). Cooperative and uncooperative institution designs:
+  Surprises and problems in open-source game theory. arXiv:2208.07006. *(Main paper for this
+  extension.)*
+- Sistla, S. & Kleiman-Weiner, M. (2026). Evaluating LLMs in Open-Source Games. *Advances in Neural
+  Information Processing Systems* 38, 104032–104063.
+- Barasz, M., Christiano, P., Fallenstein, B., Herreshoff, M., LaVictoire, P. & Yudkowsky, E.
+  (2014). Robust cooperation in the Prisoner's Dilemma: Program equilibrium via provability logic.
+  arXiv:1401.5577.
+- LaVictoire, P., Fallenstein, B., Yudkowsky, E., Barasz, M., Christiano, P. & Herreshoff, M.
+  (2014). Program equilibrium in the prisoner's dilemma via Löb's theorem. *AAAI Workshop on
+  Multiagent Interaction without Prior Coordination.*
+- Tennenholtz, M. (2004). Program equilibrium. *Games and Economic Behavior* 49(2), 363–373.
+- Critch, A. (2019). A parametric, resource-bounded generalization of Löb's theorem, and a robust
+  cooperation criterion for open-source game theory. *Journal of Symbolic Logic* 84(4), 1368–1381.
+- Kalai, A. T., Kalai, E., Lehrer, E. & Samet, D. (2010). A commitment folk theorem. *Games and
+  Economic Behavior* 69(1), 127–137.

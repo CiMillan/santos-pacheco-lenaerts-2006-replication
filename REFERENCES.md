@@ -73,8 +73,8 @@ One list for the replication and all its extensions. Under each reference:
     cooperation or an attack. Differences: small hand-built graphs, no game or payoffs, and
     no evolution.
 
-- Liu, Y., Zhang, G., Wang, K., Li, S. & Pan, S. (2026). Graph-augmented large language model
-  agents: Current progress and future prospects. *IEEE Intelligent Systems* 41(2), 46–56.
+- Liu, Y., Zhang, G., Wang, K., Li, S., Pan, S. & An, B. (2026). Graph-augmented large language model
+  agents: Current progress and future prospects. *IEEE Intelligent Systems* 41(2), 45–55.
   https://doi.org/10.1109/MIS.2025.3642667
   - **Used in:** extensions (framing).
   - **Why:** a position paper surveying LLM multi-agent systems as graphs, where agents are

@@ -22,11 +22,11 @@ WHY THIS EXISTS
 
   A literature check (cooperation-atlas/data/papers.csv, 121 rows) found
   no existing swarm/PSO precedent anywhere in the tracker -- this mechanism
-  is original, not adapted from a paper. tang-wang-xing-2025 (already
-  replicated, verified) has a directly relevant IL vs. RL formalization on
-  a Prisoner's Dilemma (payoff-biased imitation vs. experience-weighted
-  attraction), confirming the existing update_rule.py is a reasonable
-  stand-in for "the imitation arm" rather than something to rebuild.
+  is original, not adapted from a paper. The imitation arm is the base
+  paper's own rule, which Santos et al. 2006 describe as the finite-
+  population analog of replicator dynamics, modelling individuals who
+  imitate those performing better (see ../REFERENCES.md). So it is kept
+  as-is rather than rebuilt.
 
 DECISIONS, AND WHY
   Fixed game: Prisoner's Dilemma, R=1, S=-0.1, T=1.2, P=0 -- reuses the

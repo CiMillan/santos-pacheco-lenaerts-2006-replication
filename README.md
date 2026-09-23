@@ -46,3 +46,28 @@ Requires Python 3.9+, `networkx`, `numpy` and `matplotlib`.
 - **Open-source game theory** ([`replication-extension-open-source/`](replication-extension-open-source/)):
   agents hold programs that read each other's code (FairBot, PrudentBot, ...). Does the network
   still matter, and what if reading code has a cost?
+
+## References
+
+Full list, with notes on where each one is used: [`REFERENCES.md`](REFERENCES.md).
+
+**Base paper.** Santos, Pacheco & Lenaerts (2006), *PNAS* 103(9), 3490–3494.
+
+**Foundations and framing.** Nowak (2006), *Five rules for the evolution of cooperation*,
+Science · Pedreschi et al. (2025), *Human-AI coevolution*, Artificial Intelligence ·
+Hammond et al. (2025), *Multi-Agent Risks from Advanced AI*, arXiv:2502.14143.
+
+**Networks.** Erdős & Rényi (1959), *On random graphs I* · Barabási & Albert (1999),
+*Emergence of scaling in random networks*, Science · Santos & Pacheco (2005), *Scale-free
+networks provide a unifying framework for the emergence of cooperation*, PRL.
+
+**Imitation rule.** Hauert & Doebeli (2004), Nature · Gintis (2000), *Game Theory Evolving*
+(refs 18 and 30 of the base paper).
+
+**Particle swarm (swarm extensions).** Kennedy & Eberhart (1995) · Shi & Eberhart (1998) ·
+Eberhart & Shi (2000) · Clerc & Kennedy (2002) · Kennedy (1999) · Kennedy & Mendes (2002) ·
+Carlisle & Dozier (2000) · Hu & Eberhart (2002).
+
+**Open-source game theory.** Critch, Dennis & Russell (2022), arXiv:2208.07006 (main paper) ·
+Barasz et al. (2014) · LaVictoire et al. (2014) · Tennenholtz (2004) · Critch (2019) ·
+Kalai et al. (2010).

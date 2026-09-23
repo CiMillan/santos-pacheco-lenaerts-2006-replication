@@ -58,5 +58,5 @@ because some of their pairings are unsolved. Code-readers start at 60% of the po
 and invasion from a small minority is not tested. CliqueBot pays the same cost as a proof,
 although its check is cheaper.
 
-Details: `ARCHITECTURE.txt`, `CONCLUSIONS.txt`, `REFERENCES.txt`, `test_*.txt`. Main
+Details: `ARCHITECTURE.txt`, `CONCLUSIONS.txt`, `test_*.txt` (sources: [`../REFERENCES.md`](../REFERENCES.md)). Main
 scripts: `open_source_experiment.py`, `cost_experiment.py <cost>`.

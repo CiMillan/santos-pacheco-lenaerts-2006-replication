@@ -2,7 +2,7 @@ Extension: open-source game theory (agents that read each other's code)
 =====================================================================
 Built on top of ../ (the Santos, Pacheco & Lenaerts 2006 replication) and
 compared against ../replication-extension-swarm-topology/. Decided by
-grilling (2026-09-23). Sources are in REFERENCES.txt.
+grilling (2026-09-23). Sources are in ../REFERENCES.md.
 
 QUESTION
   In the paper, network structure sustains cooperation under imitation.

@@ -58,18 +58,20 @@ One list for the replication and all its extensions. Under each reference:
     2006 builds on it. It also explains the "cooperator clusters anchored on hubs" mechanism
     that Swarm topology found again at c1=0.
 
-- Yu, M., Wang, S., Zhang, G., Mao, J., Yin, C., Liu, Q., Wen, Q., Wang, K. & Wang, Y. (2024).
-  NetSafe: Exploring the topological safety of multi-agent network. arXiv:2410.15686.
-  https://arxiv.org/abs/2410.15686
+- Yu, M., Wang, S., Zhang, G., Mao, J., Yin, C., Liu, Q., Wang, K., Wen, Q. & Wang, Y. (2025).
+  NetSafe: Exploring the topological safety of multi-agent system. In *Findings of the
+  Association for Computational Linguistics: ACL 2025*, 2905–2938.
+  https://doi.org/10.18653/v1/2025.findings-acl.150
   - **Used in:** Swarm topology, extensions (framing).
   - **Why:** the same question as ours, "does network topology change the collective
     outcome?", asked for LLM agents instead of game players. The agents update each round by
     reading their neighbours' answers. That's like imitation: behaviour spreads along edges.
-    The result points the other way from Santos: well-connected, hub-centred networks (star,
-    complete) spread misinformation and harmful content fastest, while sparse ones (chain,
-    cycle) are safest. Together with the base paper, this means hubs amplify whatever
-    spreads, whether that's cooperation or an attack. Differences: small hand-built graphs
-    (about 6 nodes), no game or payoffs, and no evolution.
+    The result points the other way from Santos: highly connected, hub-centred systems (star,
+    complete) spread misinformation, bias and harmful content fastest, and larger systems are
+    more vulnerable too ("Security Bottleneck"). Sparse ones (chain, cycle) are safest.
+    Together with the base paper, this means hubs amplify whatever spreads, whether that's
+    cooperation or an attack. Differences: small hand-built graphs, no game or payoffs, and
+    no evolution.
 
 ## Imitation update rule (`update_rule.py`)
 

@@ -69,8 +69,8 @@ Notes on where each reference is used: [`REFERENCES.md`](REFERENCES.md).
   509–512.
 - Santos, F. C. & Pacheco, J. M. (2005). Scale-free networks provide a unifying framework for the
   emergence of cooperation. *Physical Review Letters* 95, 098104.
-- Yu, M., Wang, S., Zhang, G., et al. (2024). NetSafe: Exploring the topological safety of
-  multi-agent network. arXiv:2410.15686.
+- Yu, M., Wang, S., Zhang, G., et al. (2025). NetSafe: Exploring the topological safety of
+  multi-agent system. *Findings of ACL 2025*, 2905–2938.
 
 ### Imitation update rule
 

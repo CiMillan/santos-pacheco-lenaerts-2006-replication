@@ -34,12 +34,24 @@ The shape is reproduced but the exact values are not, and finite-size noise is l
 
 `main.py` (core loop) · `network.py` (the four graphs) · `payoff.py` · `update_rule.py`
 · `sweep.py` ((T, S) grid) · `plot.py` · `reduced_scale_figures.py` (makes the figures above).
-Each file has a `test_*.txt` with the command, expected output and interpretation.
+Each file has a test in [`tests/`](tests/) with the command, expected output and interpretation.
 Requires Python 3.9+, `networkx`, `numpy` and `matplotlib`.
 
 ## Extensions
 
-Row 0 is the base replication. Each row links to its folder.
+Row 0 is the base replication. Each row of the results table links to its folder.
+
+**Scripts.** Root scripts are never edited. *Changed* = a variant of a root script
+(root → variant). *Created* = no root counterpart. Each folder keeps its tests in `tests/`.
+
+| # | Scripts changed | Scripts created |
+|---|---|---|
+| 0 | — | [`main.py`](main.py), [`network.py`](network.py), [`payoff.py`](payoff.py), [`update_rule.py`](update_rule.py), [`sweep.py`](sweep.py), [`plot.py`](plot.py), [`reduced_scale_figures.py`](reduced_scale_figures.py) |
+| 1 | [`update_rule.py`](update_rule.py) → [`swarm_update_rule.py`](replication-extension-swarm-learning/swarm_update_rule.py); [`main.py`](main.py) → [`main_swarm.py`](replication-extension-swarm-learning/main_swarm.py) | [`compare_imitation_vs_swarm.py`](replication-extension-swarm-learning/compare_imitation_vs_swarm.py), [`plot_comparison.py`](replication-extension-swarm-learning/plot_comparison.py) |
+| 2 | [`sweep.py`](sweep.py) → [`sweep_swarm.py`](replication-extension-swarm-topology/sweep_swarm.py); [`plot.py`](plot.py) → [`plot_topology.py`](replication-extension-swarm-topology/plot_topology.py) | [`topology_experiment.py`](replication-extension-swarm-topology/topology_experiment.py), [`c1_zero_experiment.py`](replication-extension-swarm-topology/c1_zero_experiment.py), [`c1_sweep.py`](replication-extension-swarm-topology/c1_sweep.py), [`velocity_test.py`](replication-extension-swarm-topology/velocity_test.py), [`plot_c1_curve.py`](replication-extension-swarm-topology/plot_c1_curve.py) |
+| 3 | [`main.py`](main.py) → [`main_os.py`](replication-extension-open-source/main_os.py); [`payoff.py`](payoff.py) → [`payoff_os.py`](replication-extension-open-source/payoff_os.py); [`sweep.py`](sweep.py) → [`sweep_os.py`](replication-extension-open-source/sweep_os.py) | [`programs.py`](replication-extension-open-source/programs.py), [`open_source_experiment.py`](replication-extension-open-source/open_source_experiment.py), [`cost_experiment.py`](replication-extension-open-source/cost_experiment.py) |
+
+**Results.**
 
 | # | Idea | Main results | Future work |
 |---|---|---|---|
@@ -47,16 +59,6 @@ Row 0 is the base replication. Each row links to its folder.
 | 1 | [**Swarm learning**](replication-extension-swarm-learning/): particle-swarm (PSO) learning instead of imitation; PD on one BA network | Cooperation 0.90 (imitation) → 0.33 (swarm). PSO's personal best anchors 89% of agents to stale defection windfalls | Decaying personal best; other (T, S) points |
 | 2 | [**Swarm topology**](replication-extension-swarm-topology/): swarm learning on all four networks; vary memory weight c₁ | Default c₁=1.5 erases the topology effect (all ≈0.58). c₁=0 restores it, stronger than imitation (BA 0.88 vs 0.65). Any memory (c₁≥0.25) kills stable PD clusters | c₁ between 0 and 0.25; decaying personal best; full scale |
 | 3 | [**Open-source game theory**](replication-extension-open-source/): agents hold programs that read each other's code; then add a code-reading cost | Free code-reading: ≈0.97–1.00 on every network, even in the PD; topology no longer matters. Cost ≥0.5 brings the network effect back; at 1.0 it matches plain imitation | Costs 0.3–0.4 to locate the switch; invasion by a few code-readers; bounded agents (CUPOD/DUPOC) |
-
-**Scripts.** Root scripts are never edited. *Changed* = a variant of a root script
-(root → variant). *Created* = no root counterpart.
-
-| # | Scripts changed | Scripts created |
-|---|---|---|
-| 0 | — | `main.py`, `network.py`, `payoff.py`, `update_rule.py`, `sweep.py`, `plot.py`, `reduced_scale_figures.py` |
-| 1 | `update_rule.py` → `swarm_update_rule.py`; `main.py` → `main_swarm.py` | `compare_imitation_vs_swarm.py`, `plot_comparison.py` |
-| 2 | `sweep.py` → `sweep_swarm.py`; `plot.py` → `plot_topology.py` | `topology_experiment.py`, `c1_zero_experiment.py`, `c1_sweep.py`, `velocity_test.py`, `plot_c1_curve.py` |
-| 3 | `main.py` → `main_os.py`; `payoff.py` → `payoff_os.py`; `sweep.py` → `sweep_os.py` | `programs.py`, `open_source_experiment.py`, `cost_experiment.py` |
 
 ## References
 

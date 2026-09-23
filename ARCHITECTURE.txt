@@ -41,7 +41,7 @@ TEST FILES (one per function/file above, each a plain .txt you can run
 yourself: the exact terminal command, the expected output, and a short
 "why" explaining what the output means and what would count as a bug
 vs. an expected result):
-  test_network.txt, test_payoff.txt, test_update_rule.txt, test_main.txt,
+  tests/: test_network.txt, test_payoff.txt, test_update_rule.txt, test_main.txt,
   test_main_batch.txt, test_100_networks.txt, test_network_types.txt,
   test_sweep.txt, test_plot.txt, test_plot_pair.txt
 

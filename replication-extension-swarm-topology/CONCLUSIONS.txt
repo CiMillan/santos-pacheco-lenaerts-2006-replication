@@ -44,7 +44,7 @@ FINDING 3 -- where swarm beats imitation: Stag Hunt, not PD
 CAUTION -- the Prisoner's Dilemma column is NOT evidence
   - Swarm's PD numbers (0.11-0.15) are the flicker floor, not cooperation.
     Agents oscillate across the 0.5 threshold, and no agent stays C
-    (checked by instrumentation, see test_sweep_swarm.txt).
+    (checked by instrumentation, see tests/test_sweep_swarm.txt).
   - Imitation's PD corner is 0.000 on EVERY network here, scale_free
     included. The paper's full-scale Fig. 3 shows scale-free sustaining
     some PD cooperation, so this is a reduced-scale limitation (n=500,
@@ -189,7 +189,7 @@ OPEN FOLLOW-UPS
 FOLLOW-UP RESULT: velocity test -- the "never stops moving" hypothesis holds
 ===========================================================================
 From velocity_test.py (motion_stats(); scale_free, n=500, 360 generations,
-last 60 measured, mean of seeds 1-3; about 8 s). Test: test_velocity.txt.
+last 60 measured, mean of seeds 1-3; about 8 s). Test: tests/test_velocity.txt.
 
 point                     c1   speed  stable C  target gap
 PD T=1.5,S=-0.5         0.00   0.000     0.599       0.452

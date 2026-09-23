@@ -42,5 +42,5 @@ paper. With c₁>0, swarm's PD values (~0.12) are threshold flicker, not coopera
 link between motion and broken clusters is a correlation (2 grid points, 3 seeds) and has
 not been shown to be causal.
 
-Details: `ARCHITECTURE.txt`, `CONCLUSIONS.txt`, `test_*.txt`. Main scripts:
+Details: `ARCHITECTURE.txt`, `CONCLUSIONS.txt`, `tests/`. Main scripts:
 `topology_experiment.py`, `c1_zero_experiment.py`, `c1_sweep.py <c1>`, `velocity_test.py`.

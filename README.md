@@ -88,8 +88,8 @@ Notes on where each reference is used: [`REFERENCES.md`](REFERENCES.md).
   emergence of cooperation. *Physical Review Letters* 95, 098104.
 - Yu, M., Wang, S., Zhang, G., et al. (2025). NetSafe: Exploring the topological safety of
   multi-agent system. *Findings of ACL 2025*, 2905–2938.
-- Liu, Y., Zhang, G., Wang, K., Li, S. & Pan, S. (2026). Graph-augmented large language model
-  agents: Current progress and future prospects. *IEEE Intelligent Systems* 41(2), 46–56.
+- Liu, Y., Zhang, G., Wang, K., Li, S., Pan, S. & An, B. (2026). Graph-augmented large language model
+  agents: Current progress and future prospects. *IEEE Intelligent Systems* 41(2), 45–55.
 
 ### Imitation update rule
 

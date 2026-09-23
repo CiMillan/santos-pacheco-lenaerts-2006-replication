@@ -1,0 +1,55 @@
+cd ~/Desktop/cooperation-atlas/replications/santos-pacheco-lenaerts-2006/replication-extension-stigmergy
+python3 -c "
+import random, sys
+sys.path.insert(0, '..')
+from network import build_network
+from stigmergy_update_rule import next_strategy
+
+g = build_network('complete', 2)
+strategies = {0: 'D', 1: 'C'}
+T, S = 2, -1
+rng = random.Random(42)
+
+# Case 1: y's CURRENT payoff is 0, but its TRACE is 1 -> expect switch rate 1/3
+payoffs = {0: 0.0, 1: 0.0}
+traces = {0: 0.0, 1: 1.0}
+sw = sum(next_strategy(g, 0, strategies, payoffs, traces, T, S, rng) == 'C' for _ in range(20000))
+print('trace higher, payoff equal :', sw / 20000, '(expect close to 0.333)')
+
+# Case 2: y's CURRENT payoff is 1, but its TRACE is 0 -> expect never switch
+payoffs = {0: 0.0, 1: 1.0}
+traces = {0: 0.0, 1: 0.0}
+sw = sum(next_strategy(g, 0, strategies, payoffs, traces, T, S, rng) == 'C' for _ in range(20000))
+print('payoff higher, trace equal :', sw / 20000, '(expect exactly 0.0)')
+"
+
+Expected output (case 1 is random, so the exact number varies with the seed):
+trace higher, payoff equal : 0.33585 (expect close to 0.333)
+payoff higher, trace equal : 0.0 (expect exactly 0.0)
+
+Why: this is ../test_update_rule.txt's setup (a defector next to one
+cooperator, T=2, S=-1, so k>=1 and D>=3), split in two to show which number
+the rule reads. Case 1: the neighbour earns nothing NOW, but its trace says 1,
+so x switches with probability (1-0)/(1*3) = 1/3 -- the same rate the paper's
+rule gives when the current payoff is 1. Case 2: the neighbour earns 1 NOW,
+but its trace is still 0, so x never switches. A bug would show up as case 2
+switching (the rule is reading current payoffs) or case 1 staying at 0 (it is
+ignoring traces).
+
+--- offered (added with the strategy-memory control) ---
+python3 -c "
+import random, sys
+sys.path.insert(0, '..')
+from network import build_network
+from stigmergy_update_rule import next_strategy
+g = build_network('complete', 2); rng = random.Random(42)
+sw = sum(next_strategy(g, 0, {0:'D',1:'C'}, {0:0.0,1:0.0}, {0:0.0,1:1.0}, 2, -1, rng, offered={0:'D',1:'D'}) == 'C' for _ in range(20000))
+print('neighbour plays C but remembers D -> switch to C:', sw / 20000)
+"
+
+Expected output:
+neighbour plays C but remembers D -> switch to C: 0.0
+
+Why: case 1's setup, but the neighbour's remembered strategy is D. When x
+is persuaded by the trace, it copies what is OFFERED (the remembered D),
+never the neighbour's current C.

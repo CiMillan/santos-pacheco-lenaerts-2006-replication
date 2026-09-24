@@ -125,7 +125,7 @@ Notes on where each reference is used: [`REFERENCES.md`](REFERENCES.md).
 ### Particle swarm optimization (swarm extensions)
 
 - Pal, S., Wang, F. Y. & Buehler, M. J. (2026). SwarmWorld: Stigmergic technological evolution
-  in societies of language-model agents. arXiv:2608.26081. *(Motivated the swarm extensions and the stigmergy extension.)* [Google Scholar](https://scholar.google.com/scholar?q=%22SwarmWorld%3A+Stigmergic+technological+evolution+in+societies+of+language-model+agents%22+Pal)
+  in societies of language-model agents. arXiv:2608.26081. [Google Scholar](https://scholar.google.com/scholar?q=%22SwarmWorld%3A+Stigmergic+technological+evolution+in+societies+of+language-model+agents%22+Pal)
 - Kennedy, J. & Eberhart, R. (1995). Particle swarm optimization. *Proceedings of ICNN'95*,
   1942–1948. [Google Scholar](https://scholar.google.com/scholar?q=%22Particle+swarm+optimization%22+Kennedy)
 - Shi, Y. & Eberhart, R. (1998). A modified particle swarm optimizer. *IEEE International

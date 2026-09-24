@@ -3,9 +3,9 @@
 **Question.** If the paper's imitation rule is replaced with particle-swarm optimisation
 (PSO), holding the game and network fixed, what happens to cooperation?
 
-**Model.** Everything else is the same as the replication: a Prisoner's Dilemma
-($T=1.2$, $S=-0.1$) on a Barabási–Albert network with $N=500$, 10 realizations and 300 + 60
-generations. Each agent holds a position $x \in [0,1]$ and plays C if $x > 0.5$. Its velocity is
+**Model.** Instead of the replication's whole $(T, S)$ grid, one Prisoner's Dilemma
+($T=1.2$, $S=-0.1$) on a Barabási–Albert network, at the replication's scale: $N=500$,
+10 realizations and 300 + 60 generations. Each agent holds a position $x \in [0,1]$ and plays C if $x > 0.5$. Its velocity is
 updated as
 
 $$v \leftarrow w \cdot v + c_1 r_1 (p - x) + c_2 r_2 (\ell - x), \qquad x \leftarrow x + v,$$

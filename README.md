@@ -11,12 +11,13 @@ $x$ picks a random neighbour $y$ and, if $P_y > P_x$, adopts $y$'s strategy with
 
 $$p = \frac{P_y - P_x}{k_{>} \cdot D_{>}}, \qquad k_{>} = \max(k_x, k_y), \qquad D_{>} = \max(T, 1) - \min(S, 0),$$
 
-where $k_x$ is the number of neighbours of $x$, and $D_{>}$ is the largest possible payoff
-difference in one game. Four networks: complete, single-scale, random scale-free and
-Barabási–Albert scale-free (average degree 4).
+where $P_x$ is the total payoff of $x$ over all its games (not the punishment payoff $P$), $k_x$
+is the number of neighbours of $x$, and $D_{>}$ is the largest possible payoff difference in one
+game. Four networks: complete, single-scale, random scale-free and Barabási–Albert scale-free.
+The three sparse ones have average degree 4; in the complete graph everyone is linked to everyone.
 
 **Result.** The shape of the paper's Figs. 2–3 is reproduced: heterogeneous networks sustain
-cooperation over a larger region of (T, S). Mean cooperation over the grid rises from 0.49
+cooperation over a larger region of $(T, S)$. Mean cooperation over the grid rises from 0.49
 (complete) to 0.57 (single-scale), 0.62 (random scale-free) and 0.65 (Barabási–Albert).
 
 | Complete vs. single-scale (cf. Fig. 2) | Random vs. BA scale-free (cf. Fig. 3) |
@@ -29,14 +30,14 @@ cooperation over a larger region of (T, S). Mean cooperation over the grid rises
 |---|---|---|
 | Population N | 10,000 | 500 (200 for complete) |
 | Generations (transient + averaged) | 10,000 + 1,000 | 300 + 60 |
-| Realizations per (T, S) point | 100 | 10 |
+| Realizations per $(T, S)$ point | 100 | 10 |
+
+The shape is reproduced but the exact values are not, and finite-size noise is larger.
 
 The code is not vectorized yet, on purpose: it is written as plain loops, one function per file,
 so it can be read and checked line by line against the paper. At the paper's scale it would
 take about 12 years on one core; a vectorized version would take about 7 hours (estimates).
 Timings and the prototype behind them: [`timing/`](timing/).
-
-The shape is reproduced but the exact values are not, and finite-size noise is larger.
 
 ## Code
 
@@ -44,11 +45,14 @@ The shape is reproduced but the exact values are not, and finite-size noise is l
 - [`payoff.py`](payoff.py): each agent plays every neighbour once per generation and adds up its payoffs.
 - [`update_rule.py`](update_rule.py): the paper's imitation rule. An agent compares itself with one random neighbour and may copy that neighbour's strategy.
 - [`main.py`](main.py): the core loop. It builds the network, gives out random strategies, then repeats payoff and update each generation. It also runs and averages several realizations.
-- [`sweep.py`](sweep.py): runs the loop at every (T, S) point of the grid and returns the final cooperation level at each one.
-- [`plot.py`](plot.py): turns the sweep results into (T, S) heatmaps like Figs. 2–3.
+- [`sweep.py`](sweep.py): runs the loop at every $(T, S)$ point of the grid and returns the average cooperation over the last generations at each one.
+- [`plot.py`](plot.py): turns the sweep results into $(T, S)$ heatmaps like Figs. 2–3.
 - [`reduced_scale_figures.py`](reduced_scale_figures.py): makes the two figures above at reduced scale and saves them in [`figures/`](figures/).
 - [`ARCHITECTURE.txt`](ARCHITECTURE.txt): design decisions and timings.
 - [`tests/`](tests/): one test per file, with the command, the expected output and what it means.
+
+Also here: [`replications/`](replications/) (the extensions, below), [`timing/`](timing/) (run times)
+and [`REFERENCES.md`](REFERENCES.md) (where each reference is used).
 
 Requires Python 3.9+, `networkx`, `numpy` and `matplotlib`.
 
@@ -63,7 +67,7 @@ Each extension changes one part of the base model and holds the rest fixed:
 | 3 | [**Stigmergic imitation**](replications/replication-extension-stigmergy/): what agents copy from, a neighbour's current payoff vs. a fading trace left at its node (memory $\lambda$) | imitation rule, four networks, $(T, S)$ grid |
 | 4 | [**Open-source game theory**](replications/replication-extension-open-source/): what agents hold, a plain strategy vs. a program that reads the other's code; then a code-reading cost | imitation rule, four networks, $(T, S)$ grid |
 
-**Scripts.** Row 0 is the base replication. Root scripts are never edited. *Changed* = a variant of a root script
+**Scripts.** Row 0 is the base replication. Extensions never edit root scripts. *Changed* = a variant of a root script
 (root → variant). *Created* = no root counterpart. Each folder keeps its tests in `tests/`.
 
 | # | Scripts changed | Scripts created |
@@ -80,9 +84,9 @@ reduced-scale run of the paper's model (row 0), so every comparison uses the sam
 
 | # | Idea | Main result vs. the paper |
 |---|---|---|
-| 0 | **Base replication**: Santos et al. (2006), imitation on four networks over the (T, S) grid | **Heterogeneous networks sustain more cooperation, as in the paper:** Barabási–Albert 0.65 vs. complete 0.49 (shape reproduced, exact values not, at reduced scale). |
+| 0 | **Base replication**: Santos et al. (2006), imitation on four networks over the $(T, S)$ grid | **Heterogeneous networks sustain more cooperation, as in the paper:** Barabási–Albert 0.65 vs. complete 0.49 (shape reproduced, exact values not, at reduced scale). |
 | 1 | [**Swarm learning**](replications/replication-extension-swarm-learning/): particle-swarm (PSO) learning instead of the paper's imitation; PD on the BA network | **Replacing imitation with PSO cuts cooperation from 0.90 to 0.33,** because each agent's personal best keeps pulling it back to an old defection windfall. |
-| 2 | [**Swarm topology**](replications/replication-extension-swarm-topology/): swarm learning on all four networks; vary memory weight c₁ | **The paper's topology effect survives only for learners without self-memory:** default PSO flattens every network to ≈0.58, while PSO with no personal memory (c₁=0) makes the effect stronger than the paper's (BA 0.88 vs. 0.65). |
+| 2 | [**Swarm topology**](replications/replication-extension-swarm-topology/): swarm learning on all four networks; vary memory weight $c_1$ | **The paper's topology effect survives only for learners without self-memory:** default PSO flattens every network to ≈0.58, while PSO with no personal memory ($c_1=0$) makes the effect stronger than the paper's (BA 0.88 vs. 0.65). |
 | 3 | [**Stigmergic imitation**](replications/replication-extension-stigmergy/): agents read a fading payoff trace left at each node instead of the neighbour's current payoff (idea from SwarmWorld) | **A remembered payoff is harmless; a remembered strategy weakens network reciprocity** (BA–complete gap 0.16 → 0.12), but far less than PSO's private, never-fading memory, which erased it. |
 | 4 | [**Open-source game theory**](replications/replication-extension-open-source/): agents hold programs that read each other's code; then add a code-reading cost | **When agents can read each other's code for free, the network stops mattering** (≈0.97–1.00 everywhere); the paper's effect returns only once code-reading costs 0.5 or more, and is back to the paper-rule values (within 0.01) at 1.0. |
 
@@ -139,8 +143,7 @@ Notes on where each reference is used: [`REFERENCES.md`](REFERENCES.md).
 ### Open-source game theory
 
 - Critch, A., Dennis, M. & Russell, S. (2022). Cooperative and uncooperative institution designs:
-  Surprises and problems in open-source game theory. arXiv:2208.07006. *(Main paper for this
-  extension.)* [Google Scholar](https://scholar.google.com/scholar?q=%22Cooperative+and+uncooperative+institution+designs%3A+Surprises+and+problems+in+open-source+game+theory%22+Critch)
+  Surprises and problems in open-source game theory. arXiv:2208.07006. [Google Scholar](https://scholar.google.com/scholar?q=%22Cooperative+and+uncooperative+institution+designs%3A+Surprises+and+problems+in+open-source+game+theory%22+Critch)
 - Sistla, S. & Kleiman-Weiner, M. (2026). Evaluating LLMs in Open-Source Games. *Advances in Neural
   Information Processing Systems* 38, 104032–104063. [Google Scholar](https://scholar.google.com/scholar?q=%22Evaluating+LLMs+in+Open-Source+Games%22+Sistla)
 - Barasz, M., Christiano, P., Fallenstein, B., Herreshoff, M., LaVictoire, P. & Yudkowsky, E.

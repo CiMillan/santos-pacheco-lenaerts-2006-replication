@@ -72,14 +72,15 @@ sweep.py) at increasing n, scale_free network, m=2 (z=4):
   run the paper's actual protocol at full scale (N=10,000, 100
   realizations, full grid) in any practical wall-clock time, especially
   for the complete-graph panel. This isn't a bug -- it's the expected
-  cost of prioritizing legible, function-per-file code (see
-  [[feedback-scientific-code-style]]) over vectorized performance.
-  Options for producing real figures, not yet decided as of 2026-09-21:
+  cost of prioritizing legible, function-per-file code over vectorized
+  performance.
+  Options for producing real figures (decided: (a); see reduced_scale_figures.py):
   (a) document a reduced-scale run (smaller N/generations/realizations)
       as an explicit, labeled deviation from the paper's protocol --
       cheap, keeps the current code as-is;
   (b) vectorize the hot path (numpy arrays instead of per-node dicts) --
       would actually reach paper scale, but is a real rewrite and a
       different code style than the rest of this replication;
-  (c) run the full-scale version anyway, accepting very long (hours to
-      multi-day) wall-clock runs, likely in the background.
+  (c) run the full-scale version anyway -- not practical: about 12 years
+      for the four panels on one core (timing/README.md), mostly the
+      complete graph.

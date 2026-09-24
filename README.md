@@ -129,7 +129,7 @@ Notes on where each reference is used: [`REFERENCES.md`](REFERENCES.md).
 - Kennedy, J. & Eberhart, R. (1995). Particle swarm optimization. *Proceedings of ICNN'95*,
   1942–1948. [Google Scholar](https://scholar.google.com/scholar?q=%22Particle+swarm+optimization%22+Kennedy)
 - Shi, Y. & Eberhart, R. (1998). A modified particle swarm optimizer. *IEEE International
-  Conference on Evolutionary Computation*, 69–73. [Google Scholar](https://scholar.google.com/scholar?q=%22A+modified+particle+swarm+optimizer%22+Shi)
+  Conference on Evolutionary Computation*, 69–73. [Google Scholar](https://scholar.google.com/scholar?hl=en&as_sdt=0%2C5&q=Shi%2C+Y.+%26+Eberhart%2C+R.+%281998%29.+A+modified+particle+swarm+optimizer.+IEEE+International+Conference+on+Evolutionary+Computation%2C+69%E2%80%9373.&btnG=)
 - Clerc, M. & Kennedy, J. (2002). The particle swarm — explosion, stability, and convergence in a
   multidimensional complex space. *IEEE Transactions on Evolutionary Computation* 6(1), 58–73. [Google Scholar](https://scholar.google.com/scholar?q=%22The+particle+swarm+%E2%80%94+explosion%2C+stability%2C+and+convergence+in+a+multidimensional+complex+space%22+Clerc)
 - Kennedy, J. (1999). Small worlds and mega-minds: effects of neighborhood topology on particle

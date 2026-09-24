@@ -2,8 +2,9 @@
 
 One list for the replication and all its extensions. Under each reference:
 
-- **Used in:** Base (the replication in the root folder), Swarm learning, Swarm topology,
-  Open source or Stigmergy.
+- **Used in:** Base (the replication in the root folder), Swarm learning (1), Swarm topology (2),
+  Stigmergy (3) or Open source (4). *All* = Base and every extension. *(framing)* = motivates
+  the question but isn't used in the code.
 - **Why:** what we take from it.
 
 ## Base paper
@@ -31,14 +32,14 @@ One list for the replication and all its extensions. Under each reference:
 
 - Pedreschi, D., Pappalardo, L., Ferragina, E., et al. (2025). Human-AI coevolution.
   *Artificial Intelligence* 339, 104244. https://doi.org/10.1016/j.artint.2024.104244
-  - **Used in:** extensions.
+  - **Used in:** all extensions (framing).
   - **Why:** PhD framing: humans and AI shaping each other in feedback loops. Motivates comparing
     different learning rules within one population.
 
 - Hammond, L., Chan, A., Clifton, J., et al. (2025). *Multi-Agent Risks from Advanced AI.*
   Cooperative AI Foundation, Technical Report #1. arXiv:2502.14143.
   https://arxiv.org/abs/2502.14143
-  - **Used in:** extensions.
+  - **Used in:** all extensions (framing).
   - **Why:** PhD framing: risks from interacting AI agents, including cooperation failures.
     Motivates asking whether AI-style learners keep the network reciprocity that human-style
     imitation relies on.
@@ -47,29 +48,30 @@ One list for the replication and all its extensions. Under each reference:
 
 - Erdős, P. & Rényi, A. (1959). On random graphs I. *Publicationes Mathematicae Debrecen* 6,
   290–297. https://doi.org/10.5486/PMD.1959.6.3-4.12
-  - **Used in:** Base, Swarm topology.
+  - **Used in:** Base, Swarm topology, Stigmergy, Open source (every run on the four networks).
   - **Why:** foundational random-graph model. `network.py`'s `single_scale` uses its Poisson
-    degree distribution (configuration model on a Poisson degree sequence). That's the
-    homogeneous baseline.
+    degree distribution (configuration model on a Poisson degree sequence). That's the least
+    heterogeneous of the three sparse networks.
 
 - Barabási, A.-L. & Albert, R. (1999). Emergence of scaling in random networks. *Science*
   286(5439), 509–512. https://doi.org/10.1126/science.286.5439.509
-  - **Used in:** Base, all extensions.
-  - **Why:** preferential attachment, used for `scale_free`.
+  - **Used in:** all.
+  - **Why:** preferential attachment, used for `scale_free`. `scale_free_random` keeps the same
+    degree distribution and shuffles the edges.
 
 - Santos, F. C. & Pacheco, J. M. (2005). Scale-free networks provide a unifying framework for
   the emergence of cooperation. *Physical Review Letters* 95, 098104.
   https://doi.org/10.1103/PhysRevLett.95.098104
-  - **Used in:** Base, all extensions.
+  - **Used in:** all.
   - **Why:** the first paper to show scale-free networks promote cooperation. Santos et al.
     2006 builds on it. It also explains the "cooperator clusters anchored on hubs" mechanism
-    that Swarm topology found again at c1=0.
+    that Swarm topology found again with no personal memory (c1 = 0).
 
 - Yu, M., Wang, S., Zhang, G., Mao, J., Yin, C., Liu, Q., Wang, K., Wen, Q. & Wang, Y. (2025).
   NetSafe: Exploring the topological safety of multi-agent system. In *Findings of the
   Association for Computational Linguistics: ACL 2025*, 2905–2938.
   https://doi.org/10.18653/v1/2025.findings-acl.150
-  - **Used in:** Swarm topology, extensions (framing).
+  - **Used in:** all extensions (framing).
   - **Why:** the same question as ours, "does network topology change the collective
     outcome?", asked for LLM agents instead of game players. The agents update each round by
     reading their neighbours' answers. That's like imitation: behaviour spreads along edges.
@@ -103,12 +105,12 @@ tend to imitate the strategies of those performing better." Refs 18 and 30:
 - Hauert, C. & Doebeli, M. (2004). Spatial structure often inhibits the evolution of
   cooperation in the snowdrift game. *Nature* 428, 643–646.
   https://doi.org/10.1038/nature02360
-  - **Used in:** Base, Swarm learning.
+  - **Used in:** all (every extension keeps imitation as its baseline or builds on it).
   - **Why:** same pairwise-comparison imitation rule on structured populations.
 
 - Gintis, H. (2000). *Game Theory Evolving.* Princeton University Press.
   https://archive.org/details/gametheoryevolvi0000gint
-  - **Used in:** Base, Swarm learning.
+  - **Used in:** all (as above).
   - **Why:** textbook source for imitation dynamics converging to the replicator dynamics.
 
 ## Particle swarm optimization (`swarm_update_rule.py`)
@@ -143,9 +145,10 @@ tend to imitate the strategies of those performing better." Refs 18 and 30:
   in a multidimensional complex space. *IEEE Transactions on Evolutionary Computation* 6(1),
   58–73. https://doi.org/10.1109/4235.985692
   - **Used in:** Swarm learning, Swarm topology.
-  - **Why:** the stability analysis behind the standard PSO settings (w, c1, c2). A particle keeps oscillating between
-    its personal best and its neighbourhood best while they disagree. That fits the
-    velocity-test finding: with any c1 > 0, agents never stop moving.
+  - **Why:** the stability analysis behind the standard PSO settings (w, c1, c2); our
+    w = 0.7, c1 = c2 = 1.5 are close to them, not tuned. A particle keeps oscillating between
+    its personal best and its neighbourhood best while they disagree. That fits Swarm
+    topology's velocity test: with any c1 > 0, agents never stop moving.
 
 ### Local-best PSO and swarm topology
 
@@ -170,7 +173,9 @@ tend to imitate the strategies of those performing better." Refs 18 and 30:
   designs: Surprises and problems in open-source game theory. arXiv:2208.07006.
   https://arxiv.org/abs/2208.07006
   - **Used in:** Open source (main paper).
-  - **Why:**
+  - **Why:** the framing of the extension. Two parts are used directly: Open Problem 9 is the
+    code-reading cost experiment, and Open Problem 3 is why CUPOD/DUPOC are left off the
+    program menu. Its main results, with those two marked:
     - CUPOD(k) ("Cooperate Unless Proof Of Defection") and DUPOC(k) ("Defect Unless Proof
       Of Cooperation"), Section 2.
     - Prop. 3.1: CUPOD never exploits. Prop. 3.2: DUPOC is never exploited.
@@ -179,10 +184,11 @@ tend to imitate the strategies of those performing better." Refs 18 and 30:
     - Section 3.5: DUPOCs reward legible cooperation.
     - Open Problem 2: when does a population containing DUPOCs evolve so that everyone
       rewards legible cooperation?
-    - Open Problem 3: DUPOC(k) vs CUPOD(k), conjectured (D,C), unsolved.
+    - Open Problem 3: DUPOC(k) vs CUPOD(k), conjectured (D,C), unsolved (used: why CUPOD/DUPOC
+      are left out).
     - Open Problem 9: does a bounded PrudentBot exist? If so, study population dynamics
       among CooperateBots, DefectBots, DUPOCs and PrudentBots, with proof-search cost in the
-      payoffs.
+      payoffs (used: the cost experiment).
 
 - Sistla, S. & Kleiman-Weiner, M. (2026). Evaluating LLMs in Open-Source Games. *Advances in
   Neural Information Processing Systems* 38, 104032–104063. arXiv:2512.00371.
@@ -206,4 +212,5 @@ tend to imitate the strategies of those performing better." Refs 18 and 30:
 
 - Math for AI Safety — Open-source game theory.
   https://mathforaisafety.org/research/open-source-game-theory
+  - **Used in:** Open source (background reading).
   - **Why:** plain-language intro: FairBot, Löb's theorem, DUPOC/CUPOD, bounded FairBot(k).

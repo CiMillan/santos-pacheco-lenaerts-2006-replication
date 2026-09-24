@@ -23,14 +23,28 @@ cooperation over a larger region of (T, S). Mean cooperation over the grid rises
 |---|---|
 | ![](figures/fig2_reduced_scale.png) | ![](figures/fig3_reduced_scale.png) |
 
-**Deviation from the paper.** Reduced scale, because the pure-Python code would need days
-per figure at full scale (timings in `ARCHITECTURE.txt`):
+**Deviation from the paper.** Reduced scale, because the pure-Python code would need years at
+full scale:
 
 | | Paper | Here |
 |---|---|---|
 | Population N | 10,000 | 500 (200 for complete) |
 | Generations (transient + averaged) | 10,000 + 1,000 | 300 + 60 |
 | Realizations per (T, S) point | 100 | 10 |
+
+Run time for the 5×5 (T, S) grid, one core on a Mac (earlier timings in `ARCHITECTURE.txt`):
+
+| Network | Here (measured) | Paper's scale (estimated) |
+|---|---|---|
+| Complete | 6 min | ≈ 11 years |
+| Single-scale | 52 s | ≈ 4 days |
+| Random scale-free | 62 s | ≈ 4 days |
+| Barabási–Albert | 51 s | ≈ 4 days |
+| **All four** | **9 min** | **≈ 11 years** |
+
+The estimates use the measured time per generation at N = 10,000 (about 13 ms on the sparse
+networks). For the complete graph the time grows with N², so it uses 126 ms at N = 1,000 × 100
+≈ 13 s per generation. The paper's own grid is finer than 5×5, so its real cost is higher still.
 
 The shape is reproduced but the exact values are not, and finite-size noise is larger.
 

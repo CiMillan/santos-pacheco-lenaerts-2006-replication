@@ -146,8 +146,3 @@ Notes on where each reference is used: [`REFERENCES.md`](REFERENCES.md).
 - Barasz, M., Christiano, P., Fallenstein, B., Herreshoff, M., LaVictoire, P. & Yudkowsky, E.
   (2014). Robust cooperation in the Prisoner's Dilemma: Program equilibrium via provability logic.
   arXiv:1401.5577. [Google Scholar](https://scholar.google.com/scholar?q=%22Robust+cooperation+in+the+Prisoner%27s+Dilemma%3A+Program+equilibrium+via+provability+logic%22+Barasz)
-- Tennenholtz, M. (2004). Program equilibrium. *Games and Economic Behavior* 49(2), 363–373. [Google Scholar](https://scholar.google.com/scholar?q=%22Program+equilibrium%22+Tennenholtz)
-- Critch, A. (2019). A parametric, resource-bounded generalization of Löb's theorem, and a robust
-  cooperation criterion for open-source game theory. *Journal of Symbolic Logic* 84(4), 1368–1381. [Google Scholar](https://scholar.google.com/scholar?q=%22A+parametric%2C+resource-bounded+generalization+of+L%C3%B6b%27s+theorem%2C+and+a+robust+cooperation+criterion+for+open-source+game+theory%22+Critch)
-- Kalai, A. T., Kalai, E., Lehrer, E. & Samet, D. (2010). A commitment folk theorem. *Games and
-  Economic Behavior* 69(1), 127–137. [Google Scholar](https://scholar.google.com/scholar?q=%22A+commitment+folk+theorem%22+Kalai)

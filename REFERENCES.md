@@ -202,21 +202,6 @@ tend to imitate the strategies of those performing better." Refs 18 and 30:
   - **Why:** FairBot, PrudentBot, CliqueBot, CooperateBot, DefectBot and their pairwise
     outcomes (the outcome table).
 
-- Tennenholtz, M. (2004). Program equilibrium. *Games and Economic Behavior* 49(2), 363–373.
-  - **Used in:** Open source.
-  - **Why:** defines program equilibrium.
-
-- Critch, A. (2019). A parametric, resource-bounded generalization of Löb's theorem, and a
-  robust cooperation criterion for open-source game theory. *Journal of Symbolic Logic*
-  84(4), 1368–1381.
-  - **Used in:** Open source.
-  - **Why:** the bounded Löb theorem (PBLT) behind Thms. 3.4 and 3.7.
-
-- Kalai, A. T., Kalai, E., Lehrer, E. & Samet, D. (2010). A commitment folk theorem. *Games
-  and Economic Behavior* 69(1), 127–137.
-  - **Used in:** Open source.
-  - **Why:** background.
-
 ### Other resources
 
 - Math for AI Safety — Open-source game theory.

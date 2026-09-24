@@ -3,7 +3,7 @@
 One list for the replication and all its extensions. Under each reference:
 
 - **Used in:** Base (the replication in the root folder), Swarm learning (1), Swarm topology (2),
-  Stigmergy (3) or Open source (4). *All* = Base and every extension. *(framing)* = motivates
+  Stigmergy (3), Open source (4) or Network-engineering bots (5, WIP). *All* = Base and every extension. *(framing)* = motivates
   the question but isn't used in the code.
 - **Why:** what we take from it.
 
@@ -214,3 +214,12 @@ tend to imitate the strategies of those performing better." Refs 18 and 30:
   https://mathforaisafety.org/research/open-source-game-theory
   - **Used in:** Open source (background reading).
   - **Why:** plain-language intro: FairBot, Löb's theorem, DUPOC/CUPOD, bounded FairBot(k).
+
+## Network-engineering bots (`bots.py`)
+
+- Shirado, H. & Christakis, N. A. (2020). Network engineering using autonomous agents increases
+  cooperation in human groups. *iScience* 23(9), 101438.
+  https://doi.org/10.1016/j.isci.2020.101438
+  - **Used in:** Network-engineering bots (5, WIP).
+  - **Why:** the bot conditions (engaged, disengaged, random, always C), one rewiring offer per
+    bot per round, and the donation game with $b/c = 2$.

@@ -66,6 +66,7 @@ Each extension changes one part of the base model and holds the rest fixed:
 | 2 | [**Swarm topology**](replications/replication-extension-swarm-topology/): the network type, all four; then PSO's memory weight $c_1$ | PSO update rule, $(T, S)$ grid |
 | 3 | [**Stigmergic imitation**](replications/replication-extension-stigmergy/): what agents copy from, a neighbour's current payoff vs. a fading trace left at its node (memory $\lambda$) | imitation rule, four networks, $(T, S)$ grid |
 | 4 | [**Open-source game theory**](replications/replication-extension-open-source/): what agents hold, a plain strategy vs. a program that reads the other's code; then a code-reading cost | imitation rule, four networks, $(T, S)$ grid |
+| 5 | [**Network-engineering bots**](replications/replication-extension-network-engineering/) *(WIP)*: bots that rewire each agent's ties (cut, add, random) | imitation rule, $T=2$, $S=-1$ |
 
 **Scripts.** Row 0 is the base replication. Extensions never edit root scripts. *Changed* = a variant of a root script
 (root → variant). *Created* = no root counterpart. Each folder keeps its tests in `tests/`.
@@ -77,6 +78,7 @@ Each extension changes one part of the base model and holds the rest fixed:
 | 2 | [`sweep.py`](sweep.py) → [`sweep_swarm.py`](replications/replication-extension-swarm-topology/sweep_swarm.py); [`plot.py`](plot.py) → [`plot_topology.py`](replications/replication-extension-swarm-topology/plot_topology.py) | [`topology_experiment.py`](replications/replication-extension-swarm-topology/topology_experiment.py), [`c1_zero_experiment.py`](replications/replication-extension-swarm-topology/c1_zero_experiment.py), [`c1_sweep.py`](replications/replication-extension-swarm-topology/c1_sweep.py), [`velocity_test.py`](replications/replication-extension-swarm-topology/velocity_test.py), [`plot_c1_curve.py`](replications/replication-extension-swarm-topology/plot_c1_curve.py) |
 | 3 | [`update_rule.py`](update_rule.py) → [`stigmergy_update_rule.py`](replications/replication-extension-stigmergy/stigmergy_update_rule.py); [`main.py`](main.py) → [`main_stigmergy.py`](replications/replication-extension-stigmergy/main_stigmergy.py); [`sweep.py`](sweep.py) → [`sweep_stigmergy.py`](replications/replication-extension-stigmergy/sweep_stigmergy.py) | [`lam_experiment.py`](replications/replication-extension-stigmergy/lam_experiment.py), [`plot_lam_curve.py`](replications/replication-extension-stigmergy/plot_lam_curve.py) |
 | 4 | [`main.py`](main.py) → [`main_os.py`](replications/replication-extension-open-source/main_os.py); [`payoff.py`](payoff.py) → [`payoff_os.py`](replications/replication-extension-open-source/payoff_os.py); [`sweep.py`](sweep.py) → [`sweep_os.py`](replications/replication-extension-open-source/sweep_os.py) | [`programs.py`](replications/replication-extension-open-source/programs.py), [`open_source_experiment.py`](replications/replication-extension-open-source/open_source_experiment.py), [`cost_experiment.py`](replications/replication-extension-open-source/cost_experiment.py) |
+| 5 | [`main.py`](main.py) → [`main_bots.py`](replications/replication-extension-network-engineering/main_bots.py) | [`bots.py`](replications/replication-extension-network-engineering/bots.py) *(WIP: sweep, experiment, plot to come)* |
 
 **Results.** The paper's finding: the more heterogeneous the network, the more cooperation
 (complete < single-scale < random scale-free < Barabási–Albert). "Base" below is our
@@ -89,6 +91,7 @@ reduced-scale run of the paper's model (row 0), so every comparison uses the sam
 | 2 | [**Swarm topology**](replications/replication-extension-swarm-topology/): swarm learning on all four networks; vary memory weight $c_1$ | **The paper's topology effect survives only for learners without self-memory:** default PSO flattens every network to ≈0.58, while PSO with no personal memory ($c_1=0$) makes the effect stronger than the paper's (BA 0.88 vs. 0.65). |
 | 3 | [**Stigmergic imitation**](replications/replication-extension-stigmergy/): agents read a fading payoff trace left at each node instead of the neighbour's current payoff (idea from SwarmWorld) | **A remembered payoff is harmless; a remembered strategy weakens network reciprocity** (BA–complete gap 0.16 → 0.12), but far less than PSO's private, never-fading memory, which erased it. |
 | 4 | [**Open-source game theory**](replications/replication-extension-open-source/): agents hold programs that read each other's code; then add a code-reading cost | **When agents can read each other's code for free, the network stops mattering** (≈0.97–1.00 everywhere); the paper's effect returns only once code-reading costs 0.5 or more, and is back to the paper-rule values (within 0.01) at 1.0. |
+| 5 | [**Network-engineering bots**](replications/replication-extension-network-engineering/): bots that rewire agents' ties, from Shirado & Christakis (2020) | **Work in progress:** not run yet. |
 
 ## References
 
@@ -149,3 +152,8 @@ Notes on where each reference is used: [`REFERENCES.md`](REFERENCES.md).
 - Barasz, M., Christiano, P., Fallenstein, B., Herreshoff, M., LaVictoire, P. & Yudkowsky, E.
   (2014). Robust cooperation in the Prisoner's Dilemma: Program equilibrium via provability logic.
   arXiv:1401.5577. [Google Scholar](https://scholar.google.com/scholar?q=%22Robust+cooperation+in+the+Prisoner%27s+Dilemma%3A+Program+equilibrium+via+provability+logic%22+Barasz)
+
+### Network-engineering bots
+
+- Shirado, H. & Christakis, N. A. (2020). Network engineering using autonomous agents increases
+  cooperation in human groups. *iScience* 23(9), 101438. [Google Scholar](https://scholar.google.com/scholar?q=%22Network+engineering+using+autonomous+agents+increases+cooperation+in+human+groups%22+Shirado)

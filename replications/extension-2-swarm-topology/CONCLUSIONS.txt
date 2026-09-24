@@ -1,0 +1,236 @@
+Does the paper's topology effect survive under swarm? At this scale: no.
+========================================================================
+From topology_experiment.py (run 2026-09-23, 1226 s). Output files:
+topology_results.json and topology_swarm_vs_imitation.png. Reduced scale:
+n=500 (n=200 for complete), 10 realizations, 300+60 generations, 5x5 grid.
+
+HEADLINE NUMBERS (terminal output)
+network            imit grid swarm grid  imit PD  swarm PD
+complete               0.489      0.591    0.000     0.150
+single_scale           0.566      0.579    0.000     0.111
+scale_free_random      0.616      0.569    0.000     0.123
+scale_free             0.653      0.579    0.000     0.123
+
+Per-quadrant means (computed from topology_results.json):
+  SD = Snowdrift corner (T > 1, S > 0), SH = Stag Hunt corner (T < 1, S < 0)
+network            imit SD  swarm SD  imit SH  swarm SH
+complete             0.50      0.43     0.53      0.90
+single_scale         0.62      0.31     0.64      0.95
+scale_free_random    0.74      0.33     0.65      0.91
+scale_free           0.83      0.34     0.67      0.94
+
+FINDING 1 -- imitation reproduces the paper's ordering
+  Grid mean rises steadily: complete < single_scale < scale_free_random
+  < scale_free (0.49 -> 0.65). Most of the rise is in the Snowdrift corner
+  (0.50 -> 0.83). That's the paper's result: more heterogeneous networks
+  mean more cooperation, and the age-correlated BA network is highest.
+
+FINDING 2 -- swarm erases it
+  Under swarm the three structured networks are practically identical:
+  grid mean 0.569-0.579, Snowdrift 0.31-0.34. The hubs of scale_free give
+  swarm no advantage over single_scale. The only network that stands
+  apart is complete, and it goes the OPPOSITE way to the paper: it scores
+  slightly HIGHER (grid 0.59, Snowdrift 0.43) than any structured network.
+
+FINDING 3 -- where swarm beats imitation: Stag Hunt, not PD
+  The red cells in the difference maps are mainly in the Stag Hunt corner
+  (low T, negative S). Swarm holds about 0.90-0.95 there on every network,
+  where imitation holds about 0.53-0.67. The strongest cell is T=0.5,
+  S=-1.0, where imitation collapses to 0 and swarm stays at 0.79-0.95.
+  Where imitation beats swarm (the blue cells) is the Snowdrift corner,
+  and that gap grows with heterogeneity, because that is exactly where
+  imitation gets its topology boost.
+
+CAUTION -- the Prisoner's Dilemma column is NOT evidence
+  - Swarm's PD numbers (0.11-0.15) are the flicker floor, not cooperation.
+    Agents oscillate across the 0.5 threshold, and no agent stays C
+    (checked by instrumentation, see tests/test_sweep_swarm.txt).
+  - Imitation's PD corner is 0.000 on EVERY network here, scale_free
+    included. The paper's full-scale Fig. 3 shows scale-free sustaining
+    some PD cooperation, so this is a reduced-scale limitation (n=500,
+    300 generations, only 4 PD cells on a 5x5 grid). It isn't a finding.
+  So "swarm > imitation in PD" would be a wrong reading of this table.
+
+A POSSIBLE EXPLANATION (hypothesis, NOT yet tested)
+  Imitation's topology effect comes from strategies being COPIED along
+  edges. Cooperator clusters around hubs spread C to their neighbours.
+  In swarm, the network only enters through one term, the pull toward the
+  neighbourhood-best position, and the personal-best memory (see
+  ../extension-1-swarm-learning/CONCLUSIONS.txt) pulls against it.
+  If personal memory dominates, the network barely matters, which would
+  explain why all three structured networks look the same.
+  One way to test it: rerun with c1=0 (no personal memory) and see
+  whether the topology ordering comes back.
+
+OPEN FOLLOW-UPS
+  - The c1=0 test above.
+  - Larger scale (more generations especially) to see whether imitation's
+    PD-corner cooperation on scale_free appears, as in the paper.
+  - A finer grid around T=1 (the edge between Stag Hunt and Snowdrift),
+    where most of the differences sit.
+
+
+FOLLOW-UP RESULT: c1=0 (no personal memory) -- the topology effect comes back
+=============================================================================
+From c1_zero_experiment.py (run 2026-09-23, 695 s). Output files:
+c1_zero_results.json and topology_c1_zero.png. Same settings and seeds as
+above; only c1 changed from 1.5 to 0. Imitation numbers were reused from
+topology_results.json.
+
+network            imit grid  c1=0 grid  c1=1.5 grid   c1=0 PD corner
+complete               0.489      0.448        0.591             0.00
+single_scale           0.566      0.759        0.579             0.20
+scale_free_random      0.616      0.866        0.569             0.47
+scale_free             0.653      0.876        0.579             0.43
+
+THE HYPOTHESIS HOLDS
+  With memory on (c1=1.5) the three structured networks were flat
+  (0.57-0.58). With memory off, the paper's ordering comes back, and
+  STRONGER than under imitation: complete 0.45 -> single_scale 0.76 ->
+  scale-free 0.87-0.88. So personal-best memory was what drowned out the
+  network. Once agents only react to their neighbourhood, topology matters
+  again.
+
+THE PD CORNER IS NOW REAL COOPERATION (checked, not assumed)
+  Instrumented one scale_free run with c1=0 (seed 1, 360 generations; the
+  command is the same as the CONCLUSIONS diagnostic in
+  ../extension-1-swarm-learning/, with c1=0.0 passed to next_position):
+    T=1.5, S=-0.5: 456/500 cooperate; the same 456 in ALL of the last 60
+                   generations (no flicker); all top-25 hubs are stable C.
+    T=2.0, S=-0.5: 41/500 cooperate, again the same 41 every generation;
+                   only 4/25 top hubs are C.
+  Stable cooperators anchored on hubs is exactly the paper's mechanism.
+  And with c1=0 the complete graph drops to exactly 0.00 in the PD corner,
+  so there is no flicker floor any more: with no personal pull, agents
+  settle instead of oscillating.
+
+OTHER THINGS TO NOTE
+  - Complete graph, c1=0: WORSE than imitation (0.45 vs 0.49), especially
+    in Stag Hunt (0.30 vs 0.53). With no structure, "copy the best
+    neighbour" becomes "everyone moves toward one global best", so the
+    whole population commits to one side early.
+  - c1=0 swarm beats imitation in the PD corner on structured networks
+    (0.20-0.47 vs 0.00). But imitation's 0.00 is probably a reduced-scale
+    artefact (see CAUTION above), so this doesn't show "swarm is better at
+    PD" -- only that c1=0 swarm gets there faster/at smaller scale.
+  - The grids have some non-monotone cells, e.g. scale_free T=0.5, S=-1.0
+    = 0.78 but T=1.0, S=-1.0 = 0.91. That's 10-realization noise on
+    bistable cells, not a pattern.
+
+WHAT THIS MEANS FOR THE PhD FRAMING
+  Whether network structure helps cooperation depends on the learning
+  rule, not only on the network. A memory-driven learner (PSO with
+  personal best) ignores the network, while a purely social learner
+  (c1=0 swarm, imitation) uses it. Relevant to hybrid human-AI
+  populations: agents with persistent self-memory may not benefit from
+  the network reciprocity that imitating agents rely on.
+
+OPEN FOLLOW-UPS
+  - Intermediate c1 (e.g. 0.25, 0.5, 1.0): where does the topology effect
+    disappear? Is the change gradual or sudden?
+  - A decaying personal best (forget old windfalls) instead of c1=0.
+  - Everything is still at reduced scale (n=500, 360 generations).
+
+
+FOLLOW-UP RESULT: intermediate c1 -- gradual on the grid, abrupt in PD
+======================================================================
+From c1_sweep.py (c1 = 0.25, 0.5, 1.0; about 13 min each, run in
+parallel) plus the saved c1=0 and c1=1.5 runs. Figure: c1_curve.png
+(plot_c1_curve.py). Values are (whole-grid mean, PD-corner mean):
+
+c1       complete      single_scale  scale_free_random  scale_free
+0.00     0.45 / 0.00   0.76 / 0.20   0.87 / 0.47        0.88 / 0.43
+0.25     0.51 / 0.02   0.70 / 0.14   0.73 / 0.18        0.74 / 0.19
+0.50     0.53 / 0.03   0.66 / 0.13   0.69 / 0.19        0.69 / 0.18
+1.00     0.57 / 0.08   0.61 / 0.12   0.61 / 0.14        0.62 / 0.14
+1.50     0.59 / 0.15   0.58 / 0.11   0.57 / 0.12        0.58 / 0.12
+
+WHOLE GRID: THE TOPOLOGY EFFECT FADES GRADUALLY
+  Gap between scale_free and complete: 0.43 (c1=0) -> 0.22 -> 0.16 ->
+  0.05 -> -0.01 (c1=1.5). Structured networks fall steadily, and complete
+  rises steadily. There's no single cut-off; more memory means less
+  topology effect.
+
+PD CORNER: STABLE COOPERATION IS GONE ALREADY AT c1=0.25 (checked)
+  Instrumented scale_free at T=1.5, S=-0.5 (seed 1, 360 generations),
+  looking at the last 60 generations:
+    c1     C now   stable C (C in all 60)   C at any point
+    0.00    456          456                     456
+    0.25     79            0                     498
+    0.50     88            0                     498
+    1.00     88            0                     487
+    1.50     75            0                     464
+  At c1=0 the hub-anchored cooperator cluster is completely stable. Even
+  a small memory weight (0.25) destroys it: nobody stays C, and almost
+  every agent flickers across 0.5 at some point. So every PD-corner
+  number with c1 > 0 is flicker floor, not cooperation. The complete
+  graph's PD value RISING with c1 (0.00 -> 0.15) points the same way:
+  more memory, more oscillation, more accidental C.
+
+A POSSIBLE EXPLANATION (hypothesis, NOT yet tested)
+  With c1=0 an agent has one target (its neighbourhood best), so it can
+  settle on it. With any c1 > 0 it has two targets, its personal best and
+  its neighbourhood best, and in PSO an agent keeps oscillating between
+  two targets that disagree. Stable cooperator clusters need agents that
+  stay put, so any ongoing oscillation breaks them. That would also
+  explain part of the gradual whole-grid decline: oscillation pulls
+  high-cooperation cells down toward the middle.
+  One way to test it: track mean |velocity| in the last 60 generations
+  at each c1. The hypothesis predicts ~0 at c1=0 and clearly > 0 for
+  every c1 > 0.
+
+OPEN FOLLOW-UPS
+  - The velocity test above.
+  - c1 between 0 and 0.25 (e.g. 0.05, 0.1): is there ANY memory weight
+    that keeps stable PD clusters?
+  - Still reduced scale throughout.
+
+
+FOLLOW-UP RESULT: velocity test -- the "never stops moving" hypothesis holds
+===========================================================================
+From velocity_test.py (motion_stats(); scale_free, n=500, 360 generations,
+last 60 measured, mean of seeds 1-3; about 8 s). Test: tests/test_velocity.txt.
+
+point                     c1   speed  stable C  target gap
+PD T=1.5,S=-0.5         0.00   0.000     0.599       0.452
+PD T=1.5,S=-0.5         0.25   0.132     0.000       0.181
+PD T=1.5,S=-0.5         0.50   0.161     0.044       0.226
+PD T=1.5,S=-0.5         1.00   0.177     0.000       0.197
+PD T=1.5,S=-0.5         1.50   0.200     0.000       0.225
+Snowdrift T=1.5,S=0.5   0.00   0.001     0.976       0.607
+Snowdrift T=1.5,S=0.5   0.25   0.143     0.357       0.413
+Snowdrift T=1.5,S=0.5   0.50   0.235     0.207       0.474
+Snowdrift T=1.5,S=0.5   1.00   0.328     0.033       0.299
+Snowdrift T=1.5,S=0.5   1.50   0.343     0.001       0.269
+
+WHAT IT SHOWS
+  - Prediction confirmed: speed is ~0 at c1=0 and clearly above 0 for
+    EVERY c1 > 0, rising steadily with c1 (PD 0.13 -> 0.20, Snowdrift
+    0.14 -> 0.34). Agents with no memory stop moving. Agents with any
+    memory never do.
+  - Stable cooperation follows speed. When agents stop, clusters hold
+    (PD 0.60, Snowdrift 0.98 stable C). When they keep moving, clusters
+    break.
+  - The two games break differently, matching the c1_curve.png pattern:
+    PD collapses at once (0.60 -> 0.00 already at c1=0.25), while
+    Snowdrift declines gradually (0.98 -> 0.36 -> 0.21 -> 0.03 -> 0.00).
+    In PD a cooperator only survives if its cluster is intact, so a
+    little shaking is enough to break it. Snowdrift tolerates some.
+
+WHY THE TARGET GAP MATTERS (refined mechanism)
+  With c1 > 0 an agent could only stand still if its position, its
+  personal best and its neighbourhood best were all the same point. The
+  target gap stays at 0.18-0.47 for every c1, so that never happens, and
+  the agent keeps being pulled back and forth. At c1=0 the gap is large
+  too (0.45-0.61), but it has no effect because the personal-best pull is
+  multiplied by zero. That's also a sign of how stale personal bests are:
+  when nothing forces agents toward them, they end up far from them.
+  NOTE: the gap is not LARGER for larger c1, so the size of the gap isn't
+  what matters. What matters is that it's nonzero and c1 gives it weight.
+
+CAVEAT
+  This is a correlation across c1 values (more motion goes with less
+  stable cooperation), measured at 2 grid points on 1 network with 3
+  seeds. It fits the mechanism but doesn't prove motion is the CAUSE. A
+  causal test would, for example, damp velocity to zero after a
+  transient while keeping c1 > 0, and check whether clusters then form.

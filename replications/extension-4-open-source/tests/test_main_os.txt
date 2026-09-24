@@ -1,0 +1,26 @@
+cd ~/Desktop/santos-pacheco-lenaerts-2006-replication/replications/extension-4-open-source
+python3 -c "
+from main_os import run
+trace, shares = run('scale_free', n=500, generations=100, R=1, S=-0.5, T=1.5, P=0, seed=1, m=2)
+print('start:', round(trace[0], 3), ' end:', round(trace[-1], 3))
+print({p: round(s, 3) for p, s in shares.items()})
+"
+
+Expected output:
+start: 0.457  end: 0.989
+{'CooperateBot': 0.016, 'DefectBot': 0.0, 'CliqueBot': 0.004, 'FairBot': 0.748, 'PrudentBot': 0.232}
+
+Why: one run in the Prisoner's Dilemma corner (T=1.5, S=-0.5) on a
+scale-free network, 500 agents, 100 generations.
+  Start ~0.44 is what a random 1/5-each start should give: of the 25
+  cells in the outcome table, 11 are C actions (CooperateBot 5,
+  CliqueBot 1, FairBot 3, PrudentBot 2), and 11/25 = 0.44.
+  By the end DefectBot is gone and FairBot + PrudentBot hold ~98% of
+  agents, so almost every meeting is mutual C (0.989). Plain imitation
+  gets 0.000 at this point at the same scale (see
+  ../extension-2-swarm-topology/CONCLUSIONS.txt).
+  A handful of CooperateBots survive: surrounded only by FairBots, they
+  earn exactly what a FairBot earns, so imitation has no reason to
+  replace them (only PrudentBot neighbours punish them).
+  This is one seed -- the prediction in ARCHITECTURE.txt is tested by the
+  full experiment, not here.

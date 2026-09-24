@@ -1,0 +1,15 @@
+cd ~/Desktop/santos-pacheco-lenaerts-2006-replication/replications/extension-2-swarm-topology
+python3 -c "
+from topology_experiment import summarize
+results = {(0.5, 0.5): 1.0, (1.5, 0.5): 0.6, (1.5, -0.5): 0.2, (2.0, -1.0): 0.0}
+print(summarize(results))
+"
+
+Expected output:
+(0.45, 0.1)
+
+Why: hand-checkable. Whole-grid mean = (1.0 + 0.6 + 0.2 + 0.0) / 4 = 0.45.
+PD corner = only points with T > 1 AND S < 0 -> (1.5, -0.5) and
+(2.0, -1.0) -> (0.2 + 0.0) / 2 = 0.1. The point (1.5, 0.5) has T > 1 but
+S > 0 (that's the Snowdrift game, not PD), so it must be excluded -- if the
+second number came out 0.267, the S < 0 filter is broken.

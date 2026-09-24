@@ -1,0 +1,26 @@
+cd ~/Desktop/santos-pacheco-lenaerts-2006-replication/replications/extension-2-swarm-topology
+
+# Full run (SLOW: about 13 minutes per c1 value; run several in parallel):
+python3 c1_sweep.py 0.25
+
+Expected output:
+saved c1_0.25_results.json (793s)      <- the seconds will vary
+
+# Quick check of the saved file (instant):
+python3 -c "
+import json
+d = json.load(open('c1_0.25_results.json'))
+print(list(d), len(d['scale_free']), 'grid points per network')
+print('scale_free T=1.5,S=0.0:', round(d['scale_free']['1.5,0.0'], 3))
+"
+
+Expected output:
+['complete', 'single_scale', 'scale_free_random', 'scale_free'] 25 grid points per network
+scale_free T=1.5,S=0.0: 0.499
+
+Why: confirms the file has all four networks and the full 5x5 grid. The
+spot value makes sense as a middle ground: the same cell is 0.95 at c1=0
+(c1_zero_results.json) and 0.17 at c1=1.5 (topology_results.json), and
+c1=0.25 lands between them at 0.50. Seeds are fixed, so rerunning
+c1_sweep.py must reproduce 0.499 exactly. A different number means
+something in the pipeline changed.

@@ -1,0 +1,107 @@
+Extension: network-engineering bots (bots that rewire agents' ties)
+===================================================================
+Built on top of ../../ (the Santos, Pacheco & Lenaerts 2006 replication).
+Based on Shirado, H. & Christakis, N. A. (2020). Network engineering using
+autonomous agents increases cooperation in human groups. iScience 23(9),
+101438. https://doi.org/10.1016/j.isci.2020.101438
+Decided in conversation (2026-09-24). Sources are in ../../REFERENCES.md.
+
+QUESTION
+  In the base paper, network structure sustains cooperation under
+  imitation, but not in the harsh Prisoner's Dilemma corner. Shirado &
+  Christakis add bots to human networks: each bot always cooperates and
+  offers its human neighbour one rewiring option per round. Bots that
+  suggest cutting ties to defectors ("disengaged") raised cooperation from
+  60% to 79%; bots that introduce people to cooperators ("engaged") made it
+  collapse to 32%; random offers kept it flat. Bots that only cooperate, or
+  play tit-for-tat, without rewiring did nothing.
+  Here: do bots that rewire the network change what imitating agents do?
+  Does the paper's ordering (disengaged > random > engaged) come out of the
+  model?
+  Link to the paper's game: cooperate = pay c per neighbour to give each
+  neighbour b, with b/c = 2 ($0.05 cost, $0.10 benefit). In the base
+  paper's normalisation that is T = 2, S = -1, the harshest PD corner,
+  which is already on our grid.
+
+THE MODEL, IN SIMPLE TERMS
+  Agents = the humans. They play and imitate exactly as in ../../ (same
+    payoff.py, same update_rule.py).
+  Bots = extra nodes. Always play C, never imitate.
+  Each generation:
+    1. everyone plays every neighbour (bots included), payoffs accumulate;
+    2. agents imitate (bots skip this step);
+    3. every bot makes ONE rewiring offer to its agent, based on the
+       strategies just chosen, and the agent always accepts.
+
+DECISIONS, AND WHY
+  Conditions (mirrors the paper's Experiment 1):
+    none        no bots at all. This is exactly ../../, so its numbers are
+                reused from ../extension-2-swarm-topology/
+                topology_results.json, not rerun.
+    always_c    bots cooperate but never rewire. Separates "having a
+                cooperative bot neighbour" from "the bot rewiring".
+    random      coin flip, blind to strategy: cut a random agent
+                neighbour, or link a random agent not yet linked.
+                Changed after the first test run (2026-09-24): the paper's
+                rule (random agent, cut if linked, link if not) only ever
+                adds ties at n=500, since <1% of possible ties exist --
+                ties per agent went 3.95 -> 138.59 in 100 generations,
+                near well-mixed. In the paper's 16-person groups ~30% of
+                ties exist, so that rule cut as well as linked.
+    engaged     offer to link to a random cooperator the agent isn't
+                already linked to (engages defectors with cooperators).
+    disengaged  offer to cut a random defector neighbour (quarantines
+                defectors).
+    If there is nobody to offer (no cooperator to link, no defector to
+    cut), the bot does nothing that generation.
+    Tit-for-tat bots are left out: the paper shows they behave like
+    always_c, and the always_c control already covers it.
+  Acceptance: agents always accept a bot's offer. No new parameter; the
+    paper's people mostly cut defectors and linked to cooperators.
+  Background rewiring: none. In the paper 5% of random human pairs could
+    also rewire each round. Left out so the "none" control is exactly the
+    base model and any change comes from the bots. Caveat: this departs
+    from the paper, and agent-initiated rewiring is itself a known
+    cooperation mechanism (Rand et al. 2011).
+  Bots: one per agent, each with a single tie to its own agent, bots
+    never linked to each other (the paper's Experiment 1 design, which
+    fixes the amount of intervention). Bots are ordinary graph nodes, so
+    agents can pick them when imitating and every agent always keeps at
+    least one neighbour. Bots only rewire agent-agent ties; the bot's own
+    tie never changes.
+  Rate: one offer per bot per generation, as in the paper. Runs are ~12x
+    longer than the paper's 30 rounds, so the network may drift (engaged
+    only adds ties, disengaged only cuts). Mean agent-agent degree is
+    tracked over time; drift is a result, not a bug.
+  Cooperation measure: fraction of AGENTS playing C (bots excluded), so
+    it is comparable with the base model.
+  Sweep: same as the earlier extensions -- 5x5 (T, S) grid, n=500 agents
+    (plus 500 bots), 10 realizations, 300 transient + 60 averaged
+    generations, m=2 / avg_degree=4, same seeds. Networks: single_scale
+    (closest to the paper's random graph), scale_free, scale_free_random.
+    The complete graph is dropped: nobody can be linked there, so the
+    engaged and random bots don't make sense, and it was the slowest run.
+    The four new conditions run in parallel.
+
+PREDICTION (written before building)
+  disengaged > random ~ always_c ~ none > engaged, as in the paper.
+  Disengaged bots should even produce some cooperation in the PD corner,
+  where the base model gives zero: cutting C-D ties removes the sucker's
+  payoff from cooperators and the temptation from defectors. The network
+  should thin out under disengaged and thicken under engaged.
+
+FILES (planned -- built one function at a time, each with its own .txt test)
+  bots.py            add_bots(graph) -> attaches one single-tie bot per
+                     agent; bot_offer(...) -> applies one bot's rewiring
+                     offer for a given condition.
+  main_bots.py       run() / run_batch() -- ../../main.py's loop plus the
+                     bot step; returns cooperation trace and mean-degree
+                     trace.
+  sweep_bots.py      sweep over (T, S), same return shape as ../../sweep.py.
+  bots_experiment.py the runnable experiment: one condition from the
+                     command line, three networks, saves
+                     <condition>_results.json; a plot script combines
+                     them with the reused "none" numbers.
+
+CONCLUSIONS.txt
+  Findings after running (decisions above were made BEFORE building).

@@ -1,0 +1,19 @@
+cd ~/Desktop/santos-pacheco-lenaerts-2006-replication/replications/extension-4-open-source
+python3 -c "
+import sys; sys.path.insert(0, '../..')
+from network import build_network
+from payoff_os import compute_payoffs
+g = build_network('complete', 3)
+progs = {0: 'FairBot', 1: 'CooperateBot', 2: 'PrudentBot'}
+print(compute_payoffs(g, progs, R=1, S=-1, T=2, P=0))
+print(compute_payoffs(g, progs, R=1, S=-1, T=2, P=0, cost=0.1))
+"
+
+Expected output:
+{0: 2.0, 1: 0.0, 2: 3.0}
+{0: 1.7999999999999998, 1: 0.0, 2: 2.8}
+
+Why: same 3 agents as test_payoff_os.txt. With no cost (the default) the
+numbers are unchanged. With cost=0.1, FairBot and PrudentBot each play 2
+games, so each loses 2 x 0.1 = 0.2. CooperateBot doesn't read code, so it
+pays nothing. (1.7999... is floating-point rounding of 1.8.)

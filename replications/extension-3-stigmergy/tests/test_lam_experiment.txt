@@ -1,0 +1,18 @@
+cd ~/Desktop/santos-pacheco-lenaerts-2006-replication/replications/extension-3-stigmergy
+python3 lam_experiment.py 0.5            # ~10 min -> lam_0.5_results.json
+python3 lam_experiment.py 0.5 peak       # ~10 min -> peak_lam_0.5_results.json
+python3 lam_experiment.py 0.5 strategy   # ~10 min -> strategy_lam_0.5_results.json
+
+Expected output (one line each, time varies by machine):
+saved lam_0.5_results.json (615s)
+saved peak_lam_0.5_results.json (630s)
+saved strategy_lam_0.5_results.json (630s)
+
+Why: this is the real experiment, not a quick check -- one lam value, one
+trace rule, all four networks on the 5x5 (T, S) grid at the same reduced
+scale and seeds as ../extension-2-swarm-topology/. Run each
+(lam, rule) as its own process so they run in parallel. Used for lam = 0.5,
+0.2, 0.05 with each of average / peak / strategy (nine files). The
+numbers inside are checked by test_plot_lam_curve.txt; the code paths are
+checked by test_sweep_stigmergy.txt and test_main_stigmergy.txt (lam=1
+reproduces the paper exactly).

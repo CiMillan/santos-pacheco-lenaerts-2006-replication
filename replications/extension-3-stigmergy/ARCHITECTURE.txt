@@ -1,0 +1,62 @@
+Extension: stigmergic imitation -- learning from traces in the environment
+==========================================================================
+Built on top of ../../ (the Santos, Pacheco & Lenaerts 2006 replication).
+Idea from Pal, Wang & Buehler (2026), SwarmWorld (arXiv:2608.26081): about
+95% of technology reuse among its LLM agents began by observing artifacts
+left in the world, not by direct contact (stigmergy). Decided 2026-09-24.
+
+QUESTION
+  Under the paper's imitation, heterogeneous networks sustain the most
+  cooperation. Does that survive when agents learn from a fading RECORD left
+  at each node, instead of seeing the neighbour's current payoff? And how
+  does shared memory in the environment compare with the private memory
+  (PSO personal best) that broke the topology effect in
+  ../extension-2-swarm-topology/?
+
+MODEL
+  Each node keeps a trace of the payoffs earned there:
+      trace <- (1 - lam) * trace + lam * payoff
+  Agent x picks a random neighbour y (as in the paper) and compares ITS OWN
+  current payoff with y's TRACE. If the trace is higher, x copies with the
+  paper's probability (trace_y - P_x) / (k> D>). lam=1 is exactly the paper.
+
+  Two controls, added to test hypotheses from the first result:
+    peak     the trace jumps up to any new high payoff and fades down at
+             rate lam -- holds on to windfalls, like PSO's personal best.
+    strategy the peak trace PLUS the strategy that earned the peak; x copies
+             that remembered strategy, not y's current one -- the closest
+             match to PSO's personal best, which stores a position.
+
+DECISIONS, AND WHY
+  Traces start at the first generation's payoffs, not 0, so there is no
+    artificial start-up bias.
+  x compares its own CURRENT payoff (it knows what it earns) with the
+    neighbour's trace (what the environment shows).
+  lam = 0.5, 0.2, 0.05: short to long memory. lam=1 is not rerun: it is the
+    saved imitation baseline in
+    ../extension-2-swarm-topology/topology_results.json.
+  Scale, grid, networks and seeds: identical to
+    ../extension-2-swarm-topology/topology_experiment.py (n=500,
+    200 for complete; 10 realizations; 300 + 60 generations; 5x5 grid;
+    m=2 / avg_degree=4), so every number compares directly.
+
+FILES
+  stigmergy_update_rule.py
+                   update_traces() (average), update_traces_peak() (peak
+                   control), update_memory_peak() (strategy control), and
+                   next_strategy() -- ../../update_rule.py's rule reading the
+                   neighbour's trace; `offered` picks what is copied.
+  main_stigmergy.py
+                   run_stigmergy() / run_batch_stigmergy() -- ../../main.py's
+                   loop plus the trace step; trace_rule = average / peak /
+                   strategy. lam=1 reproduces ../../main.py exactly.
+  sweep_stigmergy.py
+                   sweep_stigmergy() -- ../../sweep.py over the (T, S) grid.
+  lam_experiment.py
+                   run_lam() -- one lam, one trace rule, all four networks,
+                   saved as [peak_|strategy_]lam_<value>_results.json.
+                   Run once per value, in parallel (~10 min each).
+  plot_lam_curve.py
+                   lam_curve.png: whole-grid cooperation vs. lam, one panel
+                   per trace rule, one line per network.
+  tests/           one test per function / script: command, expected output, why.

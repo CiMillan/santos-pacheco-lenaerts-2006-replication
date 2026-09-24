@@ -1,0 +1,118 @@
+Extension: open-source game theory (agents that read each other's code)
+=====================================================================
+Built on top of ../../ (the Santos, Pacheco & Lenaerts 2006 replication) and
+compared against ../extension-2-swarm-topology/. Decided by
+grilling (2026-09-23). Sources are in ../REFERENCES.md.
+
+QUESTION
+  In the paper, network structure sustains cooperation under imitation.
+  What happens when agents can read each other's code before acting?
+  Does topology still matter, or does code-reading replace it?
+  This also touches two open problems in Critch, Dennis & Russell (2022):
+  Open Problem 2 (how a population containing DUPOC-like agents evolves)
+  and Open Problem 9 (population dynamics among CooperateBots, DefectBots,
+  DUPOCs and PrudentBots, with proof-search cost in the payoffs).
+
+THE MATH, IN SIMPLE TERMS
+  Plain game: each agent picks an action, C or D. Payoff comes from the
+    (T, S) matrix.
+  Open-source game: each agent picks a PROGRAM p. When x meets y,
+    x's action = p_x(source of p_y)
+    y's action = p_y(source of p_x)
+  and the payoff is looked up in the same (T, S) matrix as before.
+  A pair of programs where neither side gains by switching program is a
+  "program equilibrium". In a one-shot PD, mutual C
+  can be a program equilibrium; in the plain game it never is.
+
+DECISIONS, AND WHY
+  Framing: code-reading as a cooperation mechanism, compared against the
+    network effect already measured. The hybrid human/AI version (some
+    agents can read code, some can't) comes later and builds on this.
+  Programs: a fixed menu of five, with every pairing's outcome worked out
+    once and stored in a table. The simulation only looks outcomes up;
+    no proof search runs during the simulation.
+      CooperateBot  always C
+      DefectBot     always D
+      CliqueBot     C only against an exact copy of itself
+      FairBot       C iff it can prove the opponent plays C against it
+                    (the unbounded version of the paper's DUPOC)
+      PrudentBot    like FairBot, but also D against anyone who would
+                    play C against DefectBot (so it exploits CooperateBot)
+    Outcomes come from Barasz et al. (2014). The
+    unbounded PrudentBot is used; the paper notes a bounded version is
+    an open problem (Open Problem 9). CUPOD/DUPOC are NOT on the menu:
+    some bounded pairings (e.g. DUPOC(k) vs CUPOD(k), Open Problem 3) are
+    unsolved, so the table couldn't be filled honestly.
+    Caveat: with a fixed menu, the model is a 5x5 payoff game on the
+    network. The open-source part lives in how the outcome table is built.
+  Table gate: the outcome table is written first, with a source for every
+    cell, and checked by the user BEFORE anything is built on it.
+  Update rule: imitation only, ../../update_rule.py's next_strategy()
+    unchanged (it copies a neighbour's label, so it works with program
+    names as well as "C"/"D"). Swarm needs programs encoded as positions;
+    that's a later experiment.
+  Sweep: same as the topology experiment -- all four networks, 5x5
+    (T, S) grid, n=500 (n=200 for complete), 10 realizations,
+    300 transient + 60 averaged generations, m=2 / avg_degree=4, same seeds.
+  Initial condition: each agent gets a random program, 1/5 each.
+    Follow-up: mostly CooperateBot/DefectBot plus a few code-readers
+    (can code-reading invade?).
+  Mutation: none, same as the paper. If many runs lose a program early by
+    chance, mutation becomes its own follow-up.
+  Proof cost: none in the first run. A small per-game cost for the
+    code-reading programs (CliqueBot, FairBot, PrudentBot) is the very next
+    experiment -- it's what Open Problem 9 asks for.
+  Measures:
+    cooperation = fraction of all meetings (both directions of every edge)
+      where the action was C. An agent is no longer "a cooperator": a
+      FairBot plays C with some neighbours and D with others.
+    program shares = final fraction of agents running each program.
+  Comparison: plain imitation (C/D) numbers reused from
+    ../extension-2-swarm-topology/topology_results.json, not
+    rerun.
+  Figure: 4x3 grid like the topology experiment -- rows = networks,
+    columns = plain imitation / open-source imitation / difference
+    (diverging red-blue, -1 to +1).
+  Program shares are reported as numbers only (terminal + results JSON).
+    A figure comes after we've seen them.
+
+PREDICTION (written before building)
+  FairBot and PrudentBot take over almost everywhere, including the PD
+  corner, and the four networks look nearly the same: code-reading doesn't
+  need clusters. If so, transparency REPLACES the network effect rather
+  than adding to it. With a proof cost, the network effect may come back.
+
+FILES (planned -- built one function at a time, each with its own .txt test)
+  programs.py      PROGRAMS (the menu), ACTION[(my program, opponent's)]
+                   -> my action, one source per cell in comments, and
+                   outcome(prog_x, prog_y) -> (action_x, action_y).
+                   Built first; user checks it before anything else.
+  payoff_os.py     compute_payoffs() for programs: per edge, look up both
+                   actions, then the (T, S) matrix. Also counts C actions
+                   so cooperation-per-meeting can be measured.
+  main_os.py       run() / run_batch() -- ../../main.py's loop with random
+                   program assignment and the new payoff; returns the
+                   cooperation trace and final program shares.
+  sweep_os.py      sweep over (T, S), same return shape as ../../sweep.py so
+                   ../../plot.py works unchanged.
+  open_source_experiment.py
+                   the runnable experiment: all 4 networks, saves
+                   open_source_results.json and the 4x3 figure, prints
+                   grid-mean and PD-corner-mean per network plus program
+                   shares.
+  cost_experiment.py
+                   Proof-cost follow-up. compute_payoffs() / run() /
+                   sweep_os() gained a `cost` option (default 0, so the
+                   first experiment is unchanged): each code-reading
+                   program (CliqueBot, FairBot, PrudentBot, listed in
+                   payoff_os.CODE_READERS) pays `cost` per game. run_cost()
+                   runs all four networks at ONE cost from the command
+                   line, saved as cost_<value>_results.json. Run for
+                   cost = 0.05, 0.2, 0.5, 1.0 in parallel (R=1, so 1.0 wipes
+                   out the whole reward for mutual cooperation).
+                   Caveat: CliqueBot's check is a plain copy comparison,
+                   much cheaper than a proof, but it pays the same cost
+                   here, as decided in the grilling.
+
+CONCLUSIONS.txt
+  Findings after running (decisions above were made BEFORE building).

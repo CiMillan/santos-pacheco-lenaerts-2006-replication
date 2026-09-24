@@ -1,0 +1,51 @@
+cd ~/Desktop/santos-pacheco-lenaerts-2006-replication/replications/extension-5-network-engineering
+python3 -c "
+import random
+import networkx as nx
+from bots import add_bots, bot_offer
+
+def fresh():
+    g = nx.path_graph(4)                                   # agents 0-1-2-3 in a line
+    add_bots(g)                                            # bots 4,5,6,7
+    s = {0: 'C', 1: 'D', 2: 'C', 3: 'D', 4: 'C', 5: 'C', 6: 'C', 7: 'C'}
+    return g, s, [0, 2]
+
+rng = random.Random(1)
+g, s, coop = fresh(); print('always_c,   agent 0:', bot_offer(g, 0, 'always_c', s, coop, 4, rng))
+g, s, coop = fresh(); print('disengaged, agent 0:', bot_offer(g, 0, 'disengaged', s, coop, 4, rng), ' edge 0-1 left:', g.has_edge(0, 1))
+g, s, coop = fresh(); print('disengaged, agent 1:', bot_offer(g, 1, 'disengaged', s, coop, 4, rng))
+g, s, coop = fresh(); print('engaged,    agent 3:', bot_offer(g, 3, 'engaged', s, coop, 4, rng), ' edge 3-0 now:', g.has_edge(3, 0))
+g, s, coop = fresh(); print('engaged,    agent 1:', bot_offer(g, 1, 'engaged', s, coop, 4, rng))
+g, s, coop = fresh(); e = g.number_of_edges(); r = bot_offer(g, 0, 'random', s, coop, 4, rng); print('random,     agent 0:', r, ' edges', e, '->', g.number_of_edges())
+g, s, coop = fresh(); [bot_offer(g, a, 'disengaged', s, coop, 4, rng) for a in range(4)]; print('bot ties untouched:', all(g.has_edge(a, a + 4) for a in range(4)))
+"
+
+Expected output:
+always_c,   agent 0: None
+disengaged, agent 0: ('cut', 1)  edge 0-1 left: False
+disengaged, agent 1: None
+engaged,    agent 3: ('link', 0)  edge 3-0 now: True
+engaged,    agent 1: None
+random,     agent 0: ('cut', 1)  edges 7 -> 6
+bot ties untouched: True
+
+Why: four agents in a line, 0-1-2-3, playing C, D, C, D, each with its own
+bot (nodes 4-7, always C). Small enough to know every answer by hand.
+  always_c: the bot never rewires, so nothing happens.
+  disengaged, agent 0: its only agent neighbour is 1, a defector, so the
+    bot tells 0 to cut 1, and the 0-1 tie is gone.
+  disengaged, agent 1: its neighbours 0 and 2 are both cooperators (its
+    bot doesn't count), so there's no defector to cut: None. Not a bug.
+  engaged, agent 3: the cooperators are 0 and 2; 3 is already linked to 2,
+    so the only choice is 0, and a 3-0 tie appears. This is the paper's
+    "defector introduced to a cooperator".
+  engaged, agent 1: it is already linked to both cooperators, so there's
+    nobody new to introduce: None. Not a bug.
+  random: a coin flip, blind to strategy. With this seed it came up
+    "cut", and agent 0's only agent neighbour is 1, so 0-1 is cut (7 edges
+    -> 6). With another seed it might come up "link" and add a tie to 2 or
+    3 instead. Either way the edge count moves by exactly one.
+  bot ties untouched: after every agent's bot acts, each agent still has
+    its tie to its own bot. Bots only rewire agent-agent ties.
+  A bug would show up as a disengaged cut to a cooperator, an engaged link
+  to a defector, a link to a node already linked, or a missing bot tie.

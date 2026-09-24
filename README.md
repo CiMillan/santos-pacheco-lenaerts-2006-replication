@@ -64,8 +64,7 @@ Requires Python 3.9+, `networkx`, `numpy` and `matplotlib`.
 
 ## Extensions
 
-Row 0 is the base replication. Each extension changes one part of the base model and holds the
-rest fixed:
+Each extension changes one part of the base model and holds the rest fixed:
 
 | # | Variable under test | Held fixed |
 |---|---|---|
@@ -74,7 +73,7 @@ rest fixed:
 | 3 | [**Stigmergic imitation**](replications/replication-extension-stigmergy/): what agents copy from, a neighbour's current payoff vs. a fading trace left at its node (memory $\lambda$) | imitation rule, four networks, $(T, S)$ grid |
 | 4 | [**Open-source game theory**](replications/replication-extension-open-source/): what agents hold, a plain strategy vs. a program that reads the other's code; then a code-reading cost | imitation rule, four networks, $(T, S)$ grid |
 
-**Scripts.** Root scripts are never edited. *Changed* = a variant of a root script
+**Scripts.** Row 0 is the base replication. Root scripts are never edited. *Changed* = a variant of a root script
 (root → variant). *Created* = no root counterpart. Each folder keeps its tests in `tests/`.
 
 | # | Scripts changed | Scripts created |

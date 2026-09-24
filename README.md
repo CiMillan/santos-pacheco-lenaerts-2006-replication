@@ -143,6 +143,9 @@ Notes on where each reference is used: [`REFERENCES.md`](REFERENCES.md).
   extension.)* [Google Scholar](https://scholar.google.com/scholar?q=%22Cooperative+and+uncooperative+institution+designs%3A+Surprises+and+problems+in+open-source+game+theory%22+Critch)
 - Sistla, S. & Kleiman-Weiner, M. (2026). Evaluating LLMs in Open-Source Games. *Advances in Neural
   Information Processing Systems* 38, 104032–104063. [Google Scholar](https://scholar.google.com/scholar?q=%22Evaluating+LLMs+in+Open-Source+Games%22+Sistla)
+- Barasz, M., Christiano, P., Fallenstein, B., Herreshoff, M., LaVictoire, P. & Yudkowsky, E.
+  (2014). Robust cooperation in the Prisoner's Dilemma: Program equilibrium via provability logic.
+  arXiv:1401.5577. [Google Scholar](https://scholar.google.com/scholar?q=%22Robust+cooperation+in+the+Prisoner%27s+Dilemma%3A+Program+equilibrium+via+provability+logic%22+Barasz)
 - Tennenholtz, M. (2004). Program equilibrium. *Games and Economic Behavior* 49(2), 363–373. [Google Scholar](https://scholar.google.com/scholar?q=%22Program+equilibrium%22+Tennenholtz)
 - Critch, A. (2019). A parametric, resource-bounded generalization of Löb's theorem, and a robust
   cooperation criterion for open-source game theory. *Journal of Symbolic Logic* 84(4), 1368–1381. [Google Scholar](https://scholar.google.com/scholar?q=%22A+parametric%2C+resource-bounded+generalization+of+L%C3%B6b%27s+theorem%2C+and+a+robust+cooperation+criterion+for+open-source+game+theory%22+Critch)

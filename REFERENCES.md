@@ -193,6 +193,13 @@ tend to imitate the strategies of those performing better." Refs 18 and 30:
     network; and they don't put a cost on reading code. Our extension adds both network
     structure and a proof cost.
 
+- Barasz, M., Christiano, P., Fallenstein, B., Herreshoff, M., LaVictoire, P. & Yudkowsky, E.
+  (2014). Robust cooperation in the Prisoner's Dilemma: Program equilibrium via provability
+  logic. arXiv:1401.5577. https://arxiv.org/abs/1401.5577
+  - **Used in:** Open source.
+  - **Why:** FairBot, PrudentBot, CliqueBot, CooperateBot, DefectBot and their pairwise
+    outcomes (the outcome table).
+
 - Tennenholtz, M. (2004). Program equilibrium. *Games and Economic Behavior* 49(2), 363–373.
   - **Used in:** Open source.
   - **Why:** defines program equilibrium.

@@ -2,14 +2,14 @@ cd ~/Desktop/cooperation-atlas/replications/santos-pacheco-lenaerts-2006
 python3 plot.py
 
 Expected:
-saved plot_heatmap_demo.png
+saved figures/plot_heatmap_demo.png
 
 Why: this turns sweep()'s {(T,S): cooperation_fraction} dict into an
 image -- S on the y-axis, T on the x-axis, color = fraction of
 cooperators (dark blue = 0%, dark red = 100%), same color scale as the
 paper's Fig. 2/3.
 
-Open plot_heatmap_demo.png and check the SHAPE, same as test_sweep.txt:
+Open figures/plot_heatmap_demo.png and check the SHAPE, same as test_sweep.txt:
 cooperation should be highest (dark red) top-left (low T, high S) and
 fall toward 0 (dark blue) as you move right (T increasing) or down (S
 decreasing). If the colors were flipped -- high cooperation bottom-right

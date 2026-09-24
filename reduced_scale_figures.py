@@ -56,8 +56,8 @@ if __name__ == "__main__":
     plot_pair(results_complete, results_single_scale, T_values, S_values,
               title_left="Complete", title_right="Single-scale",
               suptitle="Evolution of cooperation, reduced scale -- cf. Fig. 2")
-    plt.savefig("fig2_reduced_scale.png", dpi=150)
-    print(f"saved fig2_reduced_scale.png ({time.time() - start:.0f}s elapsed)")
+    plt.savefig("figures/fig2_reduced_scale.png", dpi=150)
+    print(f"saved figures/fig2_reduced_scale.png ({time.time() - start:.0f}s elapsed)")
 
     print("Fig. 3 -- scale_free_random...")
     results_sf_random = run_panel("scale_free_random", n=500)
@@ -66,5 +66,5 @@ if __name__ == "__main__":
     plot_pair(results_sf_random, results_sf, T_values, S_values,
               title_left="Random scale-free", title_right="Barabasi-Albert scale-free",
               suptitle="Evolution of cooperation, reduced scale -- cf. Fig. 3")
-    plt.savefig("fig3_reduced_scale.png", dpi=150)
-    print(f"saved fig3_reduced_scale.png ({time.time() - start:.0f}s total)")
+    plt.savefig("figures/fig3_reduced_scale.png", dpi=150)
+    print(f"saved figures/fig3_reduced_scale.png ({time.time() - start:.0f}s total)")

@@ -1,0 +1,28 @@
+cd ~/Desktop/cooperation-atlas/replications/santos-pacheco-lenaerts-2006/replication-extension-swarm-topology
+python3 -c "
+from plot_c1_curve import collect_summaries, plot_c1_curves
+s = collect_summaries()
+for kind, pts in s.items():
+    print(kind, [(c1, round(g, 3), round(pd, 3)) for c1, g, pd in pts])
+plot_c1_curves(s).savefig('figures/c1_curve.png', dpi=150)
+print('saved figures/c1_curve.png')
+"
+
+Expected output (needs all five results files; runs no simulation, ~2 s):
+complete [(0.0, 0.448, 0.0), (0.25, 0.514, 0.019), (0.5, 0.526, 0.026), (1.0, 0.57, 0.076), (1.5, 0.591, 0.15)]
+single_scale [(0.0, 0.759, 0.195), (0.25, 0.695, 0.142), (0.5, 0.662, 0.131), (1.0, 0.61, 0.115), (1.5, 0.579, 0.111)]
+scale_free_random [(0.0, 0.866, 0.47), (0.25, 0.726, 0.183), (0.5, 0.685, 0.19), (1.0, 0.614, 0.137), (1.5, 0.569, 0.123)]
+scale_free [(0.0, 0.876, 0.435), (0.25, 0.735, 0.19), (0.5, 0.685, 0.175), (1.0, 0.619, 0.135), (1.5, 0.579, 0.123)]
+saved figures/c1_curve.png
+
+Why: each tuple is (c1, whole-grid mean, PD-corner mean). Two cross-checks
+against numbers already recorded elsewhere -- if either fails, a file is
+being read wrong:
+  - c1=0.0 values must match the c1=0 table in CONCLUSIONS.txt
+    (e.g. scale_free grid 0.876).
+  - c1=1.5 values must match the "swarm grid" / "swarm PD" columns of the
+    first table in CONCLUSIONS.txt (e.g. scale_free 0.579 / 0.123) --
+    that's the "swarm" half of topology_results.json, not "imitation".
+If a results file is missing, that c1 is just skipped (fewer tuples).
+Then open c1_curve.png: 4 coloured lines, each with a text label at its
+left end, labels not overlapping.

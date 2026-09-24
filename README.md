@@ -17,7 +17,7 @@ cooperation over a larger region of (T, S). Mean cooperation over the grid rises
 
 | Complete vs. single-scale (cf. Fig. 2) | Random vs. BA scale-free (cf. Fig. 3) |
 |---|---|
-| ![](fig2_reduced_scale.png) | ![](fig3_reduced_scale.png) |
+| ![](figures/fig2_reduced_scale.png) | ![](figures/fig3_reduced_scale.png) |
 
 **Deviation from the paper.** Reduced scale, because the pure-Python code would need days
 per figure at full scale (timings in `ARCHITECTURE.txt`):
@@ -47,10 +47,10 @@ Row 0 is the base replication. Each row of the results table links to its folder
 | # | Scripts changed | Scripts created |
 |---|---|---|
 | 0 | — | [`main.py`](main.py), [`network.py`](network.py), [`payoff.py`](payoff.py), [`update_rule.py`](update_rule.py), [`sweep.py`](sweep.py), [`plot.py`](plot.py), [`reduced_scale_figures.py`](reduced_scale_figures.py) |
-| 1 | [`update_rule.py`](update_rule.py) → [`swarm_update_rule.py`](replication-extension-swarm-learning/swarm_update_rule.py); [`main.py`](main.py) → [`main_swarm.py`](replication-extension-swarm-learning/main_swarm.py) | [`compare_imitation_vs_swarm.py`](replication-extension-swarm-learning/compare_imitation_vs_swarm.py), [`plot_comparison.py`](replication-extension-swarm-learning/plot_comparison.py) |
-| 2 | [`sweep.py`](sweep.py) → [`sweep_swarm.py`](replication-extension-swarm-topology/sweep_swarm.py); [`plot.py`](plot.py) → [`plot_topology.py`](replication-extension-swarm-topology/plot_topology.py) | [`topology_experiment.py`](replication-extension-swarm-topology/topology_experiment.py), [`c1_zero_experiment.py`](replication-extension-swarm-topology/c1_zero_experiment.py), [`c1_sweep.py`](replication-extension-swarm-topology/c1_sweep.py), [`velocity_test.py`](replication-extension-swarm-topology/velocity_test.py), [`plot_c1_curve.py`](replication-extension-swarm-topology/plot_c1_curve.py) |
-| 3 | [`update_rule.py`](update_rule.py) → [`stigmergy_update_rule.py`](replication-extension-stigmergy/stigmergy_update_rule.py); [`main.py`](main.py) → [`main_stigmergy.py`](replication-extension-stigmergy/main_stigmergy.py); [`sweep.py`](sweep.py) → [`sweep_stigmergy.py`](replication-extension-stigmergy/sweep_stigmergy.py) | [`lam_experiment.py`](replication-extension-stigmergy/lam_experiment.py), [`plot_lam_curve.py`](replication-extension-stigmergy/plot_lam_curve.py) |
-| 4 | [`main.py`](main.py) → [`main_os.py`](replication-extension-open-source/main_os.py); [`payoff.py`](payoff.py) → [`payoff_os.py`](replication-extension-open-source/payoff_os.py); [`sweep.py`](sweep.py) → [`sweep_os.py`](replication-extension-open-source/sweep_os.py) | [`programs.py`](replication-extension-open-source/programs.py), [`open_source_experiment.py`](replication-extension-open-source/open_source_experiment.py), [`cost_experiment.py`](replication-extension-open-source/cost_experiment.py) |
+| 1 | [`update_rule.py`](update_rule.py) → [`swarm_update_rule.py`](replications/replication-extension-swarm-learning/swarm_update_rule.py); [`main.py`](main.py) → [`main_swarm.py`](replications/replication-extension-swarm-learning/main_swarm.py) | [`compare_imitation_vs_swarm.py`](replications/replication-extension-swarm-learning/compare_imitation_vs_swarm.py), [`plot_comparison.py`](replications/replication-extension-swarm-learning/plot_comparison.py) |
+| 2 | [`sweep.py`](sweep.py) → [`sweep_swarm.py`](replications/replication-extension-swarm-topology/sweep_swarm.py); [`plot.py`](plot.py) → [`plot_topology.py`](replications/replication-extension-swarm-topology/plot_topology.py) | [`topology_experiment.py`](replications/replication-extension-swarm-topology/topology_experiment.py), [`c1_zero_experiment.py`](replications/replication-extension-swarm-topology/c1_zero_experiment.py), [`c1_sweep.py`](replications/replication-extension-swarm-topology/c1_sweep.py), [`velocity_test.py`](replications/replication-extension-swarm-topology/velocity_test.py), [`plot_c1_curve.py`](replications/replication-extension-swarm-topology/plot_c1_curve.py) |
+| 3 | [`update_rule.py`](update_rule.py) → [`stigmergy_update_rule.py`](replications/replication-extension-stigmergy/stigmergy_update_rule.py); [`main.py`](main.py) → [`main_stigmergy.py`](replications/replication-extension-stigmergy/main_stigmergy.py); [`sweep.py`](sweep.py) → [`sweep_stigmergy.py`](replications/replication-extension-stigmergy/sweep_stigmergy.py) | [`lam_experiment.py`](replications/replication-extension-stigmergy/lam_experiment.py), [`plot_lam_curve.py`](replications/replication-extension-stigmergy/plot_lam_curve.py) |
+| 4 | [`main.py`](main.py) → [`main_os.py`](replications/replication-extension-open-source/main_os.py); [`payoff.py`](payoff.py) → [`payoff_os.py`](replications/replication-extension-open-source/payoff_os.py); [`sweep.py`](sweep.py) → [`sweep_os.py`](replications/replication-extension-open-source/sweep_os.py) | [`programs.py`](replications/replication-extension-open-source/programs.py), [`open_source_experiment.py`](replications/replication-extension-open-source/open_source_experiment.py), [`cost_experiment.py`](replications/replication-extension-open-source/cost_experiment.py) |
 
 **Results.** The paper's finding: the more heterogeneous the network, the more cooperation
 (complete < single-scale < random scale-free < Barabási–Albert). "Base" below is our
@@ -59,10 +59,10 @@ reduced-scale run of the paper's model (row 0), so every comparison uses the sam
 | # | Idea | Main result vs. the paper |
 |---|---|---|
 | 0 | **Base replication**: Santos et al. (2006), imitation on four networks over the (T, S) grid | **Heterogeneous networks sustain more cooperation, as in the paper:** Barabási–Albert 0.65 vs. complete 0.49 (shape reproduced, exact values not, at reduced scale). |
-| 1 | [**Swarm learning**](replication-extension-swarm-learning/): particle-swarm (PSO) learning instead of the paper's imitation; PD on the BA network | **Replacing imitation with PSO cuts cooperation from 0.90 to 0.33,** because each agent's personal best keeps pulling it back to an old defection windfall. |
-| 2 | [**Swarm topology**](replication-extension-swarm-topology/): swarm learning on all four networks; vary memory weight c₁ | **The paper's topology effect survives only for learners without self-memory:** default PSO flattens every network to ≈0.58, while PSO with no personal memory (c₁=0) makes the effect stronger than the paper's (BA 0.88 vs. 0.65). |
-| 3 | [**Stigmergic imitation**](replication-extension-stigmergy/): agents read a fading payoff trace left at each node instead of the neighbour's current payoff (idea from SwarmWorld) | **A remembered payoff is harmless; a remembered strategy weakens network reciprocity** (BA–complete gap 0.16 → 0.12), but far less than PSO's private, never-fading memory, which erased it. |
-| 4 | [**Open-source game theory**](replication-extension-open-source/): agents hold programs that read each other's code; then add a code-reading cost | **When agents can read each other's code for free, the network stops mattering** (≈0.97–1.00 everywhere); the paper's effect returns only once code-reading costs 0.5 or more, and is back to the paper-rule values (within 0.01) at 1.0. |
+| 1 | [**Swarm learning**](replications/replication-extension-swarm-learning/): particle-swarm (PSO) learning instead of the paper's imitation; PD on the BA network | **Replacing imitation with PSO cuts cooperation from 0.90 to 0.33,** because each agent's personal best keeps pulling it back to an old defection windfall. |
+| 2 | [**Swarm topology**](replications/replication-extension-swarm-topology/): swarm learning on all four networks; vary memory weight c₁ | **The paper's topology effect survives only for learners without self-memory:** default PSO flattens every network to ≈0.58, while PSO with no personal memory (c₁=0) makes the effect stronger than the paper's (BA 0.88 vs. 0.65). |
+| 3 | [**Stigmergic imitation**](replications/replication-extension-stigmergy/): agents read a fading payoff trace left at each node instead of the neighbour's current payoff (idea from SwarmWorld) | **A remembered payoff is harmless; a remembered strategy weakens network reciprocity** (BA–complete gap 0.16 → 0.12), but far less than PSO's private, never-fading memory, which erased it. |
+| 4 | [**Open-source game theory**](replications/replication-extension-open-source/): agents hold programs that read each other's code; then add a code-reading cost | **When agents can read each other's code for free, the network stops mattering** (≈0.97–1.00 everywhere); the paper's effect returns only once code-reading costs 0.5 or more, and is back to the paper-rule values (within 0.01) at 1.0. |
 
 ## References
 
@@ -76,6 +76,7 @@ Notes on where each reference is used: [`REFERENCES.md`](REFERENCES.md).
 ### Foundations and framing
 
 - Nowak, M. A. (2006). Five rules for the evolution of cooperation. *Science* 314(5805), 1560–1563.
+- Wooldridge, M. (2009). *An Introduction to MultiAgent Systems* (2nd ed.). John Wiley & Sons.
 - Pedreschi, D., Pappalardo, L., Ferragina, E., et al. (2025). Human-AI coevolution.
   *Artificial Intelligence* 339, 104244.
 - Hammond, L., Chan, A., Clifton, J., et al. (2025). *Multi-Agent Risks from Advanced AI.*

@@ -55,8 +55,8 @@ if __name__ == "__main__":
                      R=1, P=0, num_realizations=10, seed=1, tail=10)
 
     plot_heatmap(results, T_values, S_values, title="scale-free (demo, n=200)")
-    plt.savefig("plot_heatmap_demo.png", dpi=150)
-    print("saved plot_heatmap_demo.png")
+    plt.savefig("figures/plot_heatmap_demo.png", dpi=150)
+    print("saved figures/plot_heatmap_demo.png")
 
     results_complete = sweep("complete", n=200, generations=100, T_values=T_values, S_values=S_values,
                               R=1, P=0, num_realizations=10, seed=1, tail=10)
@@ -65,5 +65,5 @@ if __name__ == "__main__":
     plot_pair(results_complete, results_single_scale, T_values, S_values,
               title_left="Complete", title_right="Single-scale",
               suptitle="Evolution of cooperation (demo, n=200) -- cf. Fig. 2")
-    plt.savefig("plot_pair_demo.png", dpi=150)
-    print("saved plot_pair_demo.png")
+    plt.savefig("figures/plot_pair_demo.png", dpi=150)
+    print("saved figures/plot_pair_demo.png")

@@ -50,12 +50,15 @@ Requires Python 3.9+, `networkx`, `numpy` and `matplotlib`.
 
 ## Extensions
 
-Row 0 is the base replication. The extensions are:
+Row 0 is the base replication. Each extension changes one part of the base model and holds the
+rest fixed:
 
-1. [Swarm learning](replications/replication-extension-swarm-learning/): particle-swarm learning instead of imitation.
-2. [Swarm topology](replications/replication-extension-swarm-topology/): swarm learning on all four networks.
-3. [Stigmergic imitation](replications/replication-extension-stigmergy/): agents learn from fading traces left at each node.
-4. [Open-source game theory](replications/replication-extension-open-source/): agents hold programs that read each other's code.
+| # | Variable under test | Held fixed |
+|---|---|---|
+| 1 | [**Swarm learning**](replications/replication-extension-swarm-learning/): the update rule, the paper's imitation vs. particle-swarm learning (PSO) | one Prisoner's Dilemma ($T=1.2$, $S=-0.1$) on the Barabási–Albert network |
+| 2 | [**Swarm topology**](replications/replication-extension-swarm-topology/): the network type, all four; then PSO's memory weight $c_1$ | PSO update rule, $(T, S)$ grid |
+| 3 | [**Stigmergic imitation**](replications/replication-extension-stigmergy/): what agents copy from, a neighbour's current payoff vs. a fading trace left at its node (memory $\lambda$) | imitation rule, four networks, $(T, S)$ grid |
+| 4 | [**Open-source game theory**](replications/replication-extension-open-source/): what agents hold, a plain strategy vs. a program that reads the other's code; then a code-reading cost | imitation rule, four networks, $(T, S)$ grid |
 
 **Scripts.** Root scripts are never edited. *Changed* = a variant of a root script
 (root → variant). *Created* = no root counterpart. Each folder keeps its tests in `tests/`.

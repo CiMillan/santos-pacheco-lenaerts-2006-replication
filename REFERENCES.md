@@ -207,7 +207,3 @@ tend to imitate the strategies of those performing better." Refs 18 and 30:
 - Math for AI Safety — Open-source game theory.
   https://mathforaisafety.org/research/open-source-game-theory
   - **Why:** plain-language intro: FairBot, Löb's theorem, DUPOC/CUPOD, bounded FairBot(k).
-
-- [github.com/klao/provability](https://github.com/klao/provability)
-  - **Why:** Haskell tool that computes outcomes of unbounded modal (provability-logic)
-    agents. Could double-check the outcome table.

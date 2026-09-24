@@ -22,6 +22,12 @@ One list for the replication and all its extensions. Under each reference:
   - **Why:** network reciprocity is one of the five rules. It's the mechanism behind the base
     paper's topology effect, and the extensions test it under other learning rules.
 
+- Wooldridge, M. (2009). *An Introduction to MultiAgent Systems* (2nd ed.). John Wiley & Sons.
+  - **Used in:** all (framing).
+  - **Why:** standard textbook definition of agents and multi-agent systems. Frames the
+    population as a multi-agent system: autonomous agents, each acting on local information,
+    whose interactions produce the collective outcome (here, the level of cooperation).
+
 - Pedreschi, D., Pappalardo, L., Ferragina, E., et al. (2025). Human-AI coevolution.
   *Artificial Intelligence* 339, 104244. https://doi.org/10.1016/j.artint.2024.104244
   - **Used in:** extensions.

@@ -50,7 +50,12 @@ Requires Python 3.9+, `networkx`, `numpy` and `matplotlib`.
 
 ## Extensions
 
-Row 0 is the base replication. Each row of the results table links to its folder.
+Row 0 is the base replication. The extensions are:
+
+1. [Swarm learning](replications/replication-extension-swarm-learning/): particle-swarm learning instead of imitation.
+2. [Swarm topology](replications/replication-extension-swarm-topology/): swarm learning on all four networks.
+3. [Stigmergic imitation](replications/replication-extension-stigmergy/): agents learn from fading traces left at each node.
+4. [Open-source game theory](replications/replication-extension-open-source/): agents hold programs that read each other's code.
 
 **Scripts.** Root scripts are never edited. *Changed* = a variant of a root script
 (root → variant). *Created* = no root counterpart. Each folder keeps its tests in `tests/`.

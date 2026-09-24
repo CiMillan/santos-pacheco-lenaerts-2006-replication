@@ -38,7 +38,7 @@ DECISIONS, AND WHY
                     (the unbounded version of the paper's DUPOC)
       PrudentBot    like FairBot, but also D against anyone who would
                     play C against DefectBot (so it exploits CooperateBot)
-    Outcomes come from Barasz et al. / LaVictoire et al. (2014). The
+    Outcomes come from Barasz et al. (2014). The
     unbounded PrudentBot is used; the paper notes a bounded version is
     an open problem (Open Problem 9). CUPOD/DUPOC are NOT on the menu:
     some bounded pairings (e.g. DUPOC(k) vs CUPOD(k), Open Problem 3) are

@@ -115,18 +115,18 @@ Notes on where each reference is used: [`REFERENCES.md`](REFERENCES.md).
 ### Base paper
 
 - Santos, F. C., Pacheco, J. M. & Lenaerts, T. (2006). Evolutionary dynamics of social dilemmas
-  in structured heterogeneous populations. *PNAS* 103(9), 3490–3494.
+  in structured heterogeneous populations. *PNAS* 103(9), 3490–3494. [Google Scholar](https://scholar.google.com/scholar?q=%22Evolutionary+dynamics+of+social+dilemmas+in+structured+heterogeneous+populations%22+Santos)
 
-### Foundations and framing [Google Scholar](https://scholar.google.com/scholar?q=%22Evolutionary+dynamics+of+social+dilemmas+in+structured+heterogeneous+populations%22+Santos)
+### Foundations and framing
 
 - Nowak, M. A. (2006). Five rules for the evolution of cooperation. *Science* 314(5805), 1560–1563. [Google Scholar](https://scholar.google.com/scholar?q=%22Five+rules+for+the+evolution+of+cooperation%22+Nowak)
 - Wooldridge, M. (2009). *An Introduction to MultiAgent Systems* (2nd ed.). John Wiley & Sons. [Google Scholar](https://scholar.google.com/scholar?q=%22An+Introduction+to+MultiAgent+Systems%22+Wooldridge)
 - Pedreschi, D., Pappalardo, L., Ferragina, E., et al. (2025). Human-AI coevolution.
   *Artificial Intelligence* 339, 104244. [Google Scholar](https://scholar.google.com/scholar?q=%22Human-AI+coevolution%22+Pedreschi)
 - Hammond, L., Chan, A., Clifton, J., et al. (2025). *Multi-Agent Risks from Advanced AI.*
-  Cooperative AI Foundation, Technical Report #1. arXiv:2502.14143.
+  Cooperative AI Foundation, Technical Report #1. arXiv:2502.14143. [Google Scholar](https://scholar.google.com/scholar?q=%22Multi-Agent+Risks+from+Advanced+AI%22+Hammond)
 
-### Networks [Google Scholar](https://scholar.google.com/scholar?q=%22Multi-Agent+Risks+from+Advanced+AI%22+Hammond)
+### Networks
 
 - Erdős, P. & Rényi, A. (1959). On random graphs I. *Publicationes Mathematicae Debrecen* 6, 290–297. [Google Scholar](https://scholar.google.com/scholar?q=%22On+random+graphs+I%22+Erd%C5%91s)
 - Barabási, A.-L. & Albert, R. (1999). Emergence of scaling in random networks. *Science* 286(5439),
@@ -136,15 +136,15 @@ Notes on where each reference is used: [`REFERENCES.md`](REFERENCES.md).
 - Yu, M., Wang, S., Zhang, G., et al. (2025). NetSafe: Exploring the topological safety of
   multi-agent system. *Findings of ACL 2025*, 2905–2938. [Google Scholar](https://scholar.google.com/scholar?q=%22NetSafe%3A+Exploring+the+topological+safety+of+multi-agent+system%22+Yu)
 - Liu, Y., Zhang, G., Wang, K., Li, S., Pan, S. & An, B. (2026). Graph-augmented large language model
-  agents: Current progress and future prospects. *IEEE Intelligent Systems* 41(2), 45–55.
+  agents: Current progress and future prospects. *IEEE Intelligent Systems* 41(2), 45–55. [Google Scholar](https://scholar.google.com/scholar?q=%22Graph-augmented+large+language+model+agents%3A+Current+progress+and+future+prospects%22+Liu)
 
-### Imitation update rule [Google Scholar](https://scholar.google.com/scholar?q=%22Graph-augmented+large+language+model+agents%3A+Current+progress+and+future+prospects%22+Liu)
+### Imitation update rule
 
 - Hauert, C. & Doebeli, M. (2004). Spatial structure often inhibits the evolution of cooperation
   in the snowdrift game. *Nature* 428, 643–646. [Google Scholar](https://scholar.google.com/scholar?q=%22Spatial+structure+often+inhibits+the+evolution+of+cooperation+in+the+snowdrift+game%22+Hauert)
-- Gintis, H. (2000). *Game Theory Evolving.* Princeton University Press.
+- Gintis, H. (2000). *Game Theory Evolving.* Princeton University Press. [Google Scholar](https://scholar.google.com/scholar?q=%22Game+Theory+Evolving%22+Gintis)
 
-### Particle swarm optimization (swarm extensions) [Google Scholar](https://scholar.google.com/scholar?q=%22Game+Theory+Evolving%22+Gintis)
+### Particle swarm optimization (swarm extensions)
 
 - Pal, S., Wang, F. Y. & Buehler, M. J. (2026). SwarmWorld: Stigmergic technological evolution
   in societies of language-model agents. arXiv:2608.26081. *(Motivated the swarm extensions and the stigmergy extension.)* [Google Scholar](https://scholar.google.com/scholar?q=%22SwarmWorld%3A+Stigmergic+technological+evolution+in+societies+of+language-model+agents%22+Pal)
@@ -163,9 +163,9 @@ Notes on where each reference is used: [`REFERENCES.md`](REFERENCES.md).
 - Carlisle, A. & Dozier, G. (2000). Adapting particle swarm optimization to dynamic environments.
   *Proceedings of ICAI 2000.* [Google Scholar](https://scholar.google.com/scholar?q=%22Adapting+particle+swarm+optimization+to+dynamic+environments%22+Carlisle)
 - Hu, X. & Eberhart, R. C. (2002). Adaptive particle swarm optimization: detection and response to
-  dynamic systems. *Proceedings of the 2002 Congress on Evolutionary Computation.*
+  dynamic systems. *Proceedings of the 2002 Congress on Evolutionary Computation.* [Google Scholar](https://scholar.google.com/scholar?q=%22Adaptive+particle+swarm+optimization%3A+detection+and+response+to+dynamic+systems%22+Hu)
 
-### Open-source game theory [Google Scholar](https://scholar.google.com/scholar?q=%22Adaptive+particle+swarm+optimization%3A+detection+and+response+to+dynamic+systems%22+Hu)
+### Open-source game theory
 
 - Critch, A., Dennis, M. & Russell, S. (2022). Cooperative and uncooperative institution designs:
   Surprises and problems in open-source game theory. arXiv:2208.07006. *(Main paper for this

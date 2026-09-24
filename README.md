@@ -23,11 +23,7 @@ cooperation over a larger region of (T, S). Mean cooperation over the grid rises
 |---|---|
 | ![](figures/fig2_reduced_scale.png) | ![](figures/fig3_reduced_scale.png) |
 
-**Deviation from the paper.** Reduced scale, because the code would need years at full scale.
-The code is not vectorized yet on purpose: each step of the model is written as a plain loop,
-one function per file, so a person can read it and check it line by line against the paper's
-Methods. A vectorized version (NumPy arrays instead of Python loops) will come later. The last
-column below is an estimate from a quick vectorized prototype, to be replaced by measured times.
+**Deviation from the paper.** Reduced scale:
 
 | | Paper | Here |
 |---|---|---|
@@ -35,28 +31,10 @@ column below is an estimate from a quick vectorized prototype, to be replaced by
 | Generations (transient + averaged) | 10,000 + 1,000 | 300 + 60 |
 | Realizations per (T, S) point | 100 | 10 |
 
-Run time of the current code for the 5×5 (T, S) grid, one core on a Mac (earlier timings in `ARCHITECTURE.txt`):
-
-| Network | Here (measured) | Paper's scale (estimated) | Vectorized, paper's scale (estimated) |
-|---|---|---|---|
-| Complete | 6 min | ≈ 11 years | ≈ 40 min |
-| Single-scale | 52 s | ≈ 4 days | ≈ 1.5 h |
-| Random scale-free | 62 s | ≈ 4 days | ≈ 2 h |
-| Barabási–Albert | 51 s | ≈ 4 days | ≈ 1 h |
-| **All four** | **9 min** | **≈ 11 years** | **≈ 5 h** |
-
-The estimates use the measured time per generation at N = 10,000 (about 13 ms on the sparse
-networks). For the complete graph the time grows with N², so it uses 126 ms at N = 1,000 × 100
-≈ 13 s per generation. The paper's own grid is finer than 5×5, so its real cost is higher still.
-
-The vectorized estimate uses a prototype step timed at N = 10,000: about 0.15 ms per generation
-on the sparse networks (≈ 90× faster), plus the time to build a new network for each realization.
-On the complete graph the prototype doesn't loop over neighbours at all: every agent meets
-everyone, so a cooperator's payoff depends only on how many cooperators there are. That takes
-0.08 ms per generation (≈ 150,000× faster); a plain 10,000 × 10,000 matrix would take about 2 days.
-The prototype matches the current code's cooperation levels (e.g. 0.73 vs. 0.72 over 30
-realizations on Barabási–Albert at $T=1.5$, $S=0$). Running realizations on several cores
-in parallel would cut the times further.
+The code is not vectorized yet, on purpose: it is written as plain loops, one function per file,
+so it can be read and checked line by line against the paper. At the paper's scale it would
+take about 12 years on one core; a vectorized version would take about 7 hours (estimates).
+Timings and the prototype behind them: [`timing/`](timing/).
 
 The shape is reproduced but the exact values are not, and finite-size noise is larger.
 

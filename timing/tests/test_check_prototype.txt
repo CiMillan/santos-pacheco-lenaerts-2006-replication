@@ -1,0 +1,19 @@
+cd ~/Desktop/santos-pacheco-lenaerts-2006-replication/timing
+python3 check_prototype.py
+
+Expected output (2026-09-24):
+T=1.5 S=0.0 scale_free: current 0.72 (SE 0.04)  vectorized 0.73
+T=1.5 S=0.0 complete: current 0.00 (SE 0.00)  vectorized 0.00
+T=1.0 S=0.5 scale_free: current 0.95 (SE 0.02)  vectorized 0.96
+T=1.0 S=0.5 complete: current 0.99 (SE 0.00)  vectorized 0.99
+T=1.5 S=-0.5 scale_free: current 0.00 (SE 0.00)  vectorized 0.00
+T=1.5 S=-0.5 complete: current 0.00 (SE 0.00)  vectorized 0.00
+T=0.5 S=0.5 scale_free: current 0.99 (SE 0.00)  vectorized 0.99
+T=0.5 S=0.5 complete: current 1.00 (SE 0.00)  vectorized 1.00
+
+Why: the prototype uses a different random-number generator, so single runs
+differ; what must match is the average over many runs. 30 realizations at
+the reduced scale (N=500, 200 for complete), four (T, S) points covering
+full defection, full cooperation and the mixed middle. Every difference is
+within one standard error (SE) of the current code's mean, so the prototype
+runs the same model and its timings are a fair estimate.

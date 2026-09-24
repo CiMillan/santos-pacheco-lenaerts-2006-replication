@@ -1,0 +1,16 @@
+cd ~/Desktop/santos-pacheco-lenaerts-2006-replication/timing
+python3 time_runs.py
+
+Expected output: see time_runs_output.txt (2026-09-24, Apple M5, one core,
+about 12 minutes). Times vary by machine and load; the orders of magnitude
+should not.
+
+Why: three measurements.
+  1. The reduced-scale run of the current code, panel by panel -- the same
+     calls as ../reduced_scale_figures.py.
+  2. Network build time at N=10,000, paid once per realization.
+  3. Time per generation at N=10,000 for the current code and the
+     prototype, times 11,000 generations x 100 realizations x 25 grid
+     points. The current code can't hold a 10,000-node complete graph
+     (about 50 million edges), so it is timed at N=1,000 and multiplied
+     by 100, because its cost grows with N^2.

@@ -1,0 +1,14 @@
+-- current code, reduced scale (whole 5x5 grid)
+complete n=200: 380 s
+single_scale n=500: 55 s
+scale_free_random n=500: 66 s
+scale_free n=500: 54 s
+-- network build time at N=10,000 (once per realization)
+single_scale: 0.08 s
+scale_free_random: 0.93 s
+scale_free: 0.02 s
+-- time per generation and paper-scale estimate (hours)
+complete: current 13827.1 ms/gen -> 105624 h | vectorized 0.088 ms/gen -> 0.7 h
+single_scale: current 12.9 ms/gen -> 98 h | vectorized 0.363 ms/gen -> 2.8 h
+scale_free_random: current 14.0 ms/gen -> 107 h | vectorized 0.167 ms/gen -> 1.9 h
+scale_free: current 13.6 ms/gen -> 104 h | vectorized 0.204 ms/gen -> 1.6 h

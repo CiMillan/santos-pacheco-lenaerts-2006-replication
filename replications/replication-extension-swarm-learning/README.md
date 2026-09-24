@@ -8,7 +8,7 @@
 generations. Each agent holds a position $x \in [0,1]$ and plays C if $x > 0.5$. Its velocity is
 updated as
 
-$$v \leftarrow w\,v + c_1 r_1 (p - x) + c_2 r_2 (\ell - x), \qquad x \leftarrow x + v,$$
+$$v \leftarrow w \cdot v + c_1 r_1 (p - x) + c_2 r_2 (\ell - x), \qquad x \leftarrow x + v,$$
 
 with $w=0.7$ and $c_1=c_2=1.5$ (standard defaults), and $r_1, r_2$ random numbers in $[0,1]$. The velocity is clipped to $[-1,1]$
 and the position to $[0,1]$.

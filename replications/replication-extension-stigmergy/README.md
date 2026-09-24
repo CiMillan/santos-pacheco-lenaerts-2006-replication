@@ -8,7 +8,7 @@ the world rather than by direct contact.
 
 **Model.** Each node keeps a *trace* of the payoffs earned there:
 
-$$\text{trace} \leftarrow (1 - \lambda)\,\text{trace} + \lambda\,\text{payoff}.$$
+$$\text{trace} \leftarrow (1 - \lambda) \cdot \text{trace} + \lambda \cdot \text{payoff}.$$
 
 Agent $x$ picks a random neighbour $y$, as in the paper, and
 compares its own current payoff with $y$'s trace. If the trace is higher, $x$ copies $y$'s strategy

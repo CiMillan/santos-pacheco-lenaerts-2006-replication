@@ -9,7 +9,7 @@ dilemmas in structured heterogeneous populations*, PNAS 103(9):3490–3494, 2006
 neighbour, with payoffs $R=1$, $P=0$, $T\in[0,2]$, $S\in[-1,1]$. Each generation, every agent
 $x$ picks a random neighbour $y$ and, if $P_y > P_x$, adopts $y$'s strategy with probability
 
-$$p = \frac{P_y - P_x}{k_{>}\, D_{>}}, \qquad k_{>} = \max(k_x, k_y), \qquad D_{>} = \max(T, 1) - \min(S, 0),$$
+$$p = \frac{P_y - P_x}{k_{>} \cdot D_{>}}, \qquad k_{>} = \max(k_x, k_y), \qquad D_{>} = \max(T, 1) - \min(S, 0),$$
 
 where $k_x$ is the number of neighbours of $x$, and $D_{>}$ is the largest possible payoff
 difference in one game. Four networks: complete, single-scale, random scale-free and

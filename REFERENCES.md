@@ -137,18 +137,11 @@ tend to imitate the strategies of those performing better." Refs 18 and 30:
   - **Used in:** Swarm learning, Swarm topology.
   - **Why:** the inertia weight w (we use 0.7).
 
-- Eberhart, R. C. & Shi, Y. (2000). Comparing inertia weights and constriction factors in
-  particle swarm optimization. *Proceedings of the 2000 Congress on Evolutionary Computation*,
-  84–88. https://doi.org/10.1109/CEC.2000.870279
-  - **Used in:** Swarm learning.
-  - **Why:** common defaults w ≈ 0.729, c1 = c2 ≈ 1.494. Our w=0.7, c1=c2=1.5 are a rounded
-    version, not tuned.
-
 - Clerc, M. & Kennedy, J. (2002). The particle swarm — explosion, stability, and convergence
   in a multidimensional complex space. *IEEE Transactions on Evolutionary Computation* 6(1),
   58–73. https://doi.org/10.1109/4235.985692
   - **Used in:** Swarm learning, Swarm topology.
-  - **Why:** the stability analysis behind those defaults. A particle keeps oscillating between
+  - **Why:** the stability analysis behind the standard PSO settings (w, c1, c2). A particle keeps oscillating between
     its personal best and its neighbourhood best while they disagree. That fits the
     velocity-test finding: with any c1 > 0, agents never stop moving.
 
@@ -168,22 +161,6 @@ tend to imitate the strategies of those performing better." Refs 18 and 30:
   - **Used in:** Swarm learning, Swarm topology.
   - **Why:** same question as Kennedy (1999) on more graph types. It also explains the
     complete-graph caveat: on a complete graph, local best becomes global best.
-
-### PSO in changing landscapes (background, not used in the code)
-
-- Carlisle, A. & Dozier, G. (2000). Adapting particle swarm optimization to dynamic
-  environments. *Proceedings of the International Conference on Artificial Intelligence
-  (ICAI 2000).*
-  - **Used in:** Swarm learning.
-  - **Why:** resets stale personal bests when the landscape changes. That's the same problem
-    found in Swarm learning's `CONCLUSIONS.txt` (stale defection windfalls).
-
-- Hu, X. & Eberhart, R. C. (2002). Adaptive particle swarm optimization: detection and
-  response to dynamic systems. *Proceedings of the 2002 Congress on Evolutionary Computation.*
-  https://doi.org/10.1109/CEC.2002.1004492
-  - **Used in:** Swarm learning.
-  - **Why:** detects landscape changes and re-evaluates the memory. A starting point for a
-    "decaying personal best" follow-up.
 
 ## Open-source game theory (`programs.py`)
 
@@ -215,19 +192,6 @@ tend to imitate the strategies of those performing better." Refs 18 and 30:
     their programs are LLM-written, not provability-logic bots; their population has no
     network; and they don't put a cost on reading code. Our extension adds both network
     structure and a proof cost.
-
-- Barasz, M., Christiano, P., Fallenstein, B., Herreshoff, M., LaVictoire, P. & Yudkowsky, E.
-  (2014). Robust cooperation in the Prisoner's Dilemma: Program equilibrium via provability
-  logic. arXiv:1401.5577. https://arxiv.org/abs/1401.5577
-  - **Used in:** Open source.
-  - **Why:** FairBot, PrudentBot, CliqueBot, CooperateBot, DefectBot and their pairwise
-    outcomes (the outcome table).
-
-- LaVictoire, P., Fallenstein, B., Yudkowsky, E., Barasz, M., Christiano, P. & Herreshoff, M.
-  (2014). Program equilibrium in the prisoner's dilemma via Löb's theorem. *AAAI Workshop on
-  Multiagent Interaction without Prior Coordination.* (Critch et al. ref [47].)
-  - **Used in:** Open source.
-  - **Why:** the outcome table.
 
 - Tennenholtz, M. (2004). Program equilibrium. *Games and Economic Behavior* 49(2), 363–373.
   - **Used in:** Open source.

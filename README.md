@@ -32,9 +32,16 @@ The shape is reproduced but the exact values are not, and finite-size noise is l
 
 ## Code
 
-`main.py` (core loop) · `network.py` (the four graphs) · `payoff.py` · `update_rule.py`
-· `sweep.py` ((T, S) grid) · `plot.py` · `reduced_scale_figures.py` (makes the figures above).
-Each file has a test in [`tests/`](tests/) with the command, expected output and interpretation.
+- [`network.py`](network.py): builds the four networks: complete, single-scale, random scale-free and Barabási–Albert scale-free.
+- [`payoff.py`](payoff.py): each agent plays every neighbour once per generation and adds up its payoffs.
+- [`update_rule.py`](update_rule.py): the paper's imitation rule. An agent compares itself with one random neighbour and may copy that neighbour's strategy.
+- [`main.py`](main.py): the core loop. It builds the network, gives out random strategies, then repeats payoff and update each generation. It also runs and averages several realizations.
+- [`sweep.py`](sweep.py): runs the loop at every (T, S) point of the grid and returns the final cooperation level at each one.
+- [`plot.py`](plot.py): turns the sweep results into (T, S) heatmaps like Figs. 2–3.
+- [`reduced_scale_figures.py`](reduced_scale_figures.py): makes the two figures above at reduced scale and saves them in [`figures/`](figures/).
+- [`ARCHITECTURE.txt`](ARCHITECTURE.txt): design decisions and timings.
+- [`tests/`](tests/): one test per file, with the command, the expected output and what it means.
+
 Requires Python 3.9+, `networkx`, `numpy` and `matplotlib`.
 
 ## Extensions

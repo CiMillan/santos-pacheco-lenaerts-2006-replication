@@ -23,8 +23,11 @@ cooperation over a larger region of (T, S). Mean cooperation over the grid rises
 |---|---|
 | ![](figures/fig2_reduced_scale.png) | ![](figures/fig3_reduced_scale.png) |
 
-**Deviation from the paper.** Reduced scale, because the pure-Python code would need years at
-full scale:
+**Deviation from the paper.** Reduced scale, because the code would need years at full scale.
+The code is not vectorized yet on purpose: each step of the model is written as a plain loop,
+one function per file, so a person can read it and check it line by line against the paper's
+Methods. A vectorized version (NumPy arrays instead of Python loops) will come later, and its
+run times will be added to the table below.
 
 | | Paper | Here |
 |---|---|---|
@@ -32,15 +35,15 @@ full scale:
 | Generations (transient + averaged) | 10,000 + 1,000 | 300 + 60 |
 | Realizations per (T, S) point | 100 | 10 |
 
-Run time for the 5×5 (T, S) grid, one core on a Mac (earlier timings in `ARCHITECTURE.txt`):
+Run time of the current code for the 5×5 (T, S) grid, one core on a Mac (earlier timings in `ARCHITECTURE.txt`):
 
-| Network | Here (measured) | Paper's scale (estimated) |
-|---|---|---|
-| Complete | 6 min | ≈ 11 years |
-| Single-scale | 52 s | ≈ 4 days |
-| Random scale-free | 62 s | ≈ 4 days |
-| Barabási–Albert | 51 s | ≈ 4 days |
-| **All four** | **9 min** | **≈ 11 years** |
+| Network | Here (measured) | Paper's scale (estimated) | Vectorized, paper's scale |
+|---|---|---|---|
+| Complete | 6 min | ≈ 11 years | to come |
+| Single-scale | 52 s | ≈ 4 days | to come |
+| Random scale-free | 62 s | ≈ 4 days | to come |
+| Barabási–Albert | 51 s | ≈ 4 days | to come |
+| **All four** | **9 min** | **≈ 11 years** | to come |
 
 The estimates use the measured time per generation at N = 10,000 (about 13 ms on the sparse
 networks). For the complete graph the time grows with N², so it uses 126 ms at N = 1,000 × 100

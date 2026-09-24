@@ -21,7 +21,7 @@ THE MATH, IN SIMPLE TERMS
     y's action = p_y(source of p_x)
   and the payoff is looked up in the same (T, S) matrix as before.
   A pair of programs where neither side gains by switching program is a
-  "program equilibrium" (Tennenholtz 2004). In a one-shot PD, mutual C
+  "program equilibrium". In a one-shot PD, mutual C
   can be a program equilibrium; in the plain game it never is.
 
 DECISIONS, AND WHY

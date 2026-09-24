@@ -106,7 +106,7 @@ Notes on where each reference is used: [`REFERENCES.md`](REFERENCES.md).
 
 ### Networks
 
-- Erdős, P. & Rényi, A. (1959). On random graphs I. *Publicationes Mathematicae Debrecen* 6, 290–297. [Google Scholar](https://scholar.google.com/scholar?q=%22On+random+graphs+I%22+Erd%C5%91s)
+- Erdős, P. & Rényi, A. (1959). On random graphs I. *Publicationes Mathematicae Debrecen* 6, 290–297. [Google Scholar](https://scholar.google.com/scholar?hl=en&as_sdt=0%2C5&q=On+random+graphs+I.+P+ERDdS%2C+A+R%26WI&btnG=)
 - Barabási, A.-L. & Albert, R. (1999). Emergence of scaling in random networks. *Science* 286(5439),
   509–512. [Google Scholar](https://scholar.google.com/scholar?q=%22Emergence+of+scaling+in+random+networks%22+Barab%C3%A1si)
 - Santos, F. C. & Pacheco, J. M. (2005). Scale-free networks provide a unifying framework for the

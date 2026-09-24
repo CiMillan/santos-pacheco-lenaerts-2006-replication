@@ -130,19 +130,12 @@ Notes on where each reference is used: [`REFERENCES.md`](REFERENCES.md).
   1942–1948. [Google Scholar](https://scholar.google.com/scholar?q=%22Particle+swarm+optimization%22+Kennedy)
 - Shi, Y. & Eberhart, R. (1998). A modified particle swarm optimizer. *IEEE International
   Conference on Evolutionary Computation*, 69–73. [Google Scholar](https://scholar.google.com/scholar?q=%22A+modified+particle+swarm+optimizer%22+Shi)
-- Eberhart, R. C. & Shi, Y. (2000). Comparing inertia weights and constriction factors in particle
-  swarm optimization. *Proceedings of the 2000 Congress on Evolutionary Computation*, 84–88. [Google Scholar](https://scholar.google.com/scholar?q=%22Comparing+inertia+weights+and+constriction+factors+in+particle+swarm+optimization%22+Eberhart)
 - Clerc, M. & Kennedy, J. (2002). The particle swarm — explosion, stability, and convergence in a
   multidimensional complex space. *IEEE Transactions on Evolutionary Computation* 6(1), 58–73. [Google Scholar](https://scholar.google.com/scholar?q=%22The+particle+swarm+%E2%80%94+explosion%2C+stability%2C+and+convergence+in+a+multidimensional+complex+space%22+Clerc)
 - Kennedy, J. (1999). Small worlds and mega-minds: effects of neighborhood topology on particle
   swarm performance. *Proceedings of the 1999 Congress on Evolutionary Computation.* [Google Scholar](https://scholar.google.com/scholar?q=%22Small+worlds+and+mega-minds%3A+effects+of+neighborhood+topology+on+particle+swarm+performance%22+Kennedy)
 - Kennedy, J. & Mendes, R. (2002). Population structure and particle swarm performance.
   *Proceedings of the 2002 Congress on Evolutionary Computation.* [Google Scholar](https://scholar.google.com/scholar?q=%22Population+structure+and+particle+swarm+performance%22+Kennedy)
-- Carlisle, A. & Dozier, G. (2000). Adapting particle swarm optimization to dynamic environments.
-  *Proceedings of ICAI 2000.* [Google Scholar](https://scholar.google.com/scholar?q=%22Adapting+particle+swarm+optimization+to+dynamic+environments%22+Carlisle)
-- Hu, X. & Eberhart, R. C. (2002). Adaptive particle swarm optimization: detection and response to
-  dynamic systems. *Proceedings of the 2002 Congress on Evolutionary Computation.* [Google Scholar](https://scholar.google.com/scholar?q=%22Adaptive+particle+swarm+optimization%3A+detection+and+response+to+dynamic+systems%22+Hu)
-
 ### Open-source game theory
 
 - Critch, A., Dennis, M. & Russell, S. (2022). Cooperative and uncooperative institution designs:
@@ -150,12 +143,6 @@ Notes on where each reference is used: [`REFERENCES.md`](REFERENCES.md).
   extension.)* [Google Scholar](https://scholar.google.com/scholar?q=%22Cooperative+and+uncooperative+institution+designs%3A+Surprises+and+problems+in+open-source+game+theory%22+Critch)
 - Sistla, S. & Kleiman-Weiner, M. (2026). Evaluating LLMs in Open-Source Games. *Advances in Neural
   Information Processing Systems* 38, 104032–104063. [Google Scholar](https://scholar.google.com/scholar?q=%22Evaluating+LLMs+in+Open-Source+Games%22+Sistla)
-- Barasz, M., Christiano, P., Fallenstein, B., Herreshoff, M., LaVictoire, P. & Yudkowsky, E.
-  (2014). Robust cooperation in the Prisoner's Dilemma: Program equilibrium via provability logic.
-  arXiv:1401.5577. [Google Scholar](https://scholar.google.com/scholar?q=%22Robust+cooperation+in+the+Prisoner%27s+Dilemma%3A+Program+equilibrium+via+provability+logic%22+Barasz)
-- LaVictoire, P., Fallenstein, B., Yudkowsky, E., Barasz, M., Christiano, P. & Herreshoff, M.
-  (2014). Program equilibrium in the prisoner's dilemma via Löb's theorem. *AAAI Workshop on
-  Multiagent Interaction without Prior Coordination.* [Google Scholar](https://scholar.google.com/scholar?q=%22Program+equilibrium+in+the+prisoner%27s+dilemma+via+L%C3%B6b%27s+theorem%22+LaVictoire)
 - Tennenholtz, M. (2004). Program equilibrium. *Games and Economic Behavior* 49(2), 363–373. [Google Scholar](https://scholar.google.com/scholar?q=%22Program+equilibrium%22+Tennenholtz)
 - Critch, A. (2019). A parametric, resource-bounded generalization of Löb's theorem, and a robust
   cooperation criterion for open-source game theory. *Journal of Symbolic Logic* 84(4), 1368–1381. [Google Scholar](https://scholar.google.com/scholar?q=%22A+parametric%2C+resource-bounded+generalization+of+L%C3%B6b%27s+theorem%2C+and+a+robust+cooperation+criterion+for+open-source+game+theory%22+Critch)

@@ -37,4 +37,4 @@ Why: this only tests the DRAWING, not the science. The demo is tiny (n=100,
 read topology conclusions from it. The pale-red wash in the harsh
 bottom-right corner of every difference map is the swarm "flicker floor"
 (agents oscillating across the 0.5 threshold), not real cooperation --
-see test_sweep_swarm.txt.
+see test_01_sweep_swarm.txt.

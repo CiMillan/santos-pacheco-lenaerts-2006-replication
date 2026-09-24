@@ -13,6 +13,6 @@ trace rule, all four networks on the 5x5 (T, S) grid at the same reduced
 scale and seeds as ../extension-2-swarm-topology/. Run each
 (lam, rule) as its own process so they run in parallel. Used for lam = 0.5,
 0.2, 0.05 with each of average / peak / strategy (nine files). The
-numbers inside are checked by test_plot_lam_curve.txt; the code paths are
-checked by test_sweep_stigmergy.txt and test_main_stigmergy.txt (lam=1
+numbers inside are checked by test_08_plot_lam_curve.txt; the code paths are
+checked by test_06_sweep_stigmergy.txt and test_05_main_stigmergy.txt (lam=1
 reproduces the paper exactly).

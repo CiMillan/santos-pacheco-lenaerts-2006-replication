@@ -15,7 +15,7 @@ same reduced-scale settings (n=500, 10 realizations, 300-gen transient +
 60-gen averaging window) as ../../reduced_scale_figures.py, so the only thing
 that differs between the two runs is the strategy-update mechanism. The
 imitation trace climbs steadily from the 50/50 start toward ~90%
-cooperation, matching the pattern already validated in ../../../tests/test_main.txt and
+cooperation, matching the pattern already validated in ../../../tests/test_05_main.txt and
 ../ARCHITECTURE.txt for this (T,S) point. The swarm trace instead drops and
 settles into a noisy plateau around 30-35% cooperation -- PSO's
 neighborhood-best pull doesn't reproduce the same runaway convergence to

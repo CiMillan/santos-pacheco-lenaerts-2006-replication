@@ -71,7 +71,8 @@ from earlier ones.
 | 5 | [**Network-engineering bots**](replications/extension-5-network-engineering/) *(WIP)*: bots that rewire each agent's ties (cut, add, random) | imitation rule, $T=2$, $S=-1$ |
 
 **Scripts.** Row 0 is the base replication. Extensions never edit root scripts. *Changed* = a variant of a root script
-(root → variant). *Created* = no root counterpart. Each folder keeps its tests in `tests/`.
+(root → variant). *Created* = no root counterpart. Each folder keeps its tests in `tests/`, numbered
+in the order the functions are built (read and run them in that order).
 
 | # | Scripts changed | Scripts created |
 |---|---|---|

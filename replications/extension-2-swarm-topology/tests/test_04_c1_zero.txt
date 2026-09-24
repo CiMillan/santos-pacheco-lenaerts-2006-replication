@@ -26,7 +26,7 @@ Expected output (about 1 second):
 {(1.5, 0.0): 0.68625}
 
 Why: the first line must match the T=1.5, S=0.0 cell in
-test_sweep_swarm.txt (0.17) -- proves adding the c1 option didn't change
+test_01_sweep_swarm.txt (0.17) -- proves adding the c1 option didn't change
 the default behaviour. The second line switches off the personal-best
 pull. If the two lines were identical, c1 isn't actually reaching
 next_position().

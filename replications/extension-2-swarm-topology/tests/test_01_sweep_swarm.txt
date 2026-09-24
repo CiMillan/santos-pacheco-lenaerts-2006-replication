@@ -17,7 +17,7 @@ S \ T    0.5    1.0    1.5    2.0
   0.0   0.97   0.87   0.17   0.14
   0.5   0.96   0.92   0.48   0.26
 
-Why: the same small 4x4 grid as ../../../tests/test_sweep.txt, run through swarm
+Why: the same small 4x4 grid as ../../../tests/test_08_sweep.txt, run through swarm
 instead of imitation. The PATTERN is the check: cooperation highest
 bottom-left of the T axis (low T) and top of the S axis (high S), falling
 as T rises or S drops. If the high-T, low-S corner had the MOST

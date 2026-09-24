@@ -13,7 +13,7 @@ Expected output:
 {0: 2.0, 1: 0.0, 2: 3.0}
 {0: 1.7999999999999998, 1: 0.0, 2: 2.8}
 
-Why: same 3 agents as test_payoff_os.txt. With no cost (the default) the
+Why: same 3 agents as test_02_payoff_os.txt. With no cost (the default) the
 numbers are unchanged. With cost=0.1, FairBot and PrudentBot each play 2
 games, so each loses 2 x 0.1 = 0.2. CooperateBot doesn't read code, so it
 pays nothing. (1.7999... is floating-point rounding of 1.8.)

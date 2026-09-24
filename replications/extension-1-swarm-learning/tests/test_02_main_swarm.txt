@@ -13,13 +13,13 @@ T=2, S=-1 -> final cooperation = 0.14
 T=1.2, S=-0.1 -> final cooperation = 0.20
 T=1.05, S=-0.02 -> final cooperation = 0.58
 
-Why: same T/S sweep as ../../../tests/test_main.txt, run through the swarm mechanism
+Why: same T/S sweep as ../../../tests/test_05_main.txt, run through the swarm mechanism
 instead of imitation. Cooperation should still respond to how harsh the
 dilemma is -- milder T/S (closer to T=1, S=0) should sustain more
 cooperation than the harshest corner (T=2, S=-1) -- confirming the swarm
 mechanism is actually driven by the game's payoffs, not just settling to
 some fixed point regardless of input. The absolute numbers don't need to
-match ../../../tests/test_main.txt's imitation numbers; swarm is a different mechanism
+match ../../../tests/test_05_main.txt's imitation numbers; swarm is a different mechanism
 and is expected to behave differently, sometimes less cleanly (note T=1.2
 here scores lower than T=2 -- PSO can get stuck depending on each agent's
 random initial position, unlike imitation's monotone payoff-comparison

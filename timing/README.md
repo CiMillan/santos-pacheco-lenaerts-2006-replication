@@ -26,7 +26,7 @@ everyone, so payoffs depend only on how many cooperators there are, and one gene
 
 **Checked.** Over 30 realizations at four (T, S) points, the prototype's cooperation levels match
 the current code's within one standard error (e.g. 0.73 vs. 0.72 on Barabási–Albert at
-$T=1.5$, $S=0$). See [`tests/test_check_prototype.txt`](tests/test_check_prototype.txt).
+$T=1.5$, $S=0$). See [`tests/test_02_check_prototype.txt`](tests/test_02_check_prototype.txt).
 
 **Caveats.** Estimates, not full runs. The paper's own grid is finer than 5×5, so its real cost is
 higher. The prototype is for timing only and is not used for any result in this repo.

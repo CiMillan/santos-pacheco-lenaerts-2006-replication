@@ -1,4 +1,4 @@
-cd ~/Desktop/cooperation-atlas/replications/santos-pacheco-lenaerts-2006/replication-extension-swarm-topology
+cd ~/Desktop/santos-pacheco-lenaerts-2006-replication/replications/replication-extension-swarm-topology
 
 # Part 1: load_results() turns saved "T,S" string keys back into tuples
 python3 -c "

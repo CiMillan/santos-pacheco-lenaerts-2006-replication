@@ -1,4 +1,4 @@
-cd ~/Desktop/cooperation-atlas/replications/santos-pacheco-lenaerts-2006/replication-extension-open-source
+cd ~/Desktop/santos-pacheco-lenaerts-2006-replication/replications/replication-extension-open-source
 python3 -c "
 from sweep_os import sweep_os
 coop, shares = sweep_os('scale_free', n=200, generations=100, T_values=[0.5, 1.5], S_values=[-0.5, 0.5],

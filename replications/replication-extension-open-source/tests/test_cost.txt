@@ -1,6 +1,6 @@
-cd ~/Desktop/cooperation-atlas/replications/santos-pacheco-lenaerts-2006/replication-extension-open-source
+cd ~/Desktop/santos-pacheco-lenaerts-2006-replication/replications/replication-extension-open-source
 python3 -c "
-import sys; sys.path.insert(0, '..')
+import sys; sys.path.insert(0, '../..')
 from network import build_network
 from payoff_os import compute_payoffs
 g = build_network('complete', 3)

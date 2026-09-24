@@ -1,4 +1,4 @@
-cd ~/Desktop/cooperation-atlas/replications/santos-pacheco-lenaerts-2006/replication-extension-stigmergy
+cd ~/Desktop/santos-pacheco-lenaerts-2006-replication/replications/replication-extension-stigmergy
 python3 -c "
 from plot_lam_curve import collect_summaries, plot_lam_curves
 s = collect_summaries()

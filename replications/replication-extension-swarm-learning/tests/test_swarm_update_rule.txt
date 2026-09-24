@@ -1,7 +1,7 @@
-cd ~/Desktop/cooperation-atlas/replications/santos-pacheco-lenaerts-2006/replication-extension-swarm-learning
+cd ~/Desktop/santos-pacheco-lenaerts-2006-replication/replications/replication-extension-swarm-learning
 python3 -c "
 import random, sys
-sys.path.insert(0, '..')
+sys.path.insert(0, '../..')
 from network import build_network
 from swarm_update_rule import next_position
 

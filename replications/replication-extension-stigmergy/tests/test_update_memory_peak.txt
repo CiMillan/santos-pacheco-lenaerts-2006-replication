@@ -1,4 +1,4 @@
-cd ~/Desktop/cooperation-atlas/replications/santos-pacheco-lenaerts-2006/replication-extension-stigmergy
+cd ~/Desktop/santos-pacheco-lenaerts-2006-replication/replications/replication-extension-stigmergy
 python3 -c "
 from stigmergy_update_rule import update_memory_peak
 t, m = {0: 0.0}, {0: 'C'}

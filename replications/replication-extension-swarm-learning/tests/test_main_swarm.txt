@@ -1,4 +1,4 @@
-cd ~/Desktop/cooperation-atlas/replications/santos-pacheco-lenaerts-2006/replication-extension-swarm-learning
+cd ~/Desktop/santos-pacheco-lenaerts-2006-replication/replications/replication-extension-swarm-learning
 python3 -c "
 from main_swarm import run_swarm
 for T, S in [(2, -1), (1.2, -0.1), (1.05, -0.02)]:
@@ -28,10 +28,10 @@ exactly 0.00 or 1.00 for every input regardless of T/S.
 
 ---
 
-cd ~/Desktop/cooperation-atlas/replications/santos-pacheco-lenaerts-2006/replication-extension-swarm-learning
+cd ~/Desktop/santos-pacheco-lenaerts-2006-replication/replications/replication-extension-swarm-learning
 python3 -c "
 import sys
-sys.path.insert(0, '..')
+sys.path.insert(0, '../..')
 from main import average_trace
 from main_swarm import run_batch_swarm
 

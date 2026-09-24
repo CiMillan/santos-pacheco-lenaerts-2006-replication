@@ -1,4 +1,4 @@
-cd ~/Desktop/cooperation-atlas/replications/santos-pacheco-lenaerts-2006/replication-extension-swarm-topology
+cd ~/Desktop/santos-pacheco-lenaerts-2006-replication/replications/replication-extension-swarm-topology
 
 # Full run (SLOW: about 13 minutes per c1 value; run several in parallel):
 python3 c1_sweep.py 0.25

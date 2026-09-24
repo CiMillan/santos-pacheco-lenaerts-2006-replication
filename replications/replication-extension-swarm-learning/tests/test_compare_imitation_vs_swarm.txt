@@ -1,4 +1,4 @@
-cd ~/Desktop/cooperation-atlas/replications/santos-pacheco-lenaerts-2006/replication-extension-swarm-learning
+cd ~/Desktop/santos-pacheco-lenaerts-2006-replication/replications/replication-extension-swarm-learning
 python3 compare_imitation_vs_swarm.py
 
 Expected output (seed makes it exact for this codebase; treat the pattern

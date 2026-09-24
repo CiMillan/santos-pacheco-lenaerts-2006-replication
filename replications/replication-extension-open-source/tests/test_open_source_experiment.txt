@@ -1,4 +1,4 @@
-cd ~/Desktop/cooperation-atlas/replications/santos-pacheco-lenaerts-2006/replication-extension-open-source
+cd ~/Desktop/santos-pacheco-lenaerts-2006-replication/replications/replication-extension-open-source
 python3 -c "
 from open_source_experiment import mean_shares, summarize
 shares = {(1.5, -0.5): {'CooperateBot': 0, 'DefectBot': 0, 'CliqueBot': 0, 'FairBot': 1.0, 'PrudentBot': 0},

@@ -1,4 +1,4 @@
-cd ~/Desktop/cooperation-atlas/replications/santos-pacheco-lenaerts-2006/replication-extension-swarm-topology
+cd ~/Desktop/santos-pacheco-lenaerts-2006-replication/replications/replication-extension-swarm-topology
 python3 -c "
 from plot_c1_curve import collect_summaries, plot_c1_curves
 s = collect_summaries()

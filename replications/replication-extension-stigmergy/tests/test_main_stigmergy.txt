@@ -1,7 +1,7 @@
-cd ~/Desktop/cooperation-atlas/replications/santos-pacheco-lenaerts-2006/replication-extension-stigmergy
+cd ~/Desktop/santos-pacheco-lenaerts-2006-replication/replications/replication-extension-stigmergy
 python3 -c "
 import sys
-sys.path.insert(0, '..')
+sys.path.insert(0, '../..')
 from main import run
 from main_stigmergy import run_stigmergy
 

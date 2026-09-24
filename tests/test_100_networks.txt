@@ -1,4 +1,4 @@
-cd ~/Desktop/cooperation-atlas/replications/santos-pacheco-lenaerts-2006
+cd ~/Desktop/santos-pacheco-lenaerts-2006-replication
 python3 -c "
 from network import build_network
 

@@ -9,10 +9,10 @@ between how PSO remembers fitness and how a social dilemma's payoff
 landscape actually behaves. Confirmed by instrumentation, not assumed.
 
 THE DIAGNOSTIC (reproducible)
-cd ~/Desktop/cooperation-atlas/replications/santos-pacheco-lenaerts-2006/replication-extension-swarm-learning
+cd ~/Desktop/santos-pacheco-lenaerts-2006-replication/replications/replication-extension-swarm-learning
 python3 -c "
 import random, sys
-sys.path.insert(0, '..')
+sys.path.insert(0, '../..')
 from network import build_network
 from payoff import compute_payoffs
 from swarm_update_rule import next_position

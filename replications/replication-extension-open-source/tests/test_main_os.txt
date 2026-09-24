@@ -1,4 +1,4 @@
-cd ~/Desktop/cooperation-atlas/replications/santos-pacheco-lenaerts-2006/replication-extension-open-source
+cd ~/Desktop/santos-pacheco-lenaerts-2006-replication/replications/replication-extension-open-source
 python3 -c "
 from main_os import run
 trace, shares = run('scale_free', n=500, generations=100, R=1, S=-0.5, T=1.5, P=0, seed=1, m=2)

@@ -1,7 +1,7 @@
-cd ~/Desktop/cooperation-atlas/replications/santos-pacheco-lenaerts-2006/replication-extension-stigmergy
+cd ~/Desktop/santos-pacheco-lenaerts-2006-replication/replications/replication-extension-stigmergy
 python3 -c "
 import sys
-sys.path.insert(0, '..')
+sys.path.insert(0, '../..')
 from sweep import sweep
 from sweep_stigmergy import sweep_stigmergy
 g = dict(network_kind='scale_free', n=200, generations=60, T_values=[0.5, 1.5], S_values=[-0.5, 0.5], R=1, P=0, num_realizations=3, seed=1, tail=10)

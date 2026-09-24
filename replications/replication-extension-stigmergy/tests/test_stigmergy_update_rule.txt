@@ -1,7 +1,7 @@
-cd ~/Desktop/cooperation-atlas/replications/santos-pacheco-lenaerts-2006/replication-extension-stigmergy
+cd ~/Desktop/santos-pacheco-lenaerts-2006-replication/replications/replication-extension-stigmergy
 python3 -c "
 import random, sys
-sys.path.insert(0, '..')
+sys.path.insert(0, '../..')
 from network import build_network
 from stigmergy_update_rule import next_strategy
 
@@ -39,7 +39,7 @@ ignoring traces).
 --- offered (added with the strategy-memory control) ---
 python3 -c "
 import random, sys
-sys.path.insert(0, '..')
+sys.path.insert(0, '../..')
 from network import build_network
 from stigmergy_update_rule import next_strategy
 g = build_network('complete', 2); rng = random.Random(42)

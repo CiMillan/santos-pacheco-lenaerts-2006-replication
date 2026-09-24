@@ -1,4 +1,4 @@
-cd ~/Desktop/cooperation-atlas/replications/santos-pacheco-lenaerts-2006/replication-extension-stigmergy
+cd ~/Desktop/santos-pacheco-lenaerts-2006-replication/replications/replication-extension-stigmergy
 python3 lam_experiment.py 0.5            # ~10 min -> lam_0.5_results.json
 python3 lam_experiment.py 0.5 peak       # ~10 min -> peak_lam_0.5_results.json
 python3 lam_experiment.py 0.5 strategy   # ~10 min -> strategy_lam_0.5_results.json

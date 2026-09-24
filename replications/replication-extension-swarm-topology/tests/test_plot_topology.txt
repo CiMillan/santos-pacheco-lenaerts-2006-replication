@@ -1,7 +1,7 @@
-cd ~/Desktop/cooperation-atlas/replications/santos-pacheco-lenaerts-2006/replication-extension-swarm-topology
+cd ~/Desktop/santos-pacheco-lenaerts-2006-replication/replications/replication-extension-swarm-topology
 python3 -c "
 import sys
-sys.path.insert(0, '..')
+sys.path.insert(0, '../..')
 from sweep import sweep
 from sweep_swarm import sweep_swarm
 from plot_topology import plot_topology_grid

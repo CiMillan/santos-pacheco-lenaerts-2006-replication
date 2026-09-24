@@ -1,4 +1,4 @@
-cd ~/Desktop/cooperation-atlas/replications/santos-pacheco-lenaerts-2006
+cd ~/Desktop/santos-pacheco-lenaerts-2006-replication
 python3 -c "
 from main import run
 for T, S in [(2, -1), (1.2, -0.1), (1.05, -0.02)]:

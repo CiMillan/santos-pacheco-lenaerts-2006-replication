@@ -1,4 +1,4 @@
-cd ~/Desktop/cooperation-atlas/replications/santos-pacheco-lenaerts-2006
+cd ~/Desktop/santos-pacheco-lenaerts-2006-replication
 python3 main.py
 
 Expected: runs 100 independent realizations (100 fresh networks, seeds

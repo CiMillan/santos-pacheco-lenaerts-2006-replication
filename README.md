@@ -8,7 +8,9 @@ dilemmas in structured heterogeneous populations*, PNAS 103(9):3490–3494, 2006
 **Model.** Agents sit on the nodes of a graph and play a one-shot two-player game
 (R=1, P=0, T∈[0,2], S∈[−1,1]) with every neighbour. Each generation, every agent *x* picks a
 random neighbour *y* and, if P_y > P_x, adopts *y*'s strategy with probability
-(P_y − P_x) / (k_> D_>). Four networks: complete, single-scale, random scale-free and
+(P_y − P_x) / (k_> D_>), where k_> is the larger of the two agents' number of
+neighbours and D_> = max(T, 1) − min(S, 0) is the largest possible payoff difference in one game.
+Four networks: complete, single-scale, random scale-free and
 Barabási–Albert scale-free (average degree 4).
 
 **Result.** The shape of the paper's Figs. 2–3 is reproduced: heterogeneous networks sustain

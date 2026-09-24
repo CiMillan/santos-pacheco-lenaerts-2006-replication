@@ -23,6 +23,7 @@ One list for the replication and all its extensions. Under each reference:
     paper's topology effect, and the extensions test it under other learning rules.
 
 - Wooldridge, M. (2009). *An Introduction to MultiAgent Systems* (2nd ed.). John Wiley & Sons.
+  https://www.wiley.com/en-us/An+Introduction+to+MultiAgent+Systems%2C+2nd+Edition-p-9780470519462
   - **Used in:** all (framing).
   - **Why:** standard textbook definition of agents and multi-agent systems. Frames the
     population as a multi-agent system: autonomous agents, each acting on local information,
@@ -45,7 +46,7 @@ One list for the replication and all its extensions. Under each reference:
 ## Networks
 
 - Erdős, P. & Rényi, A. (1959). On random graphs I. *Publicationes Mathematicae Debrecen* 6,
-  290–297.
+  290–297. https://doi.org/10.5486/PMD.1959.6.3-4.12
   - **Used in:** Base, Swarm topology.
   - **Why:** foundational random-graph model. `network.py`'s `single_scale` uses its Poisson
     degree distribution (configuration model on a Poisson degree sequence). That's the
@@ -106,6 +107,7 @@ tend to imitate the strategies of those performing better." Refs 18 and 30:
   - **Why:** same pairwise-comparison imitation rule on structured populations.
 
 - Gintis, H. (2000). *Game Theory Evolving.* Princeton University Press.
+  https://archive.org/details/gametheoryevolvi0000gint
   - **Used in:** Base, Swarm learning.
   - **Why:** textbook source for imitation dynamics converging to the replicator dynamics.
 

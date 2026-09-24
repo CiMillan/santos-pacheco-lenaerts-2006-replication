@@ -4,13 +4,15 @@
 (PSO), holding the game and network fixed, what happens to cooperation?
 
 **Model.** Everything else is the same as the replication: a Prisoner's Dilemma
-(T=1.2, S=−0.1) on a Barabási–Albert network with N=500, 10 realizations and 300 + 60
-generations. Each agent holds a position x ∈ [0,1] and plays C if x > 0.5. Its velocity is
+($T=1.2$, $S=-0.1$) on a Barabási–Albert network with $N=500$, 10 realizations and 300 + 60
+generations. Each agent holds a position $x \in [0,1]$ and plays C if $x > 0.5$. Its velocity is
 updated as
 
-v ← w·v + c₁r₁(p − x) + c₂r₂(ℓ − x),  w=0.7, c₁=c₂=1.5 (standard defaults)
+$$v \leftarrow w\,v + c_1 r_1 (p - x) + c_2 r_2 (\ell - x), \qquad x \leftarrow x + v,$$
 
-where *p* is the agent's best-ever position (its personal best) and *ℓ* is the position
+with $w=0.7$ and $c_1=c_2=1.5$ (standard defaults), and $r_1, r_2$ random numbers in $[0,1]$. The velocity is clipped to $[-1,1]$
+and the position to $[0,1]$.
+Here $p$ is the agent's best-ever position (its personal best) and $\ell$ is the position
 of the highest-payoff agent in its neighbourhood, including itself (a local-best topology).
 
 **Result.** Imitation reaches **0.90** cooperation and swarm plateaus at **0.33**.

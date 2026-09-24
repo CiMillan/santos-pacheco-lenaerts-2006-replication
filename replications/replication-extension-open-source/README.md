@@ -4,9 +4,9 @@
 result). Does network structure still matter when agents can read each other's source code
 before they act?
 
-**Model.** Each agent holds a *program* instead of a strategy. When agents x and y meet, x
-plays p_x(source of p_y) and y plays p_y(source of p_x). The payoff comes from the same
-(T, S) matrix as before. The menu has five programs from Barasz et al. (2014):
+**Model.** Each agent holds a *program* instead of a strategy. When agents $x$ and $y$ meet, $x$
+plays $p_x(\text{source of } p_y)$ and $y$ plays $p_y(\text{source of } p_x)$. The payoff comes from the same
+$(T, S)$ matrix as before. The menu has five programs from Barasz et al. (2014):
 CooperateBot, DefectBot, CliqueBot (cooperates only with exact copies of itself), FairBot
 (cooperates if it can prove the opponent will cooperate with it) and PrudentBot (like
 FairBot, but it also exploits CooperateBot). By Löb's theorem, FairBot and PrudentBot
@@ -17,7 +17,7 @@ rule is unchanged and copies a neighbour's program. Agents start with a random p
 Cooperation is measured as the fraction of C actions per meeting.
 
 **Result 1: code-reading replaces the network.** Cooperation reaches 0.97–1.00 on every
-network, including the Prisoner's Dilemma region (T > 1, S < 0), where plain imitation gets
+network, including the Prisoner's Dilemma region ($T > 1$, $S < 0$), where plain imitation gets
 0. DefectBot goes extinct. The topology ordering disappears and even reverses slightly.
 Heterogeneous networks keep CliqueBot alive (2% of agents on complete, 14% on
 Barabási–Albert), and CliqueBot and FairBot defect on each other.
@@ -44,19 +44,19 @@ over the grid:
 
 Costs up to 0.2 change nothing. At 0.5 the complete graph falls behind. Each run there ends
 all-cooperative or all-DefectBot, while clusters of code-readers survive on structured
-networks. At 1.0 (equal to the reward R) code-readers die out, and the numbers match plain
+networks. At 1.0 (equal to the reward $R$) code-readers die out, and the numbers match plain
 imitation, including the paper's ordering. This also checks that the code is correct.
 
 **Takeaway.** Transparency and network structure act as substitutes. When reading code is
 cheap, the network doesn't matter. As it gets expensive, network reciprocity takes over
 again. The switch lies between cost 0.2 and 0.5.
 
-**Caveats.** Everything is at reduced scale (N=500, 360 generations, 10 realizations). The
+**Caveats.** Everything is at reduced scale ($N=500$, 360 generations, 10 realizations). The
 program menu is fixed, so the open-source part lives in the outcome table. PrudentBot is the
 unbounded version. The bounded CUPOD/DUPOC agents of Critch et al. (2022) are left out
 because some of their pairings are unsolved. Code-readers start at 60% of the population,
 and invasion from a small minority is not tested. CliqueBot pays the same cost as a proof,
 although its check is cheaper.
 
-Details: `ARCHITECTURE.txt`, `CONCLUSIONS.txt`, `tests/` (sources: [`../REFERENCES.md`](../REFERENCES.md)). Main
+Details: `ARCHITECTURE.txt`, `CONCLUSIONS.txt`, `tests/` (sources: [`REFERENCES.md`](../../REFERENCES.md)). Main
 scripts: `open_source_experiment.py`, `cost_experiment.py <cost>`.

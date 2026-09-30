@@ -1,0 +1,30 @@
+cd ~/Desktop/santos-pacheco-lenaerts-2006-replication/replications/extension-6-hybrid-population
+python3 tau_sweep.py
+
+Expected output (about 30 s):
+random tau  0.01: all=0.742 ai=0.380
+random tau  0.03: all=0.753 ai=0.304
+random tau  0.10: all=0.674 ai=0.181
+random tau  0.30: all=0.695 ai=0.358
+random tau  1.00: all=0.711 ai=0.452
+random tau  3.00: all=0.737 ai=0.484
+hubs   tau  0.01: all=0.500 ai=0.494
+hubs   tau  0.03: all=0.412 ai=0.388
+hubs   tau  0.10: all=0.084 ai=0.287
+hubs   tau  0.30: all=0.049 ai=0.400
+hubs   tau  1.00: all=0.071 ai=0.471
+hubs   tau  3.00: all=0.083 ai=0.490
+saved tau_results.json (27s elapsed)
+(the seconds will differ)
+
+Why: tau = 0.1 was a design choice, so this checks how much the hub result
+depends on it. From tau = 0.1 up, the collapse holds (0.05-0.08). As tau
+grows the AI agents cooperate close to half the time (ai -> 0.5, a coin
+flip), which by test_08 does just as much damage.
+Below 0.1 the collapse weakens (0.50 at tau 0.01). That is not cooperation
+winning: greedy learners freeze on their random first move. Checked in one
+run (seed 1, see CONCLUSIONS.txt): 49 of 50 AI hubs never switched, so
+about half are stuck on C and half on D -- a mix of the two stubborn
+controls. Random placement barely moves with tau (0.67-0.75).
+A bug would show as the tau 0.10 rows differing from hybrid_experiment.py
+(0.674 and 0.084).

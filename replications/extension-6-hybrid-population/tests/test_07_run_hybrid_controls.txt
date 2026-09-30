@@ -1,0 +1,26 @@
+cd ~/Desktop/santos-pacheco-lenaerts-2006-replication/replications/extension-6-hybrid-population
+python3 -c "
+from main_hybrid import run_hybrid
+R,S,T,P = 1,-0.1,1.2,0
+kw = dict(seed=1, ai_fraction=0.1, placement='hubs', m=2, avg_degree=4)
+for rule in ['always_defect', 'always_cooperate', 'coin_flip']:
+    t = run_hybrid('scale_free', 500, 100, R,S,T,P, ai_rule=rule, **kw)
+    print(f'{rule:16s} AI C at gens 1, 100: {t[\"ai\"][1]:.2f} {t[\"ai\"][100]:.2f} | all C at gen 100: {t[\"all\"][100]:.3f}')
+"
+
+Expected output:
+always_defect    AI C at gens 1, 100: 0.00 0.00 | all C at gen 100: 0.022
+always_cooperate AI C at gens 1, 100: 1.00 1.00 | all C at gen 100: 0.982
+coin_flip        AI C at gens 1, 100: 0.50 0.48 | all C at gen 100: 0.102
+
+Why: 10% stubborn AI agents on the hubs, one run, 100 generations.
+The "AI C" columns check the rule is wired in: from generation 1 on, the
+AI group plays exactly its rule (0, 1, or about 0.5).
+The last column is the finding: whatever the hubs do spreads to the
+humans. Defecting hubs take cooperation to about 0.02, cooperating hubs
+lift it to about 0.98, and even coin-flipping hubs pull it down to 0.10.
+So the collapse does not need Q-learning: hubs that never imitate are
+enough. The default ai_rule="q_learning" is unchanged: test_03 still gives
+its expected output.
+A bug would show as AI C values that don't match the rule, or all C near
+0.9 for every rule (the AI agents are being ignored).

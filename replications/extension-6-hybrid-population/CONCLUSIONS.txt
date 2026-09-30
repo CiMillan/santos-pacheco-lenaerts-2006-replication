@@ -1,0 +1,141 @@
+Why a few AI agents on the hubs destroy cooperation
+===================================================
+Finding from hybrid_experiment.py (see figures/hybrid_population.png):
+at 10% AI, random placement leaves 0.67 cooperation, hub placement only
+0.08. Humans end up cooperating less than the AI agents. Checked by
+instrumenting one run (seed 1, 10% AI, 360 generations), not assumed.
+
+THE DIAGNOSTIC (reproducible)
+cd ~/Desktop/santos-pacheco-lenaerts-2006-replication/replications/extension-6-hybrid-population
+python3 -c "
+import random, sys
+sys.path.insert(0, '../..')
+import networkx as nx
+from network import build_network
+from payoff import compute_payoffs
+from update_rule import next_strategy
+from q_learning_rule import softmax_action, update_q
+from main_hybrid import assign_ai
+R, S, T, P = 1, -0.1, 1.2, 0
+for placement in ['hubs', 'random']:
+    rng = random.Random(1)
+    g = build_network('scale_free', 500, seed=1, m=2)
+    ai = assign_ai(g, 0.1, placement, rng)
+    strat = {v: ('C' if rng.random() < 0.5 else 'D') for v in g.nodes}
+    q = {v: {'C': 0.0, 'D': 0.0} for v in ai}
+    for gen in range(360):
+        pay = compute_payoffs(g, strat, R, S, T, P)
+        new = {}
+        for v in g.nodes:
+            if v in ai:
+                q[v] = update_q(q[v], strat[v], pay[v] / g.degree[v], 0.1)
+                new[v] = softmax_action(q[v], 0.1, rng)
+            else:
+                new[v] = next_strategy(g, v, strat, pay, T, S, rng)
+        strat = new
+    pay = compute_payoffs(g, strat, R, S, T, P)
+    humans = [v for v in g.nodes if v not in ai]
+    dist = nx.multi_source_dijkstra_path_length(g, ai)
+    near = [v for v in humans if dist[v] == 1]
+    far = [v for v in humans if dist[v] >= 2]
+    c = lambda vs: sum(strat[v] == 'C' for v in vs) / len(vs)
+    mean = lambda vs: sum(pay[v] for v in vs) / len(vs)
+    print(placement, '| humans next to an AI:', len(near), 'C', round(c(near), 2),
+          '| further away:', len(far), 'C', round(c(far), 2),
+          '| mean payoff AI', round(mean(ai), 2), 'humans', round(mean(humans), 2),
+          '| mean AI degree', round(sum(g.degree[v] for v in ai) / len(ai), 1))
+"
+
+Expected output:
+hubs | humans next to an AI: 364 C 0.08 | further away: 86 C 0.0 | mean payoff AI 2.15 humans 0.67 | mean AI degree 14.0
+random | humans next to an AI: 135 C 0.3 | further away: 315 C 0.51 | mean payoff AI 1.49 humans 1.89 | mean AI degree 4.2
+
+WHAT IT SHOWS
+  1. Reach. 50 AI hubs touch 364 of the 450 humans directly. 50 random AI
+     agents touch only 135.
+  2. AI hubs are the best-paid players (2.15 vs. 0.67 for humans), because
+     a hub collects a payoff from every link. Humans imitate whoever earns
+     more, so they copy the AI hubs, and the AI hubs mostly defect: in a PD
+     defection pays more per game against any fixed set of neighbours, and
+     that is all a Q-learner sees.
+  3. The Santos mechanism breaks. On a scale-free network a defecting hub
+     loses payoff once its leaves defect too, and then imitates a
+     cooperating neighbour back: the hub is retaken. An AI hub never
+     imitates, so it is never retaken. It keeps defecting at the rate its
+     own Q values dictate, and keeps being copied.
+  4. Why humans cooperate less than AI: AI agents still explore (softmax
+     picks C about 1 time in 4), while imitating humans lock onto
+     defection once every well-paid neighbour defects.
+  With random placement the same effect is local: humans next to an AI
+  cooperate 0.30, the rest 0.51.
+
+TAKEAWAY
+  In this model, the paper's "hubs anchor cooperation" result needs the
+  hubs to imitate. Put learners that don't imitate on the hubs, and a small
+  share of them is enough to remove cooperation from the whole network.
+
+
+CONTROL: IS IT Q-LEARNING? (control_experiment.py, tests/test_08)
+  At 10% AI on the hubs, final cooperation:
+    Q-learning 0.084 | coin flip 0.083 | always D 0.007 | always C 0.994
+  (no AI: 0.899). Coin-flip hubs ignore payoffs entirely and do the same
+  damage as Q-learning hubs. So the collapse needs only hubs that never
+  imitate. The hubs are a lever: humans end up copying whatever the hubs
+  play. At random placement every rule stays between 0.68 and 0.91.
+  Side note: always-C AI placed at random slightly LOWERS cooperation at
+  5% (0.852 < 0.899) -- unconditional cooperators feed their defecting
+  neighbours, who then look worth copying. Not instrumented yet.
+
+ROBUSTNESS: TAU (tau_sweep.py, tests/test_09)
+  Hub collapse holds for tau >= 0.1 (0.05-0.08). At tau 0.01 it weakens to
+  0.50, because greedy learners freeze on their random first move.
+  Diagnostic (seed 1, 10% AI on hubs, 360 generations):
+
+python3 -c "
+import random, sys
+sys.path.insert(0, '../..')
+from network import build_network
+from payoff import compute_payoffs
+from update_rule import next_strategy
+from q_learning_rule import softmax_action, update_q
+from main_hybrid import assign_ai
+R, S, T, P = 1, -0.1, 1.2, 0
+for tau in [0.01, 0.1]:
+    rng = random.Random(1)
+    g = build_network('scale_free', 500, seed=1, m=2)
+    ai = assign_ai(g, 0.1, 'hubs', rng)
+    strat = {v: ('C' if rng.random() < 0.5 else 'D') for v in g.nodes}
+    first = {v: strat[v] for v in ai}
+    q = {v: {'C': 0.0, 'D': 0.0} for v in ai}
+    switches = {v: 0 for v in ai}
+    for gen in range(360):
+        pay = compute_payoffs(g, strat, R, S, T, P)
+        new = {}
+        for v in g.nodes:
+            if v in ai:
+                q[v] = update_q(q[v], strat[v], pay[v] / g.degree[v], 0.1)
+                new[v] = softmax_action(q[v], tau, rng)
+                switches[v] += new[v] != strat[v]
+            else:
+                new[v] = next_strategy(g, v, strat, pay, T, S, rng)
+        strat = new
+    same = sum(strat[v] == first[v] for v in ai)
+    never = sum(switches[v] == 0 for v in ai)
+    print(f'tau {tau}: AI still playing their first action: {same}/50 | never switched: {never}/50 | AI C {sum(strat[v]==\"C\" for v in ai)/50:.2f} | all C {sum(s==\"C\" for s in strat.values())/500:.2f}')
+"
+
+Expected output:
+tau 0.01: AI still playing their first action: 50/50 | never switched: 49/50 | AI C 0.52 | all C 0.60
+tau 0.1: AI still playing their first action: 28/50 | never switched: 0/50 | AI C 0.36 | all C 0.09
+
+  Why they freeze: both Q values start at 0. Whatever a hub plays first
+  earns a positive reward (either action pays > 0 per game when about half
+  the neighbours cooperate), so that action's Q rises above the untried
+  one. With tau 0.01 a gap of 0.05 already gives p > 0.99, so the other
+  action is never tried again. With tau 0.1 hubs keep exploring, find that
+  D pays more, and drift to defection.
+
+UPDATED TAKEAWAY
+  Hubs that never imitate set the network's level of cooperation, whatever
+  drives them. Q-learning is one such driver; its details (tau) decide
+  which way the hubs lean, not whether they decide.

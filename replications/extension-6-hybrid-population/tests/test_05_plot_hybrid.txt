@@ -1,0 +1,17 @@
+cd ~/Desktop/santos-pacheco-lenaerts-2006-replication/replications/extension-6-hybrid-population
+python3 plot_hybrid.py
+open figures/hybrid_population.png
+
+Expected output:
+saved figures/hybrid_population.png
+
+Why: plot_hybrid.py only reads hybrid_results.json (run test 04 first); it
+runs no simulation. Check the picture:
+- Left panel: both lines start at 0.90 at 0% AI and meet near 0.23 at 100%.
+  The coral line (AI on the hubs) drops to about 0.08 at 10% AI; the teal
+  line (random) falls more slowly.
+- Right panel: the navy all-human trace climbs to about 0.9; the teal 10%
+  random trace levels off near 0.67; the coral 10% hubs trace falls to
+  about 0.08.
+A bug would show as the left-panel points not matching the numbers printed
+by test 04, or a missing line.

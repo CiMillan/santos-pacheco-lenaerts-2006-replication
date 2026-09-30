@@ -1,0 +1,35 @@
+cd ~/Desktop/santos-pacheco-lenaerts-2006-replication/replications/extension-6-hybrid-population
+python3 hybrid_experiment.py
+
+Expected output (the seed makes it exact for this codebase; the pattern is
+the thing to check, not the last decimal; takes about 25 s):
+random AI   0%: all=0.899 humans=0.899 ai=-- hubs=0.937
+random AI  10%: all=0.674 humans=0.729 ai=0.181 hubs=0.817
+random AI  25%: all=0.358 humans=0.411 ai=0.199 hubs=0.559
+random AI  50%: all=0.170 humans=0.091 ai=0.249 hubs=0.243
+random AI  75%: all=0.189 humans=0.028 ai=0.243 hubs=0.198
+random AI 100%: all=0.229 humans=-- ai=0.229 hubs=0.226
+hubs   AI   0%: all=0.899 humans=0.899 ai=-- hubs=0.937
+hubs   AI  10%: all=0.084 humans=0.062 ai=0.287 hubs=0.299
+hubs   AI  25%: all=0.074 humans=0.014 ai=0.255 hubs=0.267
+hubs   AI  50%: all=0.134 humans=0.022 ai=0.246 hubs=0.244
+hubs   AI  75%: all=0.179 humans=0.025 ai=0.230 hubs=0.235
+hubs   AI 100%: all=0.227 humans=-- ai=0.227 hubs=0.230
+saved hybrid_results.json (25s elapsed)
+
+Why: the 0% rows must match extension 1's imitation result (0.899), since
+with no AI the model is the paper's. They do, so both placements start from
+the same baseline.
+Random placement: cooperation falls steadily as AI agents are added
+(0.90 -> 0.67 -> 0.36 -> 0.17).
+Hub placement: only 10% AI on the hubs already drops cooperation to 0.08.
+The "hubs" column (cooperation among the top 5% by degree) shows why: the
+hubs no longer hold cooperators (0.94 -> 0.30).
+Humans end up cooperating LESS than the AI agents (e.g. 0.06 vs 0.29).
+That isn't a bug: AI agents keep exploring (softmax, tau 0.1, still picks C
+about 1 time in 4), while humans copy the highest-payoff neighbour,
+which is usually a defecting AI hub. See CONCLUSIONS.txt for the check.
+At 100% AI both placements are the same population, so they must agree
+(0.229 vs 0.227, differing only by random draws).
+A bug would show as the 0% rows differing from 0.899, or the two 100% rows
+disagreeing by much more than noise.

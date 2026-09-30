@@ -3,7 +3,7 @@
 One list for the replication and all its extensions. Under each reference:
 
 - **Used in:** Base (the replication in the root folder), Swarm learning (1), Swarm topology (2),
-  Stigmergy (3), Open source (4) or Network-engineering bots (5, WIP). *All* = Base and every extension. *(framing)* = motivates
+  Stigmergy (3), Open source (4) or Network-engineering bots (5, WIP) or Hybrid population (6). *All* = Base and every extension. *(framing)* = motivates
   the question but isn't used in the code.
 - **Why:** what we take from it.
 
@@ -65,7 +65,8 @@ One list for the replication and all its extensions. Under each reference:
   - **Used in:** all.
   - **Why:** the first paper to show scale-free networks promote cooperation. Santos et al.
     2006 builds on it. It also explains the "cooperator clusters anchored on hubs" mechanism
-    that Swarm topology found again with no personal memory (c1 = 0).
+    that Swarm topology found again with no personal memory (c1 = 0). Hybrid population (6)
+    shows the mechanism needs the hubs to imitate.
 
 - Yu, M., Wang, S., Zhang, G., Mao, J., Yin, C., Liu, Q., Wang, K., Wen, Q. & Wang, Y. (2025).
   NetSafe: Exploring the topological safety of multi-agent system. In *Findings of the
@@ -112,6 +113,17 @@ tend to imitate the strategies of those performing better." Refs 18 and 30:
   https://archive.org/details/gametheoryevolvi0000gint
   - **Used in:** all (as above).
   - **Why:** textbook source for imitation dynamics converging to the replicator dynamics.
+
+## Selection pressure: pairwise comparison (Fermi) rule (to read)
+
+- Pinheiro, F. L., Santos, F. C. & Pacheco, J. M. (2012). How selection pressure changes the
+  nature of social dilemmas in structured populations. *New Journal of Physics* 14, 073035.
+  https://doi.org/10.1088/1367-2630/14/7/073035 (copy in `references/`)
+  - **Used in:** not yet; paper suggested by the supervisor, role in the extension to be decided.
+  - **Why:** uses p(i, j) = [1 + e^(−β(f_j − f_i))]^(−1), so one parameter β spans "the full
+    range of possible selection pressures, from neutral evolution to pure imitation dynamics"
+    (Section 2.2). Same PD on HR and BA networks. The paper calls it the "pairwise comparison
+    rule" (its refs 55–57). It updates one random individual per time step (asynchronous).
 
 ## Particle swarm optimization (`swarm_update_rule.py`)
 
@@ -223,3 +235,19 @@ tend to imitate the strategies of those performing better." Refs 18 and 30:
   - **Used in:** Network-engineering bots (5, WIP).
   - **Why:** the bot conditions (engaged, disengaged, random, always C), one rewiring offer per
     bot per round, and the donation game with $b/c = 2$.
+
+## Q-learning for AI agents (`q_learning_rule.py`)
+
+- Watkins, C. J. C. H. & Dayan, P. (1992). Q-learning. *Machine Learning* 8, 279–292.
+  https://doi.org/10.1007/BF00992698 (copy in `references/`)
+  - **Used in:** Hybrid population (6).
+  - **Why:** the original Q-learning paper: "a simple way for agents to learn how to act
+    optimally", "a form of model-free reinforcement learning". The AI agents' learning rule.
+
+- Bloembergen, D., Tuyls, K., Hennes, D. & Kaisers, M. (2015). Evolutionary dynamics of
+  multi-agent learning: a survey. *Journal of Artificial Intelligence Research* 53, 659–697.
+  https://doi.org/10.1613/jair.4818 (copy in `references/`)
+  - **Used in:** Hybrid population (6).
+  - **Why:** the Q update (eq. 3) and softmax, "Boltzmann exploration", with temperature τ
+    (eq. 4). Lists "stateless Q-learning" for repeated normal-form games, which is why the
+    discount γ drops out here.

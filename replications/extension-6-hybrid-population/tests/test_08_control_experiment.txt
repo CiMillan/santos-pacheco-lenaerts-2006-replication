@@ -1,0 +1,41 @@
+cd ~/Desktop/santos-pacheco-lenaerts-2006-replication/replications/extension-6-hybrid-population
+python3 control_experiment.py
+
+Expected output (about 50 s):
+q_learning       random AI   5%: all=0.710 humans=0.738
+q_learning       random AI  10%: all=0.674 humans=0.729
+q_learning       random AI  25%: all=0.358 humans=0.411
+q_learning       hubs   AI   5%: all=0.179 humans=0.171
+q_learning       hubs   AI  10%: all=0.084 humans=0.062
+q_learning       hubs   AI  25%: all=0.074 humans=0.014
+always_defect    random AI   5%: all=0.739 humans=0.777
+always_defect    random AI  10%: all=0.678 humans=0.753
+always_defect    random AI  25%: all=0.295 humans=0.393
+always_defect    hubs   AI   5%: all=0.041 humans=0.043
+always_defect    hubs   AI  10%: all=0.007 humans=0.008
+always_defect    hubs   AI  25%: all=0.001 humans=0.001
+always_cooperate random AI   5%: all=0.852 humans=0.844
+always_cooperate random AI  10%: all=0.912 humans=0.902
+always_cooperate random AI  25%: all=0.812 humans=0.749
+always_cooperate hubs   AI   5%: all=0.984 humans=0.983
+always_cooperate hubs   AI  10%: all=0.994 humans=0.993
+always_cooperate hubs   AI  25%: all=0.995 humans=0.993
+coin_flip        random AI   5%: all=0.759 humans=0.773
+coin_flip        random AI  10%: all=0.697 humans=0.718
+coin_flip        random AI  25%: all=0.430 humans=0.407
+coin_flip        hubs   AI   5%: all=0.043 humans=0.019
+coin_flip        hubs   AI  10%: all=0.083 humans=0.037
+coin_flip        hubs   AI  25%: all=0.204 humans=0.105
+saved control_results.json (50s elapsed)
+(the seconds will differ)
+
+Why: the key comparison is Q-learning vs. coin_flip on the hubs at 10%:
+0.084 vs. 0.083. A hub that ignores payoffs completely does as much damage
+as a hub that learns. So the collapse is caused by hubs that never imitate,
+not by Q-learning. The Q-learning rows must match hybrid_experiment.py
+(0.674 random, 0.084 hubs at 10%): same seeds, same code path.
+The hubs are a lever in both directions: always-D hubs remove cooperation
+(0.007), always-C hubs lift it above the all-human baseline (0.994 > 0.899).
+Random placement matters much less for every rule (0.68-0.91 at 10%).
+A bug would show as the Q-learning rows differing from hybrid_experiment.py,
+or all four rules giving the same numbers (ai_rule ignored).

@@ -1,0 +1,15 @@
+cd ~/Desktop/santos-pacheco-lenaerts-2006-replication/replications/extension-6-hybrid-population
+python3 plot_controls.py
+open figures/controls_and_tau.png
+
+Expected output:
+saved figures/controls_and_tau.png
+
+Why: needs control_results.json and tau_results.json (test_08, test_09).
+Left panel: four pairs of bars at 10% AI. Teal (random) bars all near
+0.7-0.9; coral (hubs) bars near 0.08 for Q-learning and coin flip, near 0
+for always D, near 1 for always C. Dashed line = no-AI baseline 0.90.
+Right panel: teal line flat near 0.7; coral line falls from 0.50 at
+tau 0.01 to about 0.08 at tau 0.1 and stays low. Dotted line at tau 0.1.
+A bug would show as missing bars, or bars in a different order from the
+labels.

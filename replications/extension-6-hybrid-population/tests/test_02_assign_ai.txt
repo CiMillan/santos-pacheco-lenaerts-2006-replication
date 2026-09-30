@@ -1,0 +1,29 @@
+cd ~/Desktop/santos-pacheco-lenaerts-2006-replication/replications/extension-6-hybrid-population
+python3 -c "
+import random, sys
+sys.path.insert(0, '../..')
+from network import build_network
+from main_hybrid import assign_ai, top_hubs, fraction_c
+g = build_network('scale_free', 20, seed=1, m=2)
+print('degrees of 3 hubs-placed AI:', sorted(g.degree[v] for v in assign_ai(g, 0.15, 'hubs', random.Random(1))))
+print('top 5 degrees overall:', sorted((d for _, d in g.degree), reverse=True)[:5])
+print('random AI count:', len(assign_ai(g, 0.5, 'random', random.Random(1))))
+print('top_hubs of 20 nodes:', len(top_hubs(g)))
+print('fraction_c:', fraction_c({0:'C',1:'D',2:'C',3:'C'}, [0,1,2,3]), fraction_c({}, []))
+"
+
+Expected output:
+degrees of 3 hubs-placed AI: [6, 9, 12]
+top 5 degrees overall: [12, 9, 6, 5, 4]
+random AI count: 10
+top_hubs of 20 nodes: 1
+fraction_c: 0.75 None
+
+Why: on a 20-node Barabasi-Albert network, 15% AI = 3 nodes. With
+placement "hubs" they must be the three highest-degree nodes (12, 9, 6),
+which is exactly the top of the degree list. With "random", 50% of 20 = 10
+AI nodes. top_hubs keeps the top 5% by degree, which on 20 nodes is 1 node.
+fraction_c counts 3 cooperators out of 4 = 0.75, and returns None for an
+empty group (e.g. the "ai" group when ai_fraction is 0), so an empty group
+is never mistaken for 0% cooperation.
+A bug would show as hub-placed AI with degrees lower than the top three.

@@ -1,0 +1,74 @@
+Extension: a hybrid population -- humans imitate, AI agents learn by Q-learning
+=============================================================================
+Built on top of ../../ (the Santos, Pacheco & Lenaerts 2006 replication).
+NOT a replication of any paper. It's the supervisor's question: what
+happens to the base paper's result when some players are AI agents that
+learn by reinforcement learning, while humans keep learning by imitation?
+Built 2026-09-30 from defaults chosen without a grilling session, so every
+choice below marked "design choice, no source" is open to change.
+
+WHY THIS EXISTS
+  The PhD plan is to use evolutionary game theory on a hybrid human-AI
+  population. Extension 1 already showed that swapping imitation for a
+  private-memory learner (PSO) cuts cooperation. PSO isn't reinforcement
+  learning, though. This extension uses the textbook RL rule, Q-learning,
+  and mixes it with the paper's imitation rule in ONE population, instead
+  of comparing two separate populations.
+
+FILES, IN BUILD ORDER
+  q_learning_rule.py    softmax_action(), update_q()        tests/test_01
+  main_hybrid.py        assign_ai(), top_hubs(), fraction_c() tests/test_02
+                        run_hybrid(), run_batch_hybrid()      tests/test_03
+  hybrid_experiment.py  the sweep, saves hybrid_results.json  tests/test_04
+  plot_hybrid.py        figures/hybrid_population.png         tests/test_05
+  control_rules.py      fixed_action()                        tests/test_06
+  main_hybrid.py        run_hybrid(ai_rule=...)               tests/test_07
+  control_experiment.py the control, saves control_results.json tests/test_08
+  tau_sweep.py          the tau check, saves tau_results.json tests/test_09
+  plot_controls.py      figures/controls_and_tau.png          tests/test_10
+
+DECISIONS, AND WHY
+  Humans: the paper's own imitation rule, ../../update_rule.py, unchanged.
+    Keeps row 0 of the root README as the exact 0%-AI baseline (test_03
+    checks run_hybrid == main.run with no AI). The Fermi rule (Pinheiro et
+    al. 2012) would be the other option; not used here, so the only thing
+    that changes is the AI agents.
+  AI agents: stateless Q-learning with softmax (Boltzmann) choice.
+    Bloembergen et al. (2015) eq. 3 for the update, eq. 4 for softmax; they
+    list "stateless Q-learning" for repeated normal-form games. Stateless
+    means no next state, so the discount gamma drops out:
+    Q(a) <- Q(a) + alpha (r - Q(a)). Q-learning itself: Watkins & Dayan (1992).
+  Q starts at 0 for both actions, so a new AI agent is a coin flip.
+    Design choice, no source.
+  alpha = 0.1, tau = 0.1. Design choice, no source. With per-game rewards
+    between -0.1 and 1.2, a Q gap of 0.1 gives p(C) = 0.27, so agents keep
+    exploring. Other values will change the plateau; not swept yet.
+  AI reward = payoff / degree (average payoff per game). Design choice, no
+    source. Raw accumulated payoff would make hubs' Q values ~20x larger,
+    so the same tau would make hubs greedy and leaves random. Humans still
+    compare raw accumulated payoffs, as in the paper.
+  Humans can imitate AI neighbours, and see their raw payoff. AI agents
+    never imitate anyone. Design choice, no source.
+  Placement: "random" or "hubs" (highest degree first). Design choice, no
+    source. Hubs because Santos & Pacheco (2005) find "cooperators will tend
+    to occupy the hubs", and because on the FM supply-chain network the
+    hubs ARE foundation models.
+  Fixed game and network: same as extension 1 -- PD (T=1.2, S=-0.1, R=1,
+    P=0), Barabasi-Albert with m=2, N=500, 10 realizations, 300 + 60
+    generations, synchronous updates. So the 0% row equals extension 1's
+    imitation result (0.899).
+  Recorded groups: all, humans, AI, and "hubs" = top 5% by degree.
+
+  Control (added after grilling, 2026-09-30): stubborn AI agents that never
+    learn and never imitate -- always D, always C, coin flip. Design choice,
+    no source. Question: is the hub collapse caused by Q-learning, or by
+    hubs that never imitate? AI shares 5%, 10%, 25%, both placements.
+  Robustness: tau swept over 0.01-3 (log steps), at 10% AI, alpha fixed
+    at 0.1. tau first because it sets how often the AI cooperate, which
+    drives the plateau. Design choice, no source.
+  Terms: see ../../CONTEXT.md ("human" = imitator, "AI agent" = a player
+    that never imitates).
+
+CAVEATS
+  Reduced scale, one (T, S) point, one network type, one alpha.
+  No FM network yet: this is the synthetic BA network only.

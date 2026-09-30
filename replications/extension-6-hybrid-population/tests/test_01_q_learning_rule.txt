@@ -1,0 +1,29 @@
+cd ~/Desktop/santos-pacheco-lenaerts-2006-replication/replications/extension-6-hybrid-population
+python3 -c "
+import random
+from q_learning_rule import softmax_action, update_q
+
+q = {'C': 0.0, 'D': 0.0}
+q = update_q(q, 'D', 1.2, alpha=0.1)
+print('after one D reward of 1.2:', q)
+
+rng = random.Random(1)
+equal = sum(softmax_action({'C': 0.0, 'D': 0.0}, 0.1, rng) == 'C' for _ in range(10000)) / 10000
+favour_d = sum(softmax_action({'C': 0.0, 'D': 0.2}, 0.1, rng) == 'C' for _ in range(10000)) / 10000
+print('share of C when Q_C = Q_D:', equal)
+print('share of C when Q_D is 0.2 higher, tau 0.1:', favour_d)
+"
+
+Expected output:
+after one D reward of 1.2: {'C': 0.0, 'D': 0.12}
+share of C when Q_C = Q_D: 0.5023
+share of C when Q_D is 0.2 higher, tau 0.1: 0.12
+
+Why: update_q moves only the played action, D, a tenth of the way (alpha
+0.1) from 0 toward the reward 1.2, so Q_D = 0.12 and Q_C stays at 0.
+softmax_action with equal values should pick C about half the time. When
+D is worth 0.2 more and tau = 0.1, the formula gives
+p(C) = 1 / (1 + e^2) = 0.119, so about 12% C. The exact decimals depend on
+the seed; the thing to check is ~0.50 and ~0.12.
+A bug would show as Q_C changing too, or the shares flipped (D favoured
+when Q_C is higher), which would mean the sign in the exponent is wrong.

@@ -1,0 +1,29 @@
+cd ~/Desktop/santos-pacheco-lenaerts-2006-replication/replications/extension-6-hybrid-population
+python3 -c "
+from main_hybrid import run_hybrid
+import sys; sys.path.insert(0,'../..'); from main import run
+R,S,T,P = 1,-0.1,1.2,0
+h = run_hybrid('scale_free', 500, 50, R,S,T,P, seed=1, ai_fraction=0.0, m=2, avg_degree=4)
+b = run('scale_free', 500, 50, R,S,T,P, seed=1, m=2, avg_degree=4)
+print('0% AI identical to main.run:', h['all'] == b, h['ai'][-1])
+a = run_hybrid('scale_free', 500, 50, R,S,T,P, seed=1, ai_fraction=1.0, m=2, avg_degree=4)
+print('100% AI, cooperation at gens 0, 10, 50:', round(a['all'][0],3), round(a['all'][10],3), round(a['all'][50],3), 'humans trace:', a['humans'][-1])
+"
+
+Expected output:
+0% AI identical to main.run: True None
+100% AI, cooperation at gens 0, 10, 50: 0.5 0.39 0.29 humans trace: None
+
+Why: this checks the two ends of the hybrid loop.
+With 0% AI every node is a human using the paper's rule, so run_hybrid must
+give exactly the same trace as ../../main.py's run() for the same seed. It
+does, so the hybrid loop adds nothing when there are no AI agents. The "ai"
+trace is None because that group is empty.
+With 100% AI every node is a Q-learner. In a Prisoner's Dilemma defecting
+always earns more than cooperating against the same neighbours, so each
+learner's Q_D pulls ahead and cooperation falls from 0.5. It doesn't reach
+0: once most play D, Q_D - Q_C is about 0.1 (0 vs -0.1 per game), and
+softmax with tau 0.1 still picks C with p = 1/(1+e) = 0.27. So a plateau
+near 0.27-0.30 is expected, not a bug.
+A bug would show as False on the first line, or cooperation going to 1
+with 100% AI, which would mean rewards or the softmax sign are flipped.

@@ -1,0 +1,51 @@
+Extension 8 -- extension 6 on the real FM network: design
+
+QUESTION
+  Does the hub collapse of extension 6 survive on a real agents network,
+  the foundation-model supply chain, where the hubs ARE models?
+
+WHAT CHANGES (vs extension 6)
+  Only the network. Barabasi-Albert (m = 2, N = 500, a new graph per run)
+  -> the giant component of the Ecosystem Graphs release fm-2024-05-d3c06a4,
+  as packaged in fm-networks-labs (data not copied here):
+  503 of 742 assets, 650 links. One fixed graph for every run; the seed
+  changes starting strategies, random AI placement and every draw.
+
+WHAT STAYS
+  Game (R=1, S=-0.1, T=1.2, P=0), humans = Santos imitation rule, AI =
+  stateless Q-learning (alpha = tau = 0.1, reward = payoff / degree),
+  controls (always C, always D, coin flip), 10 runs, 300 + 60 generations,
+  synchronous updates, mean of the last 60 generations. main_fm.py
+  reproduces extension 6's run_hybrid exactly on extension 6's own graph
+  (tests/test_02).
+
+DECISIONS (all design choices, no source, unless stated)
+  Links are undirected. The release lists upstream -> downstream
+    dependencies; in the game both ends play each other and see each
+    other's payoff. A directed game (only downstream copies upstream) is
+    the obvious alternative and not run yet.
+  Only the giant component (503 of 742): the other 239 assets sit in small
+    pieces where cooperation would evolve on its own. The deck already
+    shows this component.
+  Every asset is a player, whatever its type (model, dataset, application,
+    external). Who "is" human or AI is the open question for the
+    supervisor (deck, question 4).
+  Three AI placements: "random" and "hubs" as in extension 6, plus
+    "models": every asset whose type is model plays AI (208 of 503 = 41%).
+    It is the most literal reading of "the hubs are AI models"; 25 of the
+    top 50 hubs are models.
+  Same 10 runs and 360 generations as extension 6, for a side-by-side
+    comparison. The all-human run is still rising slowly at 360 (0.54 ->
+    0.61 by 1500); the AI placements are stable (checked to 1500).
+  Null model: the same degrees, links rewired at random (rewire_keep_degrees,
+    the paper's own edge-swap method for its scale_free_random network).
+    It splits off small pieces (435 of 503 stay connected); kept as is.
+  The data are read from the fm-networks-labs release and not copied into
+    this public repo. Set FM_DATA to point elsewhere.
+
+FILES
+  fm_network.py       load_fm_giant(), rewire_keep_degrees()
+  main_fm.py          pick_ai(), run_hybrid_graph(), run_batch_graph()
+  fm_experiment.py    the runs -> fm_results.json
+  plot_fm.py          figures/fm_vs_toy.png
+  tests/              one .txt terminal test per function

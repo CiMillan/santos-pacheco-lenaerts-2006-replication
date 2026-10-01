@@ -1,0 +1,33 @@
+cd ~/Desktop/santos-pacheco-lenaerts-2006-replication/replications/extension-8-fm-network
+python3 fm_experiment.py
+
+Expected output (about 30 s):
+fm       q_learning       random AI   0%: all=0.537 humans=0.537 ai=  -   hubs=0.761
+fm       q_learning       random AI  10%: all=0.429 humans=0.443 ai=0.294 hubs=0.700
+fm       q_learning       random AI  25%: all=0.305 humans=0.308 ai=0.296 hubs=0.539
+fm       q_learning       random AI  50%: all=0.231 humans=0.178 ai=0.284 hubs=0.345
+fm       q_learning       random AI 100%: all=0.267 humans=  -   ai=0.267 hubs=0.243
+fm       q_learning       hubs   AI   0%: all=0.537 humans=0.537 ai=  -   hubs=0.761
+fm       q_learning       hubs   AI  10%: all=0.127 humans=0.106 ai=0.313 hubs=0.315
+fm       q_learning       hubs   AI  25%: all=0.120 humans=0.069 ai=0.274 hubs=0.282
+fm       q_learning       hubs   AI  50%: all=0.170 humans=0.074 ai=0.266 hubs=0.266
+fm       q_learning       hubs   AI 100%: all=0.262 humans=  -   ai=0.262 hubs=0.222
+fm       q_learning       models AI  41%: all=0.216 humans=0.171 ai=0.281 hubs=0.276
+fm       always_defect    hubs   AI  10%: all=0.044 humans=0.049 ai=0.000 hubs=0.000
+fm       always_cooperate hubs   AI  10%: all=0.738 humans=0.709 ai=1.000 hubs=1.000
+fm       coin_flip        hubs   AI  10%: all=0.091 humans=0.046 ai=0.504 hubs=0.505
+rewired  q_learning       hubs   AI   0%: all=0.615 humans=0.615 ai=  -   hubs=0.906
+rewired  q_learning       hubs   AI  10%: all=0.109 humans=0.089 ai=0.287 hubs=0.297
+saved fm_results.json
+
+Why: the 0% rows are the all-human baseline on the real network: 0.54,
+against 0.90 on the toy network (extension 6). The real network is still
+rising slowly at 360 generations (0.61 by 1500, checked separately, all
+10 runs between 0.55 and 0.67), so 0.54 is a lower bound, but the gap to
+0.90 stays. 10% AI on the hubs gives 0.13 (toy: 0.08); coin-flip hubs
+0.09, the same story as extension 6: hubs that never imitate. "models"
+(all 208 model assets are AI agents, 41%) gives 0.22. The rewired rows
+keep the degrees but shuffle the links: 0.62 and 0.11, close to the real
+wiring, so the degree sequence, not the exact wiring, drives the result.
+Seconds elapsed are left out of the expected output. A bug would show as
+the 0% random and 0% hubs rows differing (they are the same runs).

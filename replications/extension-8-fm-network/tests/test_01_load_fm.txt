@@ -1,0 +1,24 @@
+cd ~/Desktop/santos-pacheco-lenaerts-2006-replication/replications/extension-8-fm-network
+python3 -c "
+from collections import Counter
+from fm_network import load_fm_giant
+g = load_fm_giant()
+deg = dict(g.degree)
+print('nodes', g.number_of_nodes(), 'edges', g.number_of_edges(), 'avg degree', round(2*g.number_of_edges()/g.number_of_nodes(), 2))
+print('types', sorted(Counter(t for _, t in g.nodes(data='type')).items()))
+top = sorted(g.nodes, key=lambda v: -deg[v])[:5]
+print('top 5:', [(g.nodes[v]['name'], deg[v]) for v in top])
+print('leaves', sum(d == 1 for d in deg.values()), 'self-loops', sum(1 for u, v in g.edges if u == v))
+"
+
+Expected output:
+nodes 503 edges 650 avg degree 2.58
+types [('application', 77), ('dataset', 86), ('external', 132), ('model', 208)]
+top 5: [('LLaMA', 19), ('OpenAI API', 18), ('The Pile', 17), ('CLIP', 16), ('Llama 2', 16)]
+leaves 230 self-loops 0
+
+Why: 503 of 742 assets matches the giant component shown in the deck
+(make_plots.py). The toy network (BA, m = 2, N = 500) has average degree
+4, no leaves and a top hub near 58 links, so the real one is sparser and
+flatter. A bug would show as a different node count (wrong component) or
+as self-loops (an asset listed as its own dependency).

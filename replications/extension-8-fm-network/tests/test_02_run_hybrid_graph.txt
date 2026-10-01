@@ -1,0 +1,31 @@
+cd ~/Desktop/santos-pacheco-lenaerts-2006-replication/replications/extension-8-fm-network
+python3 -c "
+import random, sys, networkx as nx
+sys.path.insert(0, '../extension-6-hybrid-population')
+from fm_network import load_fm_giant
+from main_fm import pick_ai, run_hybrid_graph
+from main_hybrid import run_hybrid
+g = load_fm_giant()
+print('models placement:', len(pick_ai(g, 0.1, 'models', random.Random(1))), 'AI; hubs 10%:', len(pick_ai(g, 0.1, 'hubs', random.Random(1))))
+for f, pl in [(0.0, 'random'), (0.1, 'hubs'), (0.0, 'models')]:
+    t = run_hybrid_graph(g, 360, 1, -0.1, 1.2, 0, seed=1, ai_fraction=f, placement=pl)
+    print(f'{pl} {f}: start {t[\"all\"][0]:.3f} end {t[\"all\"][-1]:.3f}')
+b = nx.barabasi_albert_graph(500, 2, seed=1)
+a = run_hybrid('scale_free', 500, 50, 1, -0.1, 1.2, 0, seed=1, ai_fraction=0.1, placement='hubs', m=2, avg_degree=4)
+c = run_hybrid_graph(b, 50, 1, -0.1, 1.2, 0, seed=1, ai_fraction=0.1, placement='hubs')
+print('matches extension 6 on its own BA graph:', a == c)
+"
+
+Expected output (about 10 s):
+models placement: 208 AI; hubs 10%: 50
+random 0.0: start 0.491 end 0.431
+hubs 0.1: start 0.491 end 0.139
+models 0.0: start 0.491 end 0.197
+matches extension 6 on its own BA graph: True
+
+Why: "models" makes every model asset an AI agent (208 of 503, 41%),
+whatever ai_fraction says; 10% on the hubs is 50 nodes. The last line is
+the key check: given the same BA graph and seed, this loop reproduces
+extension 6's run_hybrid trace for trace, so any difference on the FM
+network comes from the network, not the code. One run each here; the
+experiment averages 10. A bug would show as False on the last line.

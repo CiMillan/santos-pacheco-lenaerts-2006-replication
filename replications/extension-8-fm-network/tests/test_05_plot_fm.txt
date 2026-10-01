@@ -1,0 +1,15 @@
+cd ~/Desktop/santos-pacheco-lenaerts-2006-replication/replications/extension-8-fm-network
+python3 plot_fm.py
+open figures/fm_vs_toy.png
+
+Expected output:
+saved figures/fm_vs_toy.png
+
+Why: needs fm_results.json (test_04) and extension 6's hybrid_results.json
+and control_results.json. Left panel: dashed hollow lines = toy network
+(extension 6), solid = FM network; navy = AI at random, coral = AI on the
+hubs. Both solid lines start at 0.54 (toy: 0.90), coral drops to 0.13 at
+10%; black star at 41% = every model asset is AI (0.22). Right panel:
+grey vs coral bars, always C 0.99 / 0.74, Q-learning 0.08 / 0.13, coin
+flip 0.08 / 0.09, always D 0.01 / 0.04. A bug would show as the 0% points
+of the two solid lines apart (they are the same runs).

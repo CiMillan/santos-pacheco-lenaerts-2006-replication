@@ -1,0 +1,32 @@
+Extension 8 -- conclusions (tests/test_04, plus the 1500-generation checks)
+
+1. The real network holds less cooperation, even with no AI.
+   All human: 0.54 at 360 generations (0.61 by 1500) vs 0.90 on the toy
+   network. Runs agree (0.55-0.67 at 1500), unlike the toy network's
+   all-or-nothing runs. The rewired null with the same degrees gives 0.62
+   (0.65 by 1500): the degree sequence -- sparse (average degree 2.6 vs 4),
+   230 leaves, top hub 19 links vs ~58 -- explains most of the drop, not
+   the exact wiring.
+
+2. The hub collapse survives.
+   10% AI on the hubs: 0.13 (toy 0.08); 0.10 by 1500. Random placement:
+   0.43 (toy 0.67). Hubs again matter far more than random nodes.
+   Relative to each network's baseline: FM -76%, toy -91%.
+
+3. Still "hubs that never imitate", not Q-learning.
+   10% hubs: coin flip 0.09, Q-learning 0.13, always D 0.04 (toy 0.08,
+   0.08, 0.01). Always-cooperate hubs lift it to 0.74, above the
+   all-human 0.54, but less than on the toy network (0.99): FM hubs are
+   smaller, so a lever with less reach.
+
+4. The literal scenario: every model asset plays AI (41%).
+   Cooperation 0.22, humans 0.17. Between 25% at random (0.31) and 25% on
+   the hubs (0.12).
+
+5. Reading (my framing, no source).
+   Moving to the real network changes the numbers but not the story: AI
+   hubs that never imitate decide cooperation. The real network starts
+   from a weaker position, so it has less to lose.
+
+Open: directed play; which assets are human vs AI (supervisor);
+longer runs; beta sweep (extension 7) on FM; more runs for the null.

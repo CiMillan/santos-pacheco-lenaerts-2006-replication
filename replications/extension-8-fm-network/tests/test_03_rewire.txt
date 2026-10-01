@@ -1,0 +1,23 @@
+cd ~/Desktop/santos-pacheco-lenaerts-2006-replication/replications/extension-8-fm-network
+python3 -c "
+import networkx as nx
+from fm_network import load_fm_giant, rewire_keep_degrees
+g = load_fm_giant(); r = rewire_keep_degrees(g, seed=1)
+print('same degrees:', dict(g.degree) == dict(r.degree), 'edges', r.number_of_edges())
+print('shared edges:', len(set(map(frozenset, g.edges)) & set(map(frozenset, r.edges))), 'of', g.number_of_edges())
+print('connected:', nx.is_connected(r), 'giant', len(max(nx.connected_components(r), key=len)))
+print('same twice:', set(r.edges) == set(rewire_keep_degrees(g, seed=1).edges))
+"
+
+Expected output:
+same degrees: True edges 650
+shared edges: 10 of 650
+connected: False giant 435
+same twice: True
+
+Why: the swaps keep every node's degree (so hubs stay hubs, leaves stay
+leaves) but almost no real link survives (10 of 650). With so many leaves
+the shuffle splits off small pieces: 435 of 503 nodes stay connected. We
+keep the pieces as they are, as the paper's own edge swaps would (design
+choice, no source). A bug would show as changed degrees, or as a
+different graph for the same seed.

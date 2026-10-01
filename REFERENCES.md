@@ -119,7 +119,7 @@ tend to imitate the strategies of those performing better." Refs 18 and 30:
 - Pinheiro, F. L., Santos, F. C. & Pacheco, J. M. (2012). How selection pressure changes the
   nature of social dilemmas in structured populations. *New Journal of Physics* 14, 073035.
   https://doi.org/10.1088/1367-2630/14/7/073035 (copy in `references/`)
-  - **Used in:** not yet; paper suggested by the supervisor, role in the extension to be decided.
+  - **Used in:** extension 7 (Fermi rule, $\beta$ sweep); paper suggested by the supervisor.
   - **Why:** uses p(i, j) = [1 + e^(−β(f_j − f_i))]^(−1), so one parameter β spans "the full
     range of possible selection pressures, from neutral evolution to pure imitation dynamics"
     (Section 2.2). Same PD on HR and BA networks. The paper calls it the "pairwise comparison

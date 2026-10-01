@@ -1,0 +1,14 @@
+cd ~/Desktop/santos-pacheco-lenaerts-2006-replication/replications/extension-7-selection-pressure
+python3 plot_beta.py
+open figures/beta_sweep.png
+
+Expected output:
+saved figures/beta_sweep.png
+
+Why: needs beta_results.json and peak_results.json (test_03, test_04).
+Navy line (all human, 10 runs): noisy near 0.25-0.5 below beta 0.1,
+rises from 0.1, flat near 0.95 from 0.56 on. Hollow squares (50 runs)
+follow it from 0.1 up; the arrow marks the best, beta = 0.56. Coral line
+(10% AI hubs) falls steadily from 0.30 to 0.06. Dotted line = the Santos
+rule baseline, 0.90. A bug would show as the arrow pointing anywhere
+but the highest square.

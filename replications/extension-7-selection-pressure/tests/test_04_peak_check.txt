@@ -1,0 +1,25 @@
+cd ~/Desktop/santos-pacheco-lenaerts-2006-replication/replications/extension-7-selection-pressure
+python3 peak_check.py
+
+Expected output (about 90 s):
+beta  0.1000: all=0.560 runs ending all-C=0.48
+beta  0.1778: all=0.840 runs ending all-C=0.84
+beta  0.3162: all=0.900 runs ending all-C=0.90
+beta  0.5623: all=0.985 runs ending all-C=0.96
+beta  1.0000: all=0.960 runs ending all-C=0.92
+beta  1.7783: all=0.961 runs ending all-C=0.92
+beta  3.1623: all=0.964 runs ending all-C=0.90
+beta  5.6234: all=0.959 runs ending all-C=0.88
+beta 10.0000: all=0.945 runs ending all-C=0.86
+saved peak_results.json (88s elapsed)
+(the seconds will differ)
+
+Why: same all-human sweep with 50 runs instead of 10. The peak is again
+at beta 0.56 (0.985, 48 of 50 runs all-C), then a slow decline to 0.945
+at beta 10 (43 of 50). That is the shape Pinheiro et al. (2012, Fig. 4)
+report on BA networks: a value of beta that maximizes cooperation. But
+the dip is small: 48 vs 43 of 50 runs, so with 50 runs the peak is a
+tendency, not a sharp result. The runs_all_c column shows most runs end
+fully cooperative or fully defecting, so the mean is mostly the share of
+runs won by cooperators. A bug would show as the beta >= 0.56 rows
+differing from test_03 by much more than run-to-run noise.

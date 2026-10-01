@@ -1,0 +1,33 @@
+cd ~/Desktop/santos-pacheco-lenaerts-2006-replication/replications/extension-7-selection-pressure
+python3 -c "
+import random, networkx as nx
+from fermi_rule import fermi_probability, next_strategy_fermi
+print('beta 0, any gap:', fermi_probability(0, 0, 5))
+print('beta 1, equal payoffs:', fermi_probability(1, 3, 3))
+print('beta 1, neighbour +1:', round(fermi_probability(1, 0, 1), 3))
+print('beta 1, neighbour -1:', round(fermi_probability(1, 1, 0), 3))
+print('beta 10, neighbour +1:', round(fermi_probability(10, 0, 1), 5))
+print('beta 10, gap -500 (no overflow):', fermi_probability(10, 500, 0))
+g = nx.path_graph(2); rng = random.Random(1)
+copies = sum(next_strategy_fermi(g, 0, {0:'D',1:'C'}, {0:0.0,1:1.0}, 1.0, rng) == 'C' for _ in range(100000))
+print('copy rate over 100000 draws, beta 1, gap +1:', copies/100000)
+"
+
+Expected output:
+beta 0, any gap: 0.5
+beta 1, equal payoffs: 0.5
+beta 1, neighbour +1: 0.731
+beta 1, neighbour -1: 0.269
+beta 10, neighbour +1: 0.99995
+beta 10, gap -500 (no overflow): 0.0
+copy rate over 100000 draws, beta 1, gap +1: 0.73028
+
+Why: beta = 0 is a coin flip whatever the payoffs (random drift); equal
+payoffs are always a coin flip. At beta 1 a neighbour one point ahead is
+copied 73% of the time, and one point behind still 27% -- unlike the
+Santos rule, which never copies a worse-off neighbour. At beta 10 copying
+a fitter neighbour is almost certain. The -500 line checks the overflow-
+safe branch (hubs can be hundreds of points apart). The last line checks
+next_strategy_fermi draws at that rate: 0.730 vs 0.731, within sampling
+noise. A bug would show as anything other than 0.5 at beta 0, or an
+OverflowError on the -500 line.

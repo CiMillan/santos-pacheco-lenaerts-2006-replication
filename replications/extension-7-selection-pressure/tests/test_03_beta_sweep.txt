@@ -1,0 +1,44 @@
+cd ~/Desktop/santos-pacheco-lenaerts-2006-replication/replications/extension-7-selection-pressure
+python3 beta_sweep.py
+
+Expected output (about 50 s):
+AI   0% beta  0.0100: all=0.506 hubs=0.509
+AI   0% beta  0.0178: all=0.259 hubs=0.253
+AI   0% beta  0.0316: all=0.279 hubs=0.283
+AI   0% beta  0.0562: all=0.235 hubs=0.237
+AI   0% beta  0.1000: all=0.527 hubs=0.524
+AI   0% beta  0.1778: all=0.800 hubs=0.800
+AI   0% beta  0.3162: all=0.800 hubs=0.800
+AI   0% beta  0.5623: all=0.974 hubs=0.983
+AI   0% beta  1.0000: all=0.967 hubs=0.976
+AI   0% beta  1.7783: all=0.926 hubs=0.947
+AI   0% beta  3.1623: all=0.951 hubs=0.968
+AI   0% beta  5.6234: all=0.958 hubs=0.973
+AI   0% beta 10.0000: all=0.959 hubs=0.973
+AI  10% beta  0.0100: all=0.296 hubs=0.299
+AI  10% beta  0.0178: all=0.293 hubs=0.302
+AI  10% beta  0.0316: all=0.284 hubs=0.302
+AI  10% beta  0.0562: all=0.280 hubs=0.309
+AI  10% beta  0.1000: all=0.262 hubs=0.308
+AI  10% beta  0.1778: all=0.231 hubs=0.310
+AI  10% beta  0.3162: all=0.203 hubs=0.310
+AI  10% beta  0.5623: all=0.166 hubs=0.310
+AI  10% beta  1.0000: all=0.128 hubs=0.299
+AI  10% beta  1.7783: all=0.092 hubs=0.295
+AI  10% beta  3.1623: all=0.069 hubs=0.288
+AI  10% beta  5.6234: all=0.063 hubs=0.287
+AI  10% beta 10.0000: all=0.062 hubs=0.288
+saved beta_results.json (50s elapsed)
+(the seconds will differ)
+
+Why: all human, below beta 0.1 payoffs barely matter, so runs drift to
+all-C or all-D by chance and 10 runs give noisy means (0.24-0.51). From
+beta 0.18 cooperation rises; it is highest at beta 0.56 (0.97), then
+stays near 0.93-0.96 up to beta 10. Means like 0.800 are 8 of 10 runs
+ending all-C. Whether 0.56 is a real peak is checked in test_04.
+With 10% AI on the hubs no beta rescues cooperation, and it falls
+steadily as beta grows (0.30 -> 0.06): the more humans follow payoffs,
+the more they copy the high-earning, mostly defecting AI hubs. The
+hubs column stays near 0.30 because the top hubs are the AI agents
+themselves. A bug would show as the 10% rows rising with beta, or the
+0% rows staying near 0.5 at large beta.

@@ -1,0 +1,29 @@
+Extension 7 -- conclusions
+
+1. Which beta maximizes cooperation (all human)?
+   beta = 0.56. Mean 0.974 (10 runs), 0.985 (50 runs). Above it a slight
+   dip, 0.945 at beta 10. Same shape as Pinheiro, Santos & Pacheco (2012),
+   Fig. 4, but weak: 48 vs 43 of 50 runs end all-C (peak vs beta 10).
+   Source: tests/test_03_beta_sweep.txt, tests/test_04_peak_check.txt.
+
+2. Low beta is drift.
+   Below beta 0.1, payoffs barely matter. Runs end all-C, all-D or mixed by
+   chance (tests/test_02_run_fermi.txt, ten seeds at beta 0), so the
+   10-run means (0.24-0.51) are noise, not a trend.
+
+3. Fermi optimum vs the paper's rule.
+   0.985 at beta 0.56 vs 0.90 for the Santos rule (extension 6, 0% AI).
+
+4. With 10% AI agents on the hubs, no beta helps.
+   Cooperation falls monotonically, 0.30 at beta 0.01 to 0.06 at beta 10.
+   Hub cooperation stays near 0.30 throughout (the AI agents' own mix).
+   Higher beta = humans copy the best-paid players more reliably, and
+   those are the mostly-defecting AI hubs.
+
+5. Reading (my framing, no source).
+   Pinheiro et al. explain the optimum by hubs being preferred role models.
+   That helps only when the hubs are imitators themselves. Hubs that never
+   imitate turn the same mechanism against cooperation.
+
+Open: asynchronous updates; Pinheiro's T = lambda, S = 1 - lambda game;
+larger N and longer transient; sweep beta at other AI shares.

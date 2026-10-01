@@ -1,0 +1,38 @@
+cd ~/Desktop/santos-pacheco-lenaerts-2006-replication/replications/extension-7-selection-pressure
+python3 -c "
+from main_fermi import run_fermi
+args = ('scale_free', 500, 300, 1, -0.1, 1.2, 0)
+for beta in [0.0, 1.0]:
+    t = run_fermi(*args, seed=1, beta=beta, m=2, avg_degree=4)
+    print(f'beta {beta}, all human: start={t[\"all\"][0]:.3f} end={t[\"all\"][-1]:.3f} ai={t[\"ai\"][-1]}')
+t = run_fermi(*args, seed=1, beta=1.0, ai_fraction=0.1, m=2, avg_degree=4)
+print(f'beta 1.0, 10% AI hubs: end all={t[\"all\"][-1]:.3f} ai={t[\"ai\"][-1]:.3f} humans={t[\"humans\"][-1]:.3f}')
+for s in range(1, 11):
+    t = run_fermi(*args, seed=s, beta=0.0, m=2, avg_degree=4)['all']
+    print('beta 0, seed', s, 'end', round(t[-1], 3))
+"
+
+Expected output (about 15 s):
+beta 0.0, all human: start=0.492 end=1.000 ai=None
+beta 1.0, all human: start=0.492 end=1.000 ai=None
+beta 1.0, 10% AI hubs: end all=0.116 ai=0.320 humans=0.093
+beta 0, seed 1 end 1.0
+beta 0, seed 2 end 0.032
+beta 0, seed 3 end 0.596
+beta 0, seed 4 end 0.0
+beta 0, seed 5 end 1.0
+beta 0, seed 6 end 0.0
+beta 0, seed 7 end 0.368
+beta 0, seed 8 end 0.524
+beta 0, seed 9 end 0.0
+beta 0, seed 10 end 0.792
+
+Why: same game, network and scale as extension 6 (T = 1.2, S = -0.1,
+BA with m = 2, N = 500). With no AI (ai = None) and beta = 1 humans reach
+full cooperation, as with the Santos rule. With 10% AI hubs cooperation
+collapses again (0.12), as in extension 6 (0.08), so the hub result does
+not depend on which human rule we use -- one run only, the sweep checks it.
+beta = 0 is pure drift: payoffs are ignored, so each run wanders to
+all-C, all-D, or is still mixed at 300 generations. Seed 1 reaching 1.0
+is luck, not cooperation winning -- the ten seeds show it. A bug would
+show as beta 0 runs all ending on the same side.
